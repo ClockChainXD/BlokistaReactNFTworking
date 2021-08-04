@@ -21,7 +21,7 @@ import { useProfile } from '../../store/hooks';
 import FilledButton from '../../components/Buttons/FilledButton';
 import { useWeb3React } from '@web3-react/core';
 import toast from 'react-hot-toast';
-import { sell } from '../../utils/contracts';
+import { claimAuction } from '../../utils/contracts';
 import { baseApiUrl } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -88,11 +88,11 @@ const ProductDetail = () => {
 
   const { connector, library, chainId, account, active } = useWeb3React();
 
-  /////////////////////////// Sell Auction Unlimited NFT ////////////////////////////
-  const sellNFTToUser = async (bidderAddress) => {
+  /////////////////////////// Sell Auction Unlimited NFT //////////////////////////// DEĞİŞECEK BUNLAR HEP KÖKTEN
+  const sellNFTToUser = async () => {
     const load_toast_id = toast.loading('Please wait...');
     try {
-      const retVal = await sell(chainId, library.getSigner(), nftObjectDetail?.nft?.tokenID, bidderAddress.toLowerCase());
+      const retVal = await claimAuction(chainId, library.getSigner(), nftObjectDetail?.nft?.tokenID);
       if (retVal !== false) {
         toast.success("NFT is Sold Successfully");
         setTimeout(async function () {
@@ -138,6 +138,7 @@ const ProductDetail = () => {
             </div> */}
             <ProductActionCard
               price={parseFloat(nftObjectDetail?.nft?.price)}
+              instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
               minBidPrice={parseFloat(nftObjectDetail?.nft?.minBidPrice)}
               ownsProduct={isOwnsProduct()}
               nftDetails={nftObjectDetail}

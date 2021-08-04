@@ -72,7 +72,8 @@ const Create = () => {
   const [minBidPrice, setNFTMinBidPrice] = useState(0);
   const [startTime, setNFTAuctionStartTime] = useState(new Date());
   const [endTime, setNFTAuctionEndTime] = useState(new Date());
-
+  const [category,setNFTCategory]=useState(null);
+  const [subcategory,setNFTSubCategory]=useState(null);
   const {
     register,
     formState: { errors },
@@ -133,13 +134,19 @@ const Create = () => {
     var ext = getExtension(filename);
     switch (ext.toLowerCase()) {
       case 'jpg':
+        return 'Image';
       case 'gif':
+        return 'GIF';
       case 'bmp':
+        return 'Image';
       case 'png':
         return 'Image';
       case 'm4v':
+        return 'Video';
       case 'avi':
+        return 'Video';
       case 'mpg':
+        return 'Video';
       case 'mp4':
         return 'Video';
       case 'mp3':
@@ -215,11 +222,11 @@ const Create = () => {
         let txhash;
 
         if (selectedMarketPlaceOption === 0) {
-          txhash = await mint(chainId, library.getSigner(), tokenURI, name, royaltyFee);
+          txhash = await mint(chainId, library.getSigner(), tokenURI, name, royaltyFee,category,subcategory);
         } else if (selectedMarketPlaceOption === 1) {
-          txhash = await mint(chainId, library.getSigner(), tokenURI, name, royaltyFee);
+          txhash = await mint(chainId, library.getSigner(), tokenURI, name, royaltyFee,category,subcategory);
         } else if (selectedMarketPlaceOption === 2) {
-          txhash = await mint(chainId, library.getSigner(), tokenURI, name, royaltyFee);
+          txhash = await mint(chainId, library.getSigner(), tokenURI, name, royaltyFee,category,subcategory);
         }
         setIsSaving(false);
         if (txhash !== false) {
@@ -249,8 +256,8 @@ const Create = () => {
 
   const marketPlaceOptions = [
     { img: '/assets/images/tag.svg', title: 'Single' },
-    { img: '/assets/images/time.svg', title: 'Multiple' },
-    { img: '/assets/images/infinite.svg', title: 'Multiple' },
+  //  { img: '/assets/images/time.svg', title: 'Multiple' },
+  //  { img: '/assets/images/infinite.svg', title: 'Multiple' },
   ];
 
   function selectMarketOption(item) {
@@ -441,7 +448,31 @@ const Create = () => {
                   }}
                   error={formSubmit && !description}
                 />
-                <ErrorAlert title="NFT Description Field is required !" show={formSubmit && !description} />
+               <ErrorAlert title="NFT Description Field is required !" show={formSubmit && !description} />
+                <InputField
+                  name="category"
+                  wrapperClass={classes.formWrapper}
+                  label="Category (Music,Painting,GIF,Secret Footage)"
+                  isMulti
+                  placeholder=""
+                  onChangeData={val => {
+                    setNFTCategory(val);
+                  }}
+                  error={formSubmit && !category}
+                />
+                <ErrorAlert title="NFT Description Field is required !" show={formSubmit && !category} />
+                <InputField
+                  name="subcategory"
+                  wrapperClass={classes.formWrapper}
+                  label="SubCategory"
+                  isMulti
+                  placeholder=""
+                  onChangeData={val => {
+                    setNFTSubCategory(val);
+                  }}
+                  error={formSubmit && !subcategory}
+                />
+                <ErrorAlert title="NFT Description Field is required !" show={formSubmit && !subcategory} />
                 {/* <Tiny className={classes.b2}>With preserved line-breaks</Tiny> */}
                 <InputField
                   name="royalty"

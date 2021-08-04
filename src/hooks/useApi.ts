@@ -22,6 +22,7 @@ export interface NFTObjectData {
   minBidPrice?: string;
   startTime?: string;
   endTime?: string;
+  instBuyPrice?: string;
 
   mintTransactionHash?: string;
   updatedAt?: number;
@@ -33,7 +34,8 @@ export interface NFTObjectData {
   voteCount?: number;
   listed?: boolean;
   attributes?: [];
-  category?: [];
+  category?: string;
+  subcategory?: string;
 
   approved?: boolean;
   verified?: boolean;

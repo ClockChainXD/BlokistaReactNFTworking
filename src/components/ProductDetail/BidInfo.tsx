@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const BidInfo = ({ bids, nftType, ownsProduct, sellNFTToUser }) => {
-  const { profileList: profileList } = useProfileList();
+  const { profileList } = useProfileList();
   const [sellToUserObject, setSellToUserObject] = useState(null);
 
   const classes = useStyles();

@@ -292,6 +292,25 @@
         "inputs": [
             {
                 "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "getInstantSellPrice",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
                 "name": "_tokenId",
                 "type": "uint256"
             }
@@ -522,6 +541,11 @@
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
                 "internalType": "string",
                 "name": "_tokenURI",
                 "type": "string"
@@ -550,6 +574,11 @@
     },
     {
         "inputs": [
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
             {
                 "internalType": "string[]",
                 "name": "_tokenURIs",
@@ -807,6 +836,24 @@
             }
         ],
         "name": "setHaveListed",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_newprice",
+                "type": "uint256"
+            }
+        ],
+        "name": "setInstantSellPrice",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

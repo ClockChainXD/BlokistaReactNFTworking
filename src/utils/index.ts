@@ -12,21 +12,21 @@ export const Networks = {
 export const CONTRACTS_BY_NETWORK = {
   [Networks.MainNet]: {
     BlokistaVault: {
-      address: '0x79529664A46FcB3152b3F08735dd22aB9DE08b1d',
-      abi: BlokistaAuctionABI,
+      address: '0xc342f9A22289DEC49B70EdD0E39aEcDca5991034',
+      abi: BlokistaVaultABI,
     },
     WBNB: {
-      address: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
+      address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
       abi: WBNBABI,
     },
     BlokistaAuction:{
-      address: '0x3173c24Da954b632991275FAB28A4BC4638Cfd6E',
+      address: '0x75f84EC7643dEC4c44551D942A4c61c608398F81',
       abi: BlokistaAuctionABI,
     }
   },
   [Networks.Testnet]: {
     BlokistaVault: {
-      address: '0x79529664A46FcB3152b3F08735dd22aB9DE08b1d',
+      address: '0xe5E86d0AD9b12feD28B357E33447c0B1ba783772',
       abi: BlokistaVaultABI,
     },
     WBNB: {
@@ -34,7 +34,7 @@ export const CONTRACTS_BY_NETWORK = {
       abi: WBNBABI,
     },
     BlokistaAuction:{
-      address: '0x3173c24Da954b632991275FAB28A4BC4638Cfd6E',
+      address: '0x8c6fb1C981978f4C9b3025C444B40B6A8CFBC1ca',
       abi: BlokistaAuctionABI,
     }
   },

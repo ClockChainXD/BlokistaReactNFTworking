@@ -9,7 +9,7 @@ import FilledButton from '../../Buttons/FilledButton';
 import Button from '@material-ui/core/Button';
 import useStyles from './style';
 import toast from 'react-hot-toast';
-export default function Auction({ onClose, onAuctionStart }) {
+export default function AuctionWithoutDeadline({ onClose, onAuctionStart }) {
   const classes = useStyles();
   const [startTime, setNFTAuctionStartTime] = useState(new Date());
   const [endTime, setNFTAuctionEndTime] = useState(new Date());
@@ -20,19 +20,15 @@ export default function Auction({ onClose, onAuctionStart }) {
     onClose();
   };
 
-  const [showTimePick, setShowTimePick]=useState(true);
   const handleSave = () => {
-    if (endTime <= new Date() || endTime <= startTime) {
-      toast.error("Auction End Time should be later than current time and start time");
-      return;
-    }
+    
 
     if (minBidPrice <= 0) {
       toast.error("Minimum bid price should be over than 0");
       return;
     }
 
-    onAuctionStart(minIncPercent,minBidPrice, Date.now(), endTime, instBuyPrice);
+    onAuctionStart(minIncPercent,minBidPrice, Date.now(), 0, instBuyPrice);
   };
 
   return (
@@ -73,8 +69,8 @@ export default function Auction({ onClose, onAuctionStart }) {
             label="Instant Buy Price (Optional) (We recommend that you choose this price as it will satisfy your expectations)"
           />
           <br />
-          <Grid container justify="space-between" spacing={4}>
-            {/*<Grid item sm={6} xs={12}>
+          { /*<Grid container justify="space-between" spacing={4}>
+           <Grid item sm={6} xs={12}>
               <DateTimePickerField
                 value={startTime}
                 label="Starting Date"
@@ -82,7 +78,7 @@ export default function Auction({ onClose, onAuctionStart }) {
                   setNFTAuctionStartTime(selectedStartDate);
                 }}
               />
-              </Grid>*/}
+              </Grid>
             <Grid item sm={6} xs={12}>
               <DateTimePickerField
                 value={endTime}
@@ -92,7 +88,7 @@ export default function Auction({ onClose, onAuctionStart }) {
                 }}
               />
             </Grid>
-          </Grid>
+              </Grid>*/}
           <br />
           <Grid container className={classes.ctaWrapper}>
             <FilledButton label="Save" handleClick={handleSave} />

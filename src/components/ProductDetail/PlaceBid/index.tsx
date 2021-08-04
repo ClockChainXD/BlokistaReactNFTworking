@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PlaceBid({ balanceBNB, balanceWBNB, nftFee, onClose, onSubmit }) {
+export default function PlaceBid({ balanceBNB, nftFee, onClose, onSubmit }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(true);
@@ -45,7 +45,7 @@ export default function PlaceBid({ balanceBNB, balanceWBNB, nftFee, onClose, onS
     setCurrencyValue(value);
   }
   const placeBid = () => {
-    if (parseFloat(bidPrice) > balanceWBNB + balanceBNB) {
+    if (parseFloat(bidPrice) >  balanceBNB) {
       toast.error('Your bid price is out of your balance');
       return;
     }
@@ -59,7 +59,7 @@ export default function PlaceBid({ balanceBNB, balanceWBNB, nftFee, onClose, onS
   const Info = {
     bnb: [
       { label: 'Your Wallet Balance', value: `${parseFloat(balanceBNB).toFixed(4)} BNB` },
-      { label: 'Your Wallet Balance', value: `${parseFloat(balanceWBNB).toFixed(4)} WBNB` },
+   //   { label: 'Your Wallet Balance', value: `${parseFloat(balanceWBNB).toFixed(4)} WBNB` },
       { label: 'Service Fee', value: `${nftFee}%` },
       // { label: 'Total Cost', value: '0 WBNB ($0 USD)' }
     ],

@@ -11,7 +11,7 @@ import UserDropDown from '../../Menus/UserDropDown';
 import { useWeb3React } from '@web3-react/core';
 import useAuth from '../../../hooks/useAuth';
 import { useProfile } from '../../../store/hooks';
-import { getBalanceOfBNB, getBalanceOfWBNB } from '../../../utils/contracts';
+import { getBalanceOfBNB } from '../../../utils/contracts';
 import { truncateWalletString } from '../../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -86,9 +86,10 @@ const Header = () => {
       getBalanceOfBNB(library, account).then(balance => {
         setEtherBalance(balance.toFixed(4));
       });
-      getBalanceOfWBNB(chainId, library, account).then(balance => {
+     /* getBalanceOfWBNB(chainId, library, account).then(balance => {
         setWBNBBalance(balance.toFixed(4));
       });
+      */
     }
     setLoginStatus(isLoggedin);
   }, [connector, library, account, active, chainId, profile]);

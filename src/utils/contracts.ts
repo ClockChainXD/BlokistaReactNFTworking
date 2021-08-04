@@ -4,10 +4,10 @@ import toast from 'react-hot-toast';
 import { getContractObj } from '.';
 import { Contract, Provider } from 'ethers-multicall';
 
-export async function mint(chainId, provider, _tokenURI, _nftName, _loyaltyFee) {
-  const nftContract = getContractObj('BlokistaVault', chainId, provider);
+export async function mint(chainId, provider, _tokenURI, _nftName, _loyaltyFee,category,subcategory) {
+  const nftContract = getContractObj('BlokistaAuction', chainId, provider);
   try {
-    const tx = await nftContract.mint(_tokenURI,_nftName,_loyaltyFee);
+    const tx = await nftContract._mint(_tokenURI,_nftName,_loyaltyFee,category,subcategory);
     await tx.wait(1);
 
     return tx.hash;
@@ -18,9 +18,9 @@ export async function mint(chainId, provider, _tokenURI, _nftName, _loyaltyFee) 
 }
 
 export async function multipleMint(chainId: any, provider: ethers.Signer | ethers.providers.Provider | undefined, _tokenURIs: any, _nftName: any,_amountOfToken: any ,_loyaltyFee: any) {
-  const nftContract = getContractObj('BlokistaVault', chainId, provider);
+  const nftContract = getContractObj('BlokistaAuction', chainId, provider);
   try {
-    const tx = await nftContract.multipleMint(_tokenURIs,_nftName,_amountOfToken,_loyaltyFee);
+    const tx = await nftContract._multipleMint(_tokenURIs,_nftName,_amountOfToken,_loyaltyFee);
     await tx.wait(1);
 
     return tx.hash;
@@ -29,7 +29,7 @@ export async function multipleMint(chainId: any, provider: ethers.Signer | ether
     return false;
   }
 }
-export async function buy(chainId: any, provider: ethers.Signer | ethers.providers.Provider | undefined, _tokenID: any, _price: string) {
+export async function buy(chainId: any, provider, _tokenID, _price) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
   try {
     const tx = await nftContract.buy(_tokenID, {
@@ -44,10 +44,11 @@ export async function buy(chainId: any, provider: ethers.Signer | ethers.provide
   }
 }
 
-export async function sell(chainId: any, provider: ethers.Signer | ethers.providers.Provider | undefined, _tokenID: any, _buyer: any) {
+export async function sell(chainId: any, provider, _tokenID, _price) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
+  const thisprice=ethers.utils.parseEther(_price)
   try {
-    const tx = await nftContract.justSell(_tokenID, _buyer);
+    const tx = await nftContract.justSell([_tokenID],1,[thisprice]);
     await tx.wait(1);
 
     return tx.hash;
@@ -59,29 +60,8 @@ export async function sell(chainId: any, provider: ethers.Signer | ethers.provid
 
 export async function bid(chainId: any, library: { getBalance: (arg0: any) => any; }, provider: ethers.Signer | ethers.providers.Provider | undefined, account: any, _tokenID: any, _price: string) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
-  const wBNBContract = getContractObj('WBNB', chainId, provider);
   try {
-    const balanceWBNB = await wBNBContract.balanceOf(account);
-    const balanceBNB = await library.getBalance(account);
-    const dBalanceBNB = parseFloat(ethers.utils.formatEther(balanceBNB));
-    const dBalanceWBNB = parseFloat(ethers.utils.formatEther(balanceWBNB));
-    const dPrice = parseFloat(_price);
-
-    if (dPrice > dBalanceBNB + dBalanceWBNB) return false;
-
-    if (dPrice > dBalanceWBNB) {
-      const load_toast_id = toast.loading('Plesae wait, Converting BNB to WBNB...');
-      const depositeAmount = dPrice - dBalanceWBNB;
-      const convertBNBToWBNB = await wBNBContract.deposit({
-        value: ethers.utils.parseEther(depositeAmount.toString()),
-      });
-      await convertBNBToWBNB.wait(1);
-      toast.dismiss(load_toast_id);
-    }
-    const load_approve_toast_id = toast.loading(`Plesae wait, ${dPrice} WBNB is approving now...`);
-    const approveWBNB = await wBNBContract.approve(nftContract.address, ethers.utils.parseEther(dPrice.toString()));
-    await approveWBNB.wait(1);
-    toast.dismiss(load_approve_toast_id);
+   
 
     const load_bid_toast_id = toast.loading(`Plesae wait until send bid offer...`);
     const placeBidToNFT = await nftContract.makeOffer(_tokenID, ethers.utils.parseEther(_price), { value: ethers.utils.parseEther(_price),});
@@ -109,7 +89,7 @@ export async function cancelBid(chainId: any, provider: ethers.Signer | ethers.p
 }
 
 export async function updatePrice(chainId: any, provider: ethers.Signer | ethers.providers.Provider | undefined, _tokenId: any, _price: string) {
-  const nftContract = getContractObj('BlokistaVault', chainId, provider);
+  const nftContract = getContractObj('BlokistaAuction', chainId, provider);
   try {
     const tx = await nftContract.updatePriceAsOwner(_tokenId, ethers.utils.parseEther(_price));
     await tx.wait(1);
@@ -147,11 +127,11 @@ export async function burn(chainId: any, provider: ethers.Signer | ethers.provid
   }
 }
 
-export async function startAuction(chainId, provider, _tokenID, _minBidPrice: { toString: () => string; }, _endTime: { getTime: () => number; }) {
+export async function startAuction(chainId, provider, _tokenID, _startPrice,_minBidIncPrice, _instantPrice) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
-  const endUnixTimeStamp = Math.round(_endTime.getTime() / 1000);
+  
   try {
-    const tx = await nftContract.createDeadlineAuction(_tokenID, ethers.utils.parseEther(_minBidPrice.toString()), endUnixTimeStamp);
+    const tx = await nftContract.createAuction(_tokenID,ethers.utils.parseEther(_startPrice.toString()),parseFloat(_minBidIncPrice),ethers.utils.parseEther(_instantPrice.toString()));
     await tx.wait(1);
 
     return tx.hash;
@@ -160,7 +140,19 @@ export async function startAuction(chainId, provider, _tokenID, _minBidPrice: { 
     return false;
   }
 }
+export async function startDeadlineAuction(chainId, provider, _tokenID, _startPrice, _minBidPrice, _endTime,_instantPrice) {
+  const nftContract = getContractObj('BlokistaAuction', chainId, provider);
+  const endUnixTimeStamp = Math.round(_endTime.getTime() / 1000);
+  try {
+    const tx = await nftContract.createDeadlineAuction(_tokenID, ethers.utils.parseEther(_startPrice.toString()) , parseFloat(_minBidPrice), endUnixTimeStamp,ethers.utils.parseEther(_instantPrice.toString()));
+    await tx.wait(1);
 
+    return tx.hash;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
 export async function claimAuction(chainId, provider, _tokenID) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
   try {
@@ -186,7 +178,7 @@ export async function getFeePercent(chainId, provider) {
   }
 }
 
-export async function getBalanceOfWBNB(chainId, provider, account) {
+/*export async function getBalanceOfWBNB(chainId, provider, account) {
   const wBNBContract = getContractObj('WBNB', chainId, provider);
   try {
     const balanceWBNB = await wBNBContract.balanceOf(account);
@@ -196,7 +188,7 @@ export async function getBalanceOfWBNB(chainId, provider, account) {
     return 0;
   }
 }
-
+*/
 export async function getBalanceOfBNB(library, account) {
   try {
     const balanceBNB = await library.getBalance(account);
