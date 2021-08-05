@@ -29,7 +29,7 @@ const NavigationList = () => {
   return (
     <Box component="ul" className={classes.root}>
       <NavigationItem label="Create" path="/create" />
-      <span className={classes.bar} />
+      <span style={{margin:"0px 60px"}} className={classes.bar} />
       <NavigationItem label="Explore" path="/explore" />
     </Box>
   );
