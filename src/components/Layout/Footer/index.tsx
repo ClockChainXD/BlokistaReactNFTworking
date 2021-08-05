@@ -131,15 +131,21 @@ const Footer = () => {
             <Grid item md={6} sm={6} xs={12}>
               <div className={classes.column}>
                 <ExpandableColumn title="Find us on">
-                  <Link to="/">
+                  
+                  <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/Blokista-110882131193970">
                     <TinyBold className={classes.link}>Facebook</TinyBold>
-                  </Link>
-                  <Link to="/">
+                    </a>
+                  
+                  <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/blokista">
                     <TinyBold className={classes.link}>Twitter</TinyBold>
-                  </Link>
-                  <Link to="/">
+                  </a>
+                  <a target="_blank"  rel="noopener noreferrer" href="https://www.instagram.com/blokista.nft/">
                     <TinyBold className={classes.link}>Instagram</TinyBold>
-                  </Link>
+                  </a>
+                  <a target="_blank"  rel="noopener noreferrer" href="https://www.linkedin.com/company/blokista">
+                    <TinyBold className={classes.link}>Linkedn</TinyBold>
+                  </a>
+                
                 </ExpandableColumn>
               </div>
             </Grid>
