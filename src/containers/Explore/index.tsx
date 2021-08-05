@@ -28,7 +28,7 @@ const Explore = () => {
     500: 1,
   };
 
-  const totalNFTListData = useGetNFTObjectList({ start, count: LIST_SIZE, sortField: 'createdAt', sortOrder: 'desc' });
+  const totalNFTListData = useGetNFTObjectList({ start, count: LIST_SIZE, sortField: 'createdAt', sortOrder: 'desc', category:'IMAGE' });
 
   function isAlreadyAdded(item: NFTObjectData) {
     return NFTListData?.find(list => list.baseID === item.baseID);
