@@ -6,7 +6,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 class API {
 
     constructor() {
-        //console.log('created!');
+        console.log('created!');
     }
 
     public get = (path: string) => {

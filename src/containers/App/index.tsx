@@ -12,6 +12,8 @@ import { Toaster } from 'react-hot-toast';
 import { useFetchProfile, useFetchProfileList } from '../../store/hooks';
 import { useEagerConnect } from '../../hooks/useEagerConnect';
 import  AudioPlayer  from '../../components/AudioPlayer/AudioPlayer';
+import Sidebar from '../../components/Sidebar';
+
 
 function App() {
   const dispatch = useDispatch();

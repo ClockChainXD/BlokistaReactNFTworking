@@ -2,7 +2,6 @@ import '@ethersproject/shims';
 import { ethers } from 'ethers';
 import toast from 'react-hot-toast';
 import { getContractObj } from '.';
-import { Contract, Provider } from 'ethers-multicall';
 
 export async function mint(chainId, provider, _tokenURI, _nftName, _loyaltyFee,category,subcategory) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
