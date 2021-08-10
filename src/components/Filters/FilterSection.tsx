@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import SelectField from '../Forms/SelectField';
 import RadioButtonGroup from '../Forms/RadioButtonGroups';
-import { addedOptions } from '../../constants/filter';
+import { addedOptions, priceOptions } from '../../constants/filter';
 import { Console } from 'console';
 
 const useStyles = makeStyles(theme => ({
@@ -58,8 +58,8 @@ const FilterSection = ({ radioChangeHandler, selectChangeHandler }: PropsType) =
       <RadioButtonGroup value="buy_now" options={filterOptions} onChange={radioChangeHandler && radioChangeHandler} />
       <SelectField
         className={classes.select}
-        options={addedOptions}
-        value={addedOptions[0].key}
+        options={priceOptions}
+        value={priceOptions[0].key}
         onChangeHandler={selectChangeHandler && selectChangeHandler}
       />
     </div>

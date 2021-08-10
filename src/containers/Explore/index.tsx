@@ -21,7 +21,8 @@ const Explore = () => {
   const [NFTListData, setNFTListData] = useState<NFTObjectData[]>([]);
   const [loading, setLoading] = useState(false);
   const [start, setStart] = useState(0);
-
+  const [sortField, setSortField]=useState("createdAt");
+  const[sortOrder,setSortOrder]=useState("");
   const breakpointColumnsObj = {
     default: 4,
     900: 4,
@@ -29,7 +30,7 @@ const Explore = () => {
     500: 1,
   };
 
-  const totalNFTListData = useGetNFTObjectList({ start, count: LIST_SIZE, sortField: 'createdAt', sortOrder: 'desc', category: 'Dragon' });
+  const totalNFTListData = useGetNFTObjectList({ start, count: LIST_SIZE, sortField, sortOrder });
 
   function isAlreadyAdded(item: NFTObjectData) {
     return NFTListData?.find(list => list.baseID === item.baseID);
@@ -41,10 +42,34 @@ const Explore = () => {
       if (!totalNFTListData?.nftList.find(item => isAlreadyAdded(item))) {
         newNFTObjectList.push(...totalNFTListData.nftList);
         setLoading(false);
-      }
+     }
       setNFTListData(newNFTObjectList);
     }
   }, [totalNFTListData]);
+  
+
+  useEffect(()=>{
+   
+    
+    if (totalNFTListData?.nftList?.length) {
+     setNFTListData(totalNFTListData.nftList);
+    }
+  },[sortField,sortOrder,totalNFTListData]);
+
+  function filterIt(filterProp){
+    setLoading(true);
+    setSortField("createdAt");
+    console.log(filterProp);
+    if(filterProp==2){
+
+setSortOrder('desc');
+    }
+    else if(filterProp==1){
+ 
+    setSortOrder('asc');
+  }
+  setLoading(true);
+}
 
   function loadMoreNFTs() {
     setLoading(true);
@@ -58,7 +83,7 @@ const Explore = () => {
        <SubTitle1 color="primary">Filter</SubTitle1>
         <div className={classes.topFilter}>
             <FilterSection
-              selectChangeHandler={e => console.log(e.target.value)}
+              selectChangeHandler={e => filterIt(e.target.value)}
               radioChangeHandler={e => console.log(e.target.value)}
             />
         </div> 
