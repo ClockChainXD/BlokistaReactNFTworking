@@ -6,7 +6,7 @@ import Typography, { TypographyProps } from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    color: theme.palette.text.hint,
+    color: theme.palette.type === 'light' ? 'black' : 'white',
   },
 }));
 
