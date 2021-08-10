@@ -68,8 +68,8 @@ const Create = () => {
   const [name, setNFTName] = useState(null);
   const [description, setNFTDescription] = useState(null);
   const[royaltyFee,setNFTRoyalty]=useState(0);
-  const [price, setNFTPrice] = useState(0);
-  const [minBidPrice, setNFTMinBidPrice] = useState(0);
+  // const [price, setNFTPrice] = useState(0);
+ // const [minBidPrice, setNFTMinBidPrice] = useState(0);
   const [startTime, setNFTAuctionStartTime] = useState(new Date());
   const [endTime, setNFTAuctionEndTime] = useState(new Date());
   const [category,setNFTCategory]=useState(null);
@@ -180,19 +180,7 @@ const Create = () => {
     if (!name || !description || !nftAsset) {
       return;
     }
-    if (selectedMarketPlaceOption === 0) {
-      if (price <= 0) {
-        return;
-      }
-    } else if (selectedMarketPlaceOption === 1) {
-      if (minBidPrice <= 0) {
-        return;
-      }
-      if (moment(Date.now()).valueOf() >= moment(endTime).valueOf()) {
-        toast.error('End time should be late than start time!');
-        return;
-      }
-    }
+    
     const load_toast_id = toast.loading('Please wait...');
     setIsSaving(true);
     try {
@@ -272,46 +260,22 @@ const Create = () => {
   }, [selectedMarketPlaceOption]);
 
   function marketPlaceOptionUI(index) {
-    if (index === 0) {
+    if (index === 1) {
       return (
         <Box marginBottom={1}>
           <InputField
-            name="price"
+            name="numberOfCopy"
             wrapperClass={classes.formWrapper}
-            label="Price"
+            label="Number Of Copy"
             type="number"
-            placeholder="Enter price for one piece"
-            error={formSubmit && !(price > 0)}
+            placeholder="Enter number of copy"
+           // error={formSubmit && !(numberOfCopy > 0)}
             onChangeData={val => {
-              updatePreview({ price: val });
-              setNFTPrice(parseFloat(val));
+              updatePreview({ numberOfCopy: val });
+           //   setNFTMinBidPrice(parseFloat(val));
             }}
           />
-          <ErrorAlert title="NFT Price is not valid !" show={formSubmit && !(price > 0)} />
-          <Tiny className={classes.note}>
-            Service fee <TinyBold > 2.5%</TinyBold>
-          </Tiny>
-          <Tiny className={classes.note}>
-            You will receive <TinyBold> 0 ETH0</TinyBold>
-          </Tiny>
-        </Box>
-      );
-    } else if (index === 1) {
-      return (
-        <Box marginBottom={1}>
-          <InputField
-            name="minBidPrice"
-            wrapperClass={classes.formWrapper}
-            label="Minimum bid"
-            type="number"
-            placeholder="Enter minimum bid"
-            error={formSubmit && !(minBidPrice > 0)}
-            onChangeData={val => {
-              updatePreview({ minBidPrice: val });
-              setNFTMinBidPrice(parseFloat(val));
-            }}
-          />
-          <ErrorAlert title="NFT Minimum Bid Price is not valid !" show={formSubmit && !(minBidPrice > 0)} />
+          <ErrorAlert title="NFT Minimum Bid Price is not valid !" show={formSubmit } />
           <Tiny className={classes.note}>Bids below this amount won’t be allowed.</Tiny>
           <Grid container justify="space-between" spacing={4}>
             <Grid item sm={6} xs={12}>
