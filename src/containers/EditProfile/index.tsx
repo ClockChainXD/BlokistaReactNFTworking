@@ -257,11 +257,7 @@ const EditProfile = () => {
                     register={register}
                     wrapperClass={classes.formWrapper}
                     label="Custom URL"
-<<<<<<< Updated upstream
                     placeholder="ui8.net/You custom URL"
-=======
-                    placeholder="www &/Your Url.com"
->>>>>>> Stashed changes
                   />
 
                   <InputField
