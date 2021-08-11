@@ -580,9 +580,9 @@
                 "type": "address"
             },
             {
-                "internalType": "string[]",
-                "name": "_tokenURIs",
-                "type": "string[]"
+                "internalType": "string",
+                "name": "_tokenURI",
+                "type": "string"
             },
             {
                 "internalType": "string",
