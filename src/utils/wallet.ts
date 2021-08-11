@@ -19,14 +19,14 @@ export const setupNetwork = async () => {
         params: [
           {
             chainId: `0x${chainId.toString(16)}`,
-            chainName: 'Binance Smart Chain Mainnet',
+            chainName: 'Binance Smart Chain Testnet',
             nativeCurrency: {
               name: 'BNB',
               symbol: 'bnb',
               decimals: 18,
             },
             rpcUrls: mainNodes,
-            blockExplorerUrls: ['https://bscscan.com/'],
+            blockExplorerUrls: ['https://testnet.bscscan.com/'],
           },
         ],
       });

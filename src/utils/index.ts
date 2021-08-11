@@ -26,7 +26,7 @@ export const CONTRACTS_BY_NETWORK = {
   },
   [Networks.Testnet]: {
     BlokistaVault: {
-      address: '0xe5E86d0AD9b12feD28B357E33447c0B1ba783772',
+      address: '0x6123e91bcB7Dec17fF7F875FB839f7B9dBBbAE9B',
       abi: BlokistaVaultABI,
     },
     WBNB: {
@@ -34,7 +34,7 @@ export const CONTRACTS_BY_NETWORK = {
       abi: WBNBABI,
     },
     BlokistaAuction:{
-      address: '0x8c6fb1C981978f4C9b3025C444B40B6A8CFBC1ca',
+      address: '0xc8901DA6C86edb1DE8d19C7Ce51011cb5098Bb05',
       abi: BlokistaAuctionABI,
     }
   },
