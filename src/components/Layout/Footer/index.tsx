@@ -102,8 +102,7 @@ const Footer = () => {
               <img src={`/assets/images/logo-${theme.palette.type}.png`} alt="logo" />
             </div>
             <Body1>
-              1717 Harrison St, San Francisco,
-              CA 94103, USA
+            Transform the World 
             </Body1>
           </Grid>
           <Grid item md={4} container spacing={2}>
@@ -154,7 +153,7 @@ const Footer = () => {
         <Divider />
         <div className={classes.bottom}>
           <Tiny>
-            © Aethereal 2021
+            © blokista. 2021
           </Tiny>
         </div>
       </Container>

@@ -62,7 +62,7 @@ const Routes = () => (
         layout={Layout}
       />
       <PrivateRoute
-        path="/profile/:walletAddress"
+        path="/profile/:customUrl"
         component={Profile}
         layout={Layout}
       />

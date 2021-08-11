@@ -14,6 +14,7 @@ import ToggleSwitch from '../Forms/ToggleSwitch';
 import { changeThemeAction } from '../../store/actions/theme';
 import config from '../../utils/config';
 import storageService from '../../services/storage.service';
+import profile from '../../store/profile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress }) => {
+const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress, customUrl }) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -108,7 +109,14 @@ const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress }) => {
         <div className={classes.menus}>
           <div
             className={classes.menuItem}
-            onClick={() => history.push(`/profile/${walletAddress}`)}
+            onClick={() => {
+              if(customUrl.length>0){
+                history.push(`/profile/${customUrl}`)
+              }
+              else{
+              history.push(`/profile/${walletAddress}`)
+            }
+            }}
           >
             <PersonIcon />
             <TinyBold className={classes.label}>My Profile</TinyBold>

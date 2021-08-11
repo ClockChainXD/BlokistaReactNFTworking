@@ -257,7 +257,7 @@ const EditProfile = () => {
                     register={register}
                     wrapperClass={classes.formWrapper}
                     label="Custom URL"
-                    placeholder="ui8.net/You custom URL"
+                    placeholder="blokista.com/Your custom URL"
                   />
 
                   <InputField

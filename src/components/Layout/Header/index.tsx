@@ -96,10 +96,13 @@ const Header = () => {
 
   let displayName = '';
   let userAvatar = '/assets/images/users/default-profile.png';
-
+  let customUrl='';
   if (profile) {
     displayName = profile.displayName ? profile.displayName : truncateWalletString(profile.walletAddress);
     userAvatar = profile.userAvatarUrl ? profile.userAvatarUrl : '/assets/images/users/default-profile.png';
+    if(profile.customUrl){
+      customUrl=profile.customUrl;
+    }
   }
 
   return (
@@ -114,7 +117,7 @@ const Header = () => {
 
           <NavigationList />
           {loginStatus && profile ? (
-            <UserDropDown avatarUrl={userAvatar} displayName={displayName} balance={etherBalance} walletAddress={account} />
+            <UserDropDown avatarUrl={userAvatar} displayName={displayName} balance={etherBalance} walletAddress={account} customUrl={customUrl}  />
           ) : (
             <Button
               className={classes.connectBtn}
