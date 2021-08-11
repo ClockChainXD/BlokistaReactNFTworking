@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import React, {Component} from 'react'
+=======
+import React, {Component, useState} from 'react'
+>>>>>>> Stashed changes
 import {
     CDBSidebar,
     CDBSidebarContent,
@@ -7,8 +11,17 @@ import {
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
+<<<<<<< Updated upstream
 
 import { NavLink } from 'react-router-dom';
+=======
+import "./style.css"
+import { NavLink } from 'react-router-dom';
+import { Collapse, Button, Card, CardBody} from 'reactstrap';
+import { categoryOptions, userOptions } from '../../constants/filter';
+import SelectField from '../Forms/SelectField';
+import { makeStyles } from '@material-ui/core';
+>>>>>>> Stashed changes
 
 let category = [
     {
@@ -60,6 +73,7 @@ let collections = [
         quantity : 125,
     },
 ]
+<<<<<<< Updated upstream
 /*  prefix={<i className='fa fa-bars fa-large'></i>} */
 
 class Sidebar extends Component{ 
@@ -196,6 +210,108 @@ class Sidebar extends Component{
             </div>
         )
     }
+=======
+
+const useStyles = makeStyles(theme => ({
+    main: {
+        width: '100vh',
+        overflow: 'scroll',
+
+    },
+    root: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      width: '100%',
+    },
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start'
+    },
+    select: {
+        margin: '0 0 3vw 0',
+        borderRadius: '20%',
+        width: '100%',
+        border: '1px solid rgba(#000, #000, #000, 0.3)'
+    },
+  }));
+
+function Sidebar(radioChangeHandler, selectChangeHandler ){ 
+        const classes = useStyles();
+        const [isOpen, setIsOpen] = useState(true);
+
+        /* prefix={ <i className="fa fa-filter" />} */
+        const toggle = () => setIsOpen(!isOpen);
+    
+        return(
+            <div>
+                <CDBSidebar style={{backgroundColor: 'white', color:'black'}}>
+                    <CDBSidebarHeader prefix={ <i className="fa fa-filter" />}  />
+                    <CDBSidebarContent >
+                        <CDBSidebarMenu className={classes.content}>
+                            <CDBSidebarMenuItem className={""} icon="tags">
+                                <CDBSidebarHeader>
+                                    Price
+                                </CDBSidebarHeader>
+                                <Collapse className="filter-content" isOpen={isOpen}>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-12">
+                                            <label>Max (ETH)</label>
+                                            <input type="number" className="form-control" id="priceMin" placeholder="$0" />
+                                        </div>
+                                        
+                                    </div>
+                                </Collapse>
+                            </CDBSidebarMenuItem>
+                         
+                            <Collapse isOpen={isOpen} style={{marginTop: '100px'}}> </Collapse>
+
+                            <CDBSidebarMenuItem   className={""} icon="columns">
+                                <CDBSidebarHeader>
+                                      Categories
+                                </CDBSidebarHeader>
+                                
+                                <Collapse className="filter-content" isOpen={isOpen}>
+                                    <div className="form-row">
+                                            <div className="form-group col-md-12">
+                                        <SelectField 
+                                            className={classes.select}
+                                            options={categoryOptions}
+                                            value={categoryOptions[0].key}
+                                            onChangeHandler={selectChangeHandler && selectChangeHandler}
+                                        />
+                                        </div>
+                                    </div>
+                                </Collapse>
+                            </CDBSidebarMenuItem>      
+                           
+                            <Collapse isOpen={isOpen} style={{marginTop: '100px'}}> </Collapse>
+                       
+                            <CDBSidebarMenuItem   className={""} icon="video">
+                                <CDBSidebarHeader>
+                                    Galleries 
+                                </CDBSidebarHeader>
+                                <Collapse className="filter-content" isOpen={isOpen}>
+                                    <SelectField 
+                                        className={classes.select}
+                                        options={userOptions}
+                                        value={userOptions[0].key}
+                                        onChangeHandler={selectChangeHandler && selectChangeHandler}
+                                    />
+                                </Collapse>
+                            </CDBSidebarMenuItem>      
+                        
+                            <Collapse isOpen={isOpen} style={{marginTop: '100px'}}> </Collapse>
+                            <CDBSidebarMenuItem>
+                                <Button>Apply Filter</Button>
+                            </CDBSidebarMenuItem>
+                        </CDBSidebarMenu>
+                    </CDBSidebarContent>
+                </CDBSidebar>
+            </div>
+        )
+>>>>>>> Stashed changes
 }
 
 export default Sidebar;

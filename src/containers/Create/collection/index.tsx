@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Hidden from '@material-ui/core/Hidden';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import TinyBold from '../../../components/Typography/TinyBold';
 import toast from 'react-hot-toast';

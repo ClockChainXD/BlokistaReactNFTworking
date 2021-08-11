@@ -14,6 +14,7 @@ import { useGetNFTObjectList } from '../../hooks/useApi';
 import useStyles from './style';
 import { NFTObjectData } from '../../hooks/useApi';
 import Sidebar from '../../components/Sidebar';
+import Filter from '../../components/Filters/Filter';
 
 const LIST_SIZE = 8;
 const Explore = () => {
@@ -29,7 +30,7 @@ const Explore = () => {
     500: 1,
   };
 
-  const totalNFTListData = useGetNFTObjectList({ start, count: LIST_SIZE, sortField: 'createdAt', sortOrder: 'desc', category: 'Dragon' });
+  const totalNFTListData = useGetNFTObjectList({ start, count: LIST_SIZE, sortField: 'createdAt', sortOrder: 'desc', category: '' });
 
   function isAlreadyAdded(item: NFTObjectData) {
     return NFTListData?.find(list => list.baseID === item.baseID);
@@ -53,33 +54,32 @@ const Explore = () => {
 
   return (
     <div className={classes.root}>
-      <Container>
-        
-       <SubTitle1 color="primary">Filter</SubTitle1>
-        <div className={classes.topFilter}>
+        <Sidebar />
+        <div className={classes.root + " " +classes.secondRoot} >
+          
+          <div className={classes.topFilter}>
             <FilterSection
               selectChangeHandler={e => console.log(e.target.value)}
               radioChangeHandler={e => console.log(e.target.value)}
             />
-        </div> 
-        <div className="d-flex flex-row w-100">
-          <Sidebar />
+          </div>
 
-          <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonry + " ml-5"} style={{width:"100%", height:'100%',}}  columnClassName={classes.gridColumn}>
-            {NFTListData?.map((product, index) => (
-              <div key={index} className={classes.productWrapper}>
-                <ProductCard product={product} />
+          <div className="d-flex flex-row w-50">
+            <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonry + " ml-5"} style={{width:"100%", height:'100%',}}  columnClassName={classes.gridColumn}>
+              {NFTListData?.map((product, index) => (
+                <div key={index} className={classes.productWrapper}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </Masonry>
+            {totalNFTListData?.totalCount > NFTListData.length && (
+              <div className={classes.loadBtn}>
+                <LoadMoreButton isLoading={loading} loadMore={loadMoreNFTs} />
               </div>
-            ))}
-          </Masonry>
-          {totalNFTListData?.totalCount > NFTListData.length && (
-            <div className={classes.loadBtn}>
-              <LoadMoreButton isLoading={loading} loadMore={loadMoreNFTs} />
-            </div>
-          )}
-        </div>
+            )}
+          </div>
         
-      </Container>
+        </div>
     </div>
   );
 };
