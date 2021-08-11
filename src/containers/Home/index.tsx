@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Container from '../../components/Layout/Container';
-import PageTitle from '../../components/Typography/PageTitle';
 import ProductSection from '../../components/ProductSection';
-import LoadMoreButton from '../../components/Buttons/LoadMoreButton';
-
-/*import { products, sellers } from '../../constants/dummy.json';
-import FeatureSection from '../../components/FeatureSection';
-import SignupAction from '../../components/SignupAction';
-*/
 import TopArtistsSection from '../../components/TopArtists/index';
-import { NFTObjectData, useGetNFTObjectList, useGetNFTTopUserList } from '../../hooks/useApi';
+import { useGetNFTObjectList, useGetNFTTopUserList } from '../../hooks/useApi';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -68,10 +60,7 @@ const Home = () => {
           type="auction"
         />
       </div>
-      {/* <div className={classes.section}>
-        <br />
-        <SignupAction />
-      </div> */}
+     
       <div className={classes.section}>
         <ProductSection
           title="Recently added"
@@ -82,6 +71,8 @@ const Home = () => {
           type="recent"
         />
       </div>
+
+
       <div className={classes.section}>
         <ProductSection
           title="Buy now"
@@ -93,9 +84,7 @@ const Home = () => {
         />
       </div>
 
-      {/* <div className={classes.bottom}>
-        <LoadMoreButton />
-      </div> */}
+  
     </Container>
   );
 };

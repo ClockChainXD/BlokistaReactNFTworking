@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Masonry from 'react-masonry-css';
-import { RouteComponentProps, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { makeStyles, useTheme, Theme } from '@material-ui/core/styles';
-import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
-import OutlinedButton from '../../components/Buttons/OutlinedButton';
 import Container from '../../components/Layout/Container';
 import ProfileSidePane from '../../components/Widgets/ProfileSidePane';
 import FilterChips from '../../components/Filters/FilterChips';
 import ProductCard from '../../components/Cards/ProductCard';
 // import FollowerCard from '../../components/Cards/FollowerCard';
-import LoaderIndicator from '../../components/Loader';
 
 import { useWeb3React } from '@web3-react/core';
 import { useProfile } from '../../store/hooks';
