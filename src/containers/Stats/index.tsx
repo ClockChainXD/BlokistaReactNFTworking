@@ -9,6 +9,7 @@ import Body1 from '../../components/Typography/Body1';
 
 import FilterSection from '../../components/Filters/FilterSection';
 import ProductCard from '../../components/Cards/ProductCard';
+import Filter from '../../components/Filters/Filter';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,6 +81,7 @@ const Stats = () => {
       <Container>
         <div className={classes.topFilter}>
           <FilterSection />
+          <Filter />
         </div>
 
         <Masonry

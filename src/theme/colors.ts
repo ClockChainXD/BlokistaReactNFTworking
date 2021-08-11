@@ -3,7 +3,7 @@ export default {
     surface: ['#141416', '#23262f', '#353945', '#777e90', '#e6e8ec'],
     text: {
       primary: '#fcfcfd',
-      secondary: '#777e90',
+      secondary: '#fff',
       passive: '#b1b5c3',
       disabled: '#353945',
     },

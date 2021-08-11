@@ -2,8 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: 80,
-    paddingBottom: 136,
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+  },
+  secondRoot: {
+    flexDirection: 'column',
   },
   masonry: {
     display: 'flex',
@@ -13,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0, 2),
   },
   topFilter: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderBottom: `2px solid ${theme.palette.divider}`,
     padding: theme.spacing(3, 0),
     marginBottom: theme.spacing(5),
   },
@@ -24,12 +28,12 @@ const useStyles = makeStyles(theme => ({
     },
   },
   productWrapper: {
-    padding: theme.spacing(1.5, 1.5, 2.75),
-    marginBottom: theme.spacing(4),
+    padding: theme.spacing(1, 1, 1),
+    marginBottom: theme.spacing(5),
     borderRadius: theme.shape.cardBorderRadius,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
     boxShadow: '0 25px 28px 10px #1111',
-    maxWidth: 258,
+    maxWidth: 300,
     margin: 'auto',
   },
   loadBtn: {

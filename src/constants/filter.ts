@@ -1,6 +1,27 @@
 export const addedOptions = [
   { key: '1', label: 'Recently added' },
   { key: '2', label: 'Last month' },
+  { key: '3', label: 'Most Liked' },
+];
+
+
+export const userOptions = [
+  { key: 1, label: 'art blocks curated', quantity : 2512 },
+  { key: 2, label: 'Bored Ape Yachy Club', quantity : 255, },
+  { key: 3, label: 'FLUF WORLD', quantity : 2125},
+  {key: 4,label: 'Meebits',quantity : 125},
+];
+
+export const categoryOptions = [
+  {key: '1', label: 'Categories', src : ''},
+  { key: '2', label: 'Art', src: '/assets/images/icons/art-light.svg' },
+  { key: '3', label: 'Music', src: '/assets/images/icons/art-light.svg' },
+  { key: '4', label: 'Domain Names' },
+  { key: '5', label: 'Virtual Worlds' },
+  { key: '6', label: 'Trading Cards' },
+  {key: '7', label: 'Collectibles'},
+  {key: '8', label: 'Sports'},
+  {key: '9', label: 'Utility'},
 ];
 
 export const priceOptions = [
@@ -17,3 +38,9 @@ export const creatorOptions = [
   { key: '1', label: 'Verified only' },
   { key: '2', label: 'Not verified only' },
 ];
+
+
+
+let collections = [
+  
+]
