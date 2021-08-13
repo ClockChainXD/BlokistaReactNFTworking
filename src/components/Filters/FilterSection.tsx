@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Collapse, Button, CardBody, Card, InputGroup, InputGroupAddon, Input } from 'reactstrap';
 import { makeStyles } from '@material-ui/core/styles';
 import SelectField from '../Forms/SelectField';
 import RadioButtonGroup from '../Forms/RadioButtonGroups';
-import { addedOptions, categoryOptions, userOptions } from '../../constants/filter';
+import { addedOptions} from '../../constants/filter';
 
 const useStyles = makeStyles(theme => ({
   main: {

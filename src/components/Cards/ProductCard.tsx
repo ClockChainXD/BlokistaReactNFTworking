@@ -38,7 +38,12 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.cardBorderRadius,
     background: 'transparent',
     maxWidth: 258,
-    margin: 'auto',
+    minWidth: 258,
+    margin: '0 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent : 'center'
   },
   media: {
     width: '100%',
@@ -62,8 +67,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1.1),
   },
   avatar: {
-    width: 25,
-    height: 25,
+    width:35,
+    height: 35,
   },
   title: {
     fontWeight: 500,
@@ -123,9 +128,12 @@ const useStyles = makeStyles(theme => ({
     visibility: 'hidden',
   },
   productWrapper: {
-    position: 'relative',
-    width: '100%',
-    maxWidth: 258,
+    display : 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems : 'center',
+    maxWidth: 228,
+    margin: '0 auto',
     height: 304,
     '& .overlay': {
       position: 'absolute',
@@ -140,14 +148,12 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'space-between',
       alignItems: 'center',
       borderRadius: theme.shape.cardBorderRadius,
-      padding: theme.spacing(1, 1, 2),
+      padding: theme.spacing(1, 0, 2),
     },
-
     '&:hover': {
       cursor: 'pointer',
       '& .overlay': {
         opacity: 1,
-        // background: theme.palette.action.hover,
       },
     },
   },

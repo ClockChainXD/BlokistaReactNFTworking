@@ -3,15 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    width: '100%',
-    height: '100%',
+    width : '100vw',
+    height: '100vh',
+    margin: '0 20px'
   },
   secondRoot: {
     flexDirection: 'column',
   },
   masonry: {
-    display: 'flex',
+    display: 'flex-wrap',
     margin: theme.spacing(0, -1.75),
+  },
+  product: {
+    minWidth: '400px',
+    padding: '0 50px',
   },
   gridColumn: {
     margin: theme.spacing(0, 2),
@@ -29,12 +34,12 @@ const useStyles = makeStyles(theme => ({
   },
   productWrapper: {
     padding: theme.spacing(1, 1, 1),
-    marginBottom: theme.spacing(5),
+    border: '1px solid #fff',
     borderRadius: theme.shape.cardBorderRadius,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
     boxShadow: '0 25px 28px 10px #1111',
     maxWidth: 300,
-    margin: 'auto',
+    margin : '5px 10px',
   },
   loadBtn: {
     display: 'flex',

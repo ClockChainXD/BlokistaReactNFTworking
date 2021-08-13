@@ -114,7 +114,6 @@ const Header = () => {
               <img src={`/assets/images/logo-${theme.palette.type}.png`} alt="Supfam logo" width="100%" height="auto" />
             </Link>
           </div>
-
           <NavigationList />
           {loginStatus && profile ? (
             <UserDropDown avatarUrl={userAvatar} displayName={displayName} balance={etherBalance} walletAddress={account} customUrl={customUrl}  />

@@ -23,13 +23,14 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(12),
   },
   productWrapper: {
-    padding: theme.spacing(1.5, 1.5, 2.75),
-    marginBottom: theme.spacing(4),
+    display: 'flex',
+    paddingTop: 10,
+    flexDirection : 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: theme.shape.cardBorderRadius,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
     boxShadow: '0 4px 10px 4px #1111',
-    maxWidth: 285,
-    margin: 'auto',
   },
 }));
 

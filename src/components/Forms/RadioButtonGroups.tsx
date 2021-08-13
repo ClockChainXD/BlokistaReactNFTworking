@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
   label: {
     color: theme.palette.text.primary,
-    marginRight: theme.spacing(5),
+    marginRight: theme.spacing(1),
   },
   icon: {
     borderRadius: '50%',

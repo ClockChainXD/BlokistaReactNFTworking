@@ -50,7 +50,7 @@ const Home = () => {
           artists={topArtists}
         />
       </div>
-      <div className={classes.section}>
+      {/* <div className={classes.section}>
         <ProductSection
           title="Auctions"
           resources={totalNFTListData?.nftList}
@@ -59,7 +59,7 @@ const Home = () => {
           }}
           type="auction"
         />
-      </div>
+      </div> */}
      
       <div className={classes.section}>
         <ProductSection

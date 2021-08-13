@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { oneOfType, object, array } from 'prop-types';
-import { useLocation } from 'react-router-dom';
 import { NFTObjectData } from '../../hooks/useApi';
 
 export interface AudioProp {
