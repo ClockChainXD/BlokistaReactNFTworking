@@ -236,7 +236,7 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
     setLoading(true);
     const load_toast_id = toast.loading('Please wait...');
     try {
-      const txhash = await buy(chainId, library.getSigner(), nftDetails?.nft?.tokenID, nftDetails?.nft?.instBuyPrice);
+      const txhash = await buy(chainId, library.getSigner(), nftDetails?.nft?.tokenID, nftDetails?.nft?.price);
       if (txhash !== false) {
         await fetch(`${baseApiUrl}/syncBlock`);
         toast.success('Purchased current NFT!');

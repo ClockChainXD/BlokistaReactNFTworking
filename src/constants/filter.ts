@@ -6,7 +6,7 @@ export const addedOptions = [
 
 
 export const userOptions = [
-  { key: 1, label: 'art blocks curated', quantity : 2512 },
+  { key: 1, label: 'denverrr', quantity : 2512 },
   { key: 2, label: 'Bored Ape Yachy Club', quantity : 255, },
   { key: 3, label: 'FLUF WORLD', quantity : 2125},
   {key: 4,label: 'Meebits',quantity : 125},

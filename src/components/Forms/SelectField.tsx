@@ -113,7 +113,7 @@ const SelectField = ({
           <em>None</em>
         </MenuItem>
         {options?.map(option => (
-          <MenuItem key={option.key} value={option.key}>
+          <MenuItem key={option.key} value={option.label}>
             {option.label}
           </MenuItem>
         ))}

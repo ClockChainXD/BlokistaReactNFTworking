@@ -40,7 +40,7 @@ const Home = () => {
   const history = useHistory();
 
   const topArtists = useGetNFTTopUserList();
-  const totalNFTListData = useGetNFTObjectList({ start: 0, count: 1000, sortField: 'createdAt', sortOrder: 'desc' });
+  const totalNFTListData = useGetNFTObjectList({ count: 1000, sortField: 'createdAt', sortOrder: 'desc' , rangeMin:0,rangeMax: 10000000000000});
 
   return (
     <Container className={classes.root}>

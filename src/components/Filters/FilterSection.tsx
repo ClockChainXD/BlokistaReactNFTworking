@@ -32,10 +32,11 @@ const useStyles = makeStyles(theme => ({
 
 const filterOptions = [
   {
-    id: 1,
-    value: 'buy_now',
-    label: 'Buy Now',
+    id:1,
+    value: "all",
+    label:"All",
   },
+  
   {
     id: 2,
     value: 'auction',
@@ -43,20 +44,18 @@ const filterOptions = [
   },
   {
     id: 3,
-    value: 'has_offer',
-    label: 'Has Offers',
+    value: 'buy_now',
+    label: 'Buy Now',
   },
-  {
-    id: 4,
-    value: 'new',
-    label: 'New',
-  },
+  
+   
   
 ];
 
 interface PropsType {
   radioChangeHandler?: (e) => void;
   selectChangeHandler?: (e) => void;
+ 
 }
 
 const FilterSection = ({ radioChangeHandler, selectChangeHandler }: PropsType) => {
@@ -68,11 +67,11 @@ const FilterSection = ({ radioChangeHandler, selectChangeHandler }: PropsType) =
   return (
     <div className={classes.main}>
       <div className={classes.root}>
-        <RadioButtonGroup value="buy_now" options={filterOptions} onChange={radioChangeHandler && radioChangeHandler} />
+        <RadioButtonGroup value="all" options={filterOptions} onChange={radioChangeHandler && radioChangeHandler} />
         <SelectField
           className={classes.select}
           options={addedOptions}
-          value={addedOptions[0].key}
+          value={addedOptions[0].label}
           onChangeHandler={selectChangeHandler && selectChangeHandler}
         />
       </div>

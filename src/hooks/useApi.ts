@@ -1,3 +1,4 @@
+import { max } from 'lodash';
 import { useEffect, useState } from 'react';
 import { baseApiUrl } from '../utils';
 
@@ -7,7 +8,10 @@ export interface NFTList {
   nftList: NFTObjectData[];
   totalCount: number;
 }
-
+export interface NFTLists{
+  listOfList: Array<NFTObjectData[]>;
+  totalCount: number;
+}
 export interface NFTObjectData {
   baseID?: string;
 
@@ -123,18 +127,24 @@ export interface NFTTopArtist {
   createdNFTs?: NFTObjectData[];
 }
 
-export const useGetNFTObjectList = ({ start, count, category = '', sortField = '', sortOrder = '', nftType = '' }) => {
+export const useGetNFTObjectList = ({ count, category = '', subcategory= '' , sortField = '', sortOrder = '', nftType = '' , rangeMin, rangeMax, status=3 }) => {
   const [data, setData] = useState<NFTList>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const strUrl = `${baseApiUrl}/getNFTObjectList?start=${start}&count=${count}&category=${category}&sortField=${sortField}&sortOrder=${sortOrder}&nftType=${nftType}`;
+        const strUrl = `${baseApiUrl}/getNFTObjectList?&count=${count}&category=${category}&subcategory=${subcategory}&sortField=${sortField}&sortOrder=${sortOrder}&nftType=${nftType}&rangeMin=${rangeMin}&rangeMax=${rangeMax}&status=${status}`;
         const response = await fetch(strUrl);
         const responseData = await response.json();
         if (responseData.status === 'success') {
           const nftObjectList: NFTList = responseData;
-          setData(nftObjectList);
+         
+         
+            
+         
+            
+           
+                    setData(nftObjectList);
         }
       } catch (error) {
         console.error('Unable to fetch data:', error);
@@ -142,7 +152,7 @@ export const useGetNFTObjectList = ({ start, count, category = '', sortField = '
     };
 
     fetchData();
-  }, [setData, start, count, category, sortField, sortOrder, nftType]);
+  }, [setData, count, category, sortField, sortOrder, nftType,rangeMax,rangeMin,subcategory,status]);
 
   return data;
 };

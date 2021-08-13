@@ -13,7 +13,10 @@ import { Collapse, Button, Card, CardBody} from 'reactstrap';
 import { categoryOptions, userOptions } from '../../constants/filter';
 import SelectField from '../Forms/SelectField';
 import { makeStyles } from '@material-ui/core';
-
+import toast from 'react-hot-toast';
+import InputField from '../Forms/InputField';
+import FilledButton from '../Buttons/FilledButton'
+   
 let category = [
     {
         id : 1,
@@ -88,37 +91,73 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         border: '1px solid rgba(#000, #000, #000, 0.3)'
     },
+    button: {
+        marginTop: '0  5vw',
+        width: '10vw',
+        [theme.breakpoints.down('xs')]: {
+          width: 76,
+          marginTop: 0,
+        },
+      },
   }));
+  
+  interface PropsType {
+    onApplyFilter?:Function;
+    select3ChangeHandler?: (e) => void;
+    select2ChangeHandler?: (e) => void;
+  }
+function Sidebar({ select2ChangeHandler ,select3ChangeHandler, OnApplyFilter } ){ 
 
-function Sidebar(radioChangeHandler, selectChangeHandler ){ 
+   
+    const [category,setCategory]=useState("");
+    const [gallery,setGallery]=useState("");
+    const [rangeMin,setRangeMin]=useState(0);
+    const [rangeMax,setRangeMax]=useState(0);
         const classes = useStyles();
         const [isOpen, setIsOpen] = useState(true);
 
         /* prefix={ <i className="fa fa-filter" />} */
         const toggle = () => setIsOpen(!isOpen);
     
+
+
+        const handleSave = () => {
+            if (rangeMin < 0) {
+              toast.error("You Can't select prices under Zero");
+              return;
+            }
+        
+        
+            OnApplyFilter(rangeMin,rangeMax);
+          };
         return(
             <div>
                 <CDBSidebar style={{backgroundColor: 'white', color:'black'}}>
                     <CDBSidebarHeader prefix={ <i className="fa fa-filter" />}  />
                     <CDBSidebarContent >
                         <CDBSidebarMenu className={classes.content}>
+                        
                             <CDBSidebarMenuItem className={""} icon="tags">
                                 <CDBSidebarHeader>
                                     Price
                                 </CDBSidebarHeader>
                                 <Collapse className="filter-content" isOpen={isOpen}>
-                                    <div className="form-row">
-                                        <div className="form-group col-md-12">
-                                            <label>Max (ETH)</label>
-                                            <input type="number" className="form-control" id="priceMin" placeholder="$0" />
-                                        </div>
-                                        
-                                    </div>
+                                <InputField
+                                         name="minBidPrice"
+                         type="number"
+                             onChangeData={val => {
+                                    setRangeMax(parseFloat(val));
+                                          }}
+
+                                         />
+                                         {/*    <label>Max (ETH)</label>
+                                            <input type="number" className="form-control" id="priceMin" placeholder="$0" onChange={e => setMaxPrice(e.currentTarget.valueAsNumber)}/>         */}
+                                           
+                                       
                                 </Collapse>
                             </CDBSidebarMenuItem>
                          
-                            <Collapse isOpen={isOpen} style={{marginTop: '100px'}}> </Collapse>
+                            <Collapse isOpen={isOpen} style={{marginTop: '8em'}}> </Collapse>
 
                             <CDBSidebarMenuItem   className={""} icon="columns">
                                 <CDBSidebarHeader>
@@ -126,22 +165,20 @@ function Sidebar(radioChangeHandler, selectChangeHandler ){
                                 </CDBSidebarHeader>
                                 
                                 <Collapse className="filter-content" isOpen={isOpen}>
-                                    <div className="form-row">
-                                            <div className="form-group col-md-12">
+                                    
                                         <SelectField 
                                             className={classes.select}
                                             options={categoryOptions}
-                                            value={categoryOptions[0].key}
-                                            onChangeHandler={selectChangeHandler && selectChangeHandler}
+                                            value={categoryOptions[0].label}
+                                            onChangeHandler={select3ChangeHandler && select3ChangeHandler}
                                         />
-                                        </div>
-                                    </div>
+                                      
                                 </Collapse>
                             </CDBSidebarMenuItem>      
                            
-                            <Collapse isOpen={isOpen} style={{marginTop: '100px'}}> </Collapse>
+                            <Collapse isOpen={isOpen} style={{marginTop: '8em'}}> </Collapse>
                        
-                            <CDBSidebarMenuItem   className={""} icon="video">
+                            {/* <CDBSidebarMenuItem   className={""} icon="video">
                                 <CDBSidebarHeader>
                                     Galleries 
                                 </CDBSidebarHeader>
@@ -149,15 +186,15 @@ function Sidebar(radioChangeHandler, selectChangeHandler ){
                                     <SelectField 
                                         className={classes.select}
                                         options={userOptions}
-                                        value={userOptions[0].key}
-                                        onChangeHandler={selectChangeHandler && selectChangeHandler}
+                                        value={userOptions[0].label}
+                                        onChangeHandler={select2ChangeHandler && select2ChangeHandler}
                                     />
                                 </Collapse>
-                            </CDBSidebarMenuItem>      
+                            </CDBSidebarMenuItem>       */}
                         
-                            <Collapse isOpen={isOpen} style={{marginTop: '100px'}}> </Collapse>
+                            <Collapse isOpen={isOpen} style={{marginTop: '8em'}}> </Collapse>
                             <CDBSidebarMenuItem>
-                                <Button>Apply Filter</Button>
+                                <FilledButton className={classes.button}  label="Apply Price Filter" handleClick={handleSave}/>
                             </CDBSidebarMenuItem>
                         </CDBSidebarMenu>
                     </CDBSidebarContent>
