@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
     height: 20,
   },
   topFilter: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
     padding: theme.spacing(3, 0),
     marginBottom: theme.spacing(5),
   },

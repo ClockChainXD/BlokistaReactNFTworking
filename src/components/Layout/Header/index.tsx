@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.surface[0],
     borderBottom: `1px solid ${theme.palette.divider}`,
+    boxShadow: '0 4px 10px 4px #1111',
     height: theme.layouts.header.height.desktop,
     [theme.breakpoints.down('sm')]: {
       minHeight: theme.layouts.header.height.desktop,

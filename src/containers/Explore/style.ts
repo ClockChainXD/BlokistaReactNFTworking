@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0, 2),
   },
   topFilter: {
-    borderBottom: `2px solid ${theme.palette.divider}`,
+    
     padding: theme.spacing(3, 0),
     marginBottom: theme.spacing(5),
   },

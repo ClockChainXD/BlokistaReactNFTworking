@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     filter: {
         fontSize: '20px',
         paddingBottom : '13%'
+
     },
     filterArea : {
         marginTop: '20px',
@@ -38,13 +39,14 @@ const useStyles = makeStyles(theme => ({
     content: {
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'flex-start'
+      justifyContent: 'flex-start',
+      border: '50px solid rgba(#000, #000, #000, 1)'
     },
     select: {
         margin: '0 0 3vw 0',
         borderRadius: '20%',
         width: '100%',
-        border: '1px solid rgba(#000, #000, #000, 0.3)'
+        border: '50px solid rgba(#000, #000, #000, 1)'
     },
     formField: {
         display: 'flex',
@@ -147,11 +149,9 @@ function Sidebar({ select2ChangeHandler ,select3ChangeHandler, OnApplyFilter } )
                                     />
                                 
                             </CDBSidebarMenuItem>       */}
-                                                <hr className={classes.margin}  />
+                                         
 
-                            <CDBSidebarMenuItem>
-                                <FilledButton className={classes.button}  label="Apply Price Filter" handleClick={handleSave}/>
-                            </CDBSidebarMenuItem>
+                            
                         </CDBSidebarMenu>
                     </CDBSidebarContent>
                 </CDBSidebar>

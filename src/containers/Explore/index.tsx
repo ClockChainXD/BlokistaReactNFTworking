@@ -211,8 +211,8 @@ filterRadio(e.target.value)
           
           <div className={classes.topFilter}>
             <FilterSection
-              selectChangeHandler={e => console.log(e.target.value)}
-              radioChangeHandler={e => console.log(e.target.value)}
+              selectChangeHandler={e => filterIt(e.target.value)}
+              radioChangeHandler={e => filterRadio(e.target.value)}
             />
           </div>
 
