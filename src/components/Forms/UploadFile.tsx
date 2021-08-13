@@ -45,6 +45,8 @@ const useStyles = makeStyles<Theme, PT>(theme => ({
     marginLeft: 8,
   },
   fileOverlay: {
+    width: '100%',
+    maxWidth: 400,
     position: 'absolute',
     margin: 0,
     padding: 10,

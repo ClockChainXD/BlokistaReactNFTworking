@@ -419,11 +419,11 @@ const Create = () => {
                     name="category"
                     className={classes.formWrapper}
                     options={categoryOptions}
-                    value={categoryOptions[0].key}
+                    value={categoryOptions[0].label}
                     label="Category (Music,Painting,GIF,Secret Footage)"
-                    onChangeHandler={val => {
-                      setNFTCategory(val);
-                      console.log(val.target.value)
+                    onChangeHandler={e => {
+                      setNFTCategory(e);
+                      console.log(e.target.value)
                     }}
                 />
                 <ErrorAlert title="NFT Description Field is required !" show={formSubmit && !category} />
@@ -450,7 +450,7 @@ const Create = () => {
                     setNFTRoyalty(parseFloat(val));
                   }}
                 />
-                <ErrorAlert title="'Royalties' must be a valid number" show={formSubmit && royaltyFee < 0} /> */
+                <ErrorAlert title="'Royalties' must be a valid number" show={formSubmit && royaltyFee < 0} /> 
               </Box>
 
               <Box marginTop={5} className={classes.buttonGroup}>

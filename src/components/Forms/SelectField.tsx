@@ -109,9 +109,7 @@ const SelectField = ({
         input={<BootstrapInput {...(register && register(name, { required: required }))} />}
         IconComponent={KeyboardArrowDownIcon}
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
+        
         {options?.map(option => (
           <MenuItem key={option.key} value={option.label}>
             {option.label}

@@ -13,8 +13,8 @@ export const userOptions = [
 ];
 
 export const categoryOptions = [
-  {key: '1', label: 'Categories'},
-  { key: '2', label: 'Art'},
+  {key: '1', label:'Art' },
+  { key: '2', label: 'GIF'},
   { key: '3', label: 'Music'},
   { key: '4', label: 'Domain Names' },
   { key: '5', label: 'Virtual Worlds' },
