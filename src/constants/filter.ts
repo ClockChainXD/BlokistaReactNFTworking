@@ -13,9 +13,9 @@ export const userOptions = [
 ];
 
 export const categoryOptions = [
-  {key: '1', label: 'Categories', src : ''},
-  { key: '2', label: 'Art', src: '/assets/images/icons/art-light.svg' },
-  { key: '3', label: 'Music', src: '/assets/images/icons/art-light.svg' },
+  {key: '1', label: 'Categories'},
+  { key: '2', label: 'Art'},
+  { key: '3', label: 'Music'},
   { key: '4', label: 'Domain Names' },
   { key: '5', label: 'Virtual Worlds' },
   { key: '6', label: 'Trading Cards' },
