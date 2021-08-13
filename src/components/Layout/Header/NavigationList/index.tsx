@@ -19,12 +19,6 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: 0,
     },
   },
-  margin:{
-    margin: theme.spacing(1),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
     display: 'none',
@@ -32,35 +26,40 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
+  margin: {
+    margin : '0 30px',
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: "#000",
-    width: '80%',
+    backgroundColor: "transparent",
+    width: '40%',
     [theme.breakpoints.up('sm')]: {
-      width: '80%',
+      width: '50%',
+      marginRight : '0',
     },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
     height: '100%',
+    color : theme.palette.text.secondary,
     position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  inputInput: {
+  input: {
     padding: theme.spacing(1, 1, 1, 0),
-    marginRight: '30px',
+    border: '1px solid black',
+    borderRadius : theme.shape.borderRadius,
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    color : "#fff",
-    width: '100%',
+    width: '90%',
     [theme.breakpoints.up('sm')]: {
       width: '100%',
       '&:focus': {
-        width: '20ch',
+        width: '20px',
       },
     },
   },
@@ -72,18 +71,17 @@ const NavigationList = () => {
   return (
     <Box component="ul" className={classes.root}>
       <NavigationItem label="Create" path="/create" />
-      <span style={{margin:"0px 20px"}}  />
+      <span className={classes.margin}  />
       <NavigationItem label="Explore" path="/explore" />
-      <span style={{marginRight:"200px"}} />
+      <span style={{marginRight: '120px'}}  />
 
       <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchSharp />
           </div>
           <InputBase
-            placeholder="Search items, collections, and accounts"
-            
-            className={classes.inputInput}
+            placeholder="Search items, Galleries and accounts"
+            className={classes.input}
             inputProps={{ 'aria-label': 'search' }}
           />
       </div>

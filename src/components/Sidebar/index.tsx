@@ -12,6 +12,7 @@ import { categoryOptions, userOptions } from '../../constants/filter';
 import { makeStyles, useTheme, } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import FilledButton from '../Buttons/FilledButton';
 import InputField from '../Forms/InputField';
 import SelectField from '../Forms/SelectField';
 
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     },
     main: {
         background: 'transparent !important',
-        color : 'black !important',
+        color : theme.palette.text.primary + ' !important',
     },
     content: {
       display: 'flex',
@@ -45,6 +46,17 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         border: '1px solid rgba(#000, #000, #000, 0.3)'
     },
+    formField: {
+        display: 'flex',
+        flexDirection : 'column',
+    },
+    button: {
+        width: '50%',
+        margin : '10px auto 10px',
+    },
+    margin : {
+        margin: '90px 0',
+    }
   }));
 
 function Sidebar(radioChangeHandler, selectChangeHandler ){ 
@@ -59,14 +71,20 @@ function Sidebar(radioChangeHandler, selectChangeHandler ){
                 <CDBSidebarContent className={classes.filterArea} >
                     <CDBSidebarMenu className={classes.content}>
                         <CDBSidebarMenuItem  icon="tags">
-                            <h5>
+                            <CDBSidebarHeader>
                                 Price
-                            </h5>
+                            </CDBSidebarHeader>
                             
-                            <InputField icon={<span className="fas fa-coins" />} placeholder="Max 10 BSC" type="number" />
+                            <div className={classes.formField}>
+                                <InputField icon={<span className="fas fa-coins" />} placeholder="Max 10 BSC" type="number" />
+                                
+                                <FilledButton className={classes.button} label={"Apply Price"} size="medium" />
+                            </div>
+                           
+                               
                         </CDBSidebarMenuItem>
                     
-                        <hr  style={{margin: '60px 0', border: 'none'}} />
+                        <hr className={classes.margin} />
 
                         <CDBSidebarMenuItem className={""} icon="columns">
                             <CDBSidebarHeader>
@@ -80,7 +98,7 @@ function Sidebar(radioChangeHandler, selectChangeHandler ){
                                 />
                         </CDBSidebarMenuItem>      
                         
-                        <hr  style={{margin: '60px 0', border: 'none'}} />
+                        <hr  className={classes.margin} />
                         
                         <CDBSidebarMenuItem   className={""} icon="video">
                             <CDBSidebarHeader>
@@ -94,12 +112,10 @@ function Sidebar(radioChangeHandler, selectChangeHandler ){
                             />
                         </CDBSidebarMenuItem>      
                        
-                        <hr  style={{margin: '60px 0', border: 'none'}} />
+                        <hr className={classes.margin}  />
                        
                         <CDBSidebarMenuItem icon="hive">
-                            <Button variant="contained" color="primary">
-                                Apply Filter
-                            </Button>
+                           
                         </CDBSidebarMenuItem>
                     </CDBSidebarMenu>
                 </CDBSidebarContent>

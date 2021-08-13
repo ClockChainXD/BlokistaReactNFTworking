@@ -128,9 +128,12 @@ const useStyles = makeStyles(theme => ({
     visibility: 'hidden',
   },
   productWrapper: {
-    position: 'relative',
-    width: '100%',
-    maxWidth: 258,
+    display : 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems : 'center',
+    maxWidth: 228,
+    margin: '0 auto',
     height: 304,
     '& .overlay': {
       position: 'absolute',
@@ -145,14 +148,12 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'space-between',
       alignItems: 'center',
       borderRadius: theme.shape.cardBorderRadius,
-      padding: theme.spacing(1, 1, 2),
+      padding: theme.spacing(1, 0, 2),
     },
-
     '&:hover': {
       cursor: 'pointer',
       '& .overlay': {
         opacity: 1,
-        // background: theme.palette.action.hover,
       },
     },
   },
