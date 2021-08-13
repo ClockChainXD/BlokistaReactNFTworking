@@ -3,15 +3,19 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    width: '100%',
-    height: '100%',
+
+    margin : ''
   },
   secondRoot: {
     flexDirection: 'column',
   },
   masonry: {
-    display: 'flex',
+    display: 'flex-wrap',
     margin: theme.spacing(0, -1.75),
+  },
+  product: {
+    minWidth: '400px',
+    padding: '0 50px',
   },
   gridColumn: {
     margin: theme.spacing(0, 2),

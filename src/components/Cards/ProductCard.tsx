@@ -38,7 +38,12 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.cardBorderRadius,
     background: 'transparent',
     maxWidth: 258,
-    margin: 'auto',
+    minWidth: 258,
+    margin: '0 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent : 'center'
   },
   media: {
     width: '100%',
@@ -62,8 +67,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1.1),
   },
   avatar: {
-    width: 25,
-    height: 25,
+    width:35,
+    height: 35,
   },
   title: {
     fontWeight: 500,

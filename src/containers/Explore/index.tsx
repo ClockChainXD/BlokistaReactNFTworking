@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Masonry from 'react-masonry-css';
-// import PropTypes from 'prop-types';
-// import { makeStyles } from '@material-ui/core/styles';
 
-import Container from '../../components/Layout/Container';
 import FilterSection from '../../components/Filters/FilterSection';
 import ProductCard from '../../components/Cards/ProductCard';
 import LoadMoreButton from '../../components/Buttons/LoadMoreButton';
 
-
-import SubTitle1 from '../../components/Typography/Subtitle1';
 import { useGetNFTObjectList } from '../../hooks/useApi';
 import useStyles from './style';
 import { NFTObjectData } from '../../hooks/useApi';
 import Sidebar from '../../components/Sidebar';
-import Filter from '../../components/Filters/Filter';
+import { Box } from '@material-ui/core';
 
 const LIST_SIZE = 8;
 const Explore = () => {
@@ -64,20 +58,18 @@ const Explore = () => {
             />
           </div>
 
-          <div className="d-flex flex-row w-50">
-            <Masonry breakpointCols={breakpointColumnsObj} className={classes.masonry + " ml-5"} style={{width:"100%", height:'100%',}}  columnClassName={classes.gridColumn}>
-              {NFTListData?.map((product, index) => (
+          <Box display="flex" flexWrap="wrap">
+            {NFTListData?.map((product, index) => (
                 <div key={index} className={classes.productWrapper}>
-                  <ProductCard product={product} />
+                  <ProductCard product={product}  />
                 </div>
               ))}
-            </Masonry>
+          </Box>
             {totalNFTListData?.totalCount > NFTListData.length && (
               <div className={classes.loadBtn}>
                 <LoadMoreButton isLoading={loading} loadMore={loadMoreNFTs} />
               </div>
             )}
-          </div>
         
         </div>
     </div>

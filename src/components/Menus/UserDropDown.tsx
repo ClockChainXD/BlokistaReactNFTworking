@@ -129,10 +129,12 @@ const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress }) => {
             />
           </div>
 
-          {/* <div className={classes.menuItem}>
+         {/*  
+         <div className={classes.menuItem}>
             <ExitToAppIcon />
             <TinyBold className={classes.label}>Disconnect</TinyBold>
-          </div> */}
+          </div>
+          */} 
         </div>
       </div>
     </PopoverMenu>

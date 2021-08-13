@@ -81,7 +81,6 @@ const Stats = () => {
       <Container>
         <div className={classes.topFilter}>
           <FilterSection />
-          <Filter />
         </div>
 
         <Masonry
