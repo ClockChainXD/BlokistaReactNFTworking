@@ -422,7 +422,7 @@ const Create = () => {
                     value={categoryOptions[0].label}
                     label="Category (Music,Painting,GIF,Secret Footage)"
                     onChangeHandler={e => {
-                      setNFTCategory(e);
+                      setNFTCategory(e.target.value);
                       console.log(e.target.value)
                     }}
                 />
