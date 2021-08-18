@@ -50,16 +50,7 @@ const Home = () => {
           artists={topArtists}
         />
       </div>
-      {/* <div className={classes.section}>
-        <ProductSection
-          title="Auctions"
-          resources={totalNFTListData?.nftList}
-          viewAllHandler={() => {
-            history.push("/explore");
-          }}
-          type="auction"
-        />
-      </div> */}
+      
      
       <div className={classes.section}>
         <ProductSection
@@ -71,17 +62,21 @@ const Home = () => {
           type="recent"
         />
       </div>
-
+      <div className={classes.section}>
+        <ProductSection
+          title="Auctions"
+          resources={totalNFTListData?.nftList}
+          viewAllHandler={() => {
+            history.push("/explore");
+          }}
+          type="auction"
+        />
+      </div>
 
       <div className={classes.section}>
         <ProductSection
           title="Buy now"
-          resources={totalNFTListData?.nftList.filter((product) => {
-            if(product?.status==2){
-              return product;
-            }
-
-          })}
+          resources={totalNFTListData?.nftList}
           viewAllHandler={() => {
             history.push("/explore");
           }}

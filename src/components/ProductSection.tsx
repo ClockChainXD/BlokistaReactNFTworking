@@ -67,8 +67,8 @@ const ProductSection = ({ resources, title, viewAllHandler, type }) => {
       >
         {resources?.map(
           (product, index) =>
-            ((type == 'auction' && product.nftType == '1') ||
-              (type == 'fixed' && product.nftType == '0') ||
+            ((type == 'auction' && (product.status == 1 || product.status == 3)) ||
+              (type == 'fixed' && product.status == 2) ||
               (type == 'recent' && index <= 10)) && (
               <div key={index} className={classes.productWrapper}>
                 <ProductCard product={product} />

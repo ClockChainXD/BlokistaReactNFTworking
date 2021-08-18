@@ -23,7 +23,7 @@ import TinyBold from '../Typography/TinyBold';
 import FilledButton from '../Buttons/FilledButton';
 
 import Timer from '../../components/Timer';
-import { NFTObjectData } from '../../hooks/useApi';
+import { NFTObjectData, NFTUserFullDetail } from '../../hooks/useApi';
 import { useProfileForWallet } from '../../store/hooks';
 import  AudioPlayerButton  from '../AudioPlayer/AudioPlayerButton';
 
@@ -31,6 +31,7 @@ interface PropsType {
   className?: string;
   product?: NFTObjectData;
   showFooter?: boolean;
+  user?: NFTUserFullDetail;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -158,7 +159,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductCard = ({ className, product, showFooter = false }: PropsType) => {
+const ProductCard = ({ className, product, showFooter = false, user }: PropsType) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -187,8 +188,9 @@ const ProductCard = ({ className, product, showFooter = false }: PropsType) => {
   function Overlay() {
     return (
       <div className="overlay">
-        <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
+        <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">{ product?.status!=0 &&
           <FilledButton className={classes.purchaseBtn} size="small" color="success" label="Purchasing !" />
+        }
           <IconButton className={classes.favoriteBtn} color="default" size="small">
             <FavoriteIcon color="error" fontSize="small" />
           </IconButton>
@@ -261,7 +263,7 @@ const ProductCard = ({ className, product, showFooter = false }: PropsType) => {
 
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Body1 className={classes.title}>{product?.assetUrl && product?.name}</Body1>
-          {product?.nftType == '0' && product?.price && product?.assetUrl && <PriceTag price={product?.price} />}
+          {product?.status == 2 && product?.price && product?.assetUrl && <PriceTag price={product?.price} />}
         </Box>
         <Box display="flex" alignItems="center" justifyContent="space-between" marginTop="12px">
           <AvatarGroup max={5} className={classes.avatarGroup}>
