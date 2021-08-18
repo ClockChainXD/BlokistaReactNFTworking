@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from './';
-import { PriceState, ProfileListState, ProfileState, State } from './types';
+import { PriceState, ProfileListState, ProfileState, SearchState, State } from './types';
 import { fetchProfile } from './profile';
 import { fetchPrices } from './prices';
 import { fetchProfileList } from './profileList';
@@ -24,6 +24,10 @@ export const useFetchProfile = () => {
   }, [library, account, active, chainId, dispatch]);
 };
 
+export const useSearch= () =>{
+const  searchTerm :string=useSelector((state:SearchState)=> state.searchTerm);
+return searchTerm;
+};
 export const useProfile = () => {
   const { isInitialized, isLoading, data }: ProfileState = useSelector((state: State) => state.profile);
   return { profile: data, hasProfile: isInitialized, isInitialized, isLoading };

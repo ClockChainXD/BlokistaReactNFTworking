@@ -129,7 +129,7 @@ function Sidebar({ select2ChangeHandler ,select3ChangeHandler, OnApplyFilter } )
                                             className={classes.select}
                                             options={categoryOptions}
                                             value={categoryOptions[0].label}
-                                            onChangeHandler={select3ChangeHandler && select3ChangeHandler}
+                                            onChangeHandler={select3ChangeHandler}
                                         />
                                       
                                 

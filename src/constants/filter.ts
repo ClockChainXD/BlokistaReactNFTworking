@@ -13,6 +13,18 @@ export const userOptions = [
 ];
 
 export const categoryOptions = [
+  {key: '1', label:'All' },
+  {key: '2', label:'Art' },
+  { key: '3', label: 'GIF'},
+  { key: '4', label: 'Music'},
+  { key: '5', label: 'Domain Names' },
+  { key: '6', label: 'Virtual Worlds' },
+  { key: '7', label: 'Trading Cards' },
+  {key: '8', label: 'Collectibles'},
+  {key: '9', label: 'Sports'},
+  {key: '10', label: 'Utility'},
+];
+export const mintCategoryOptions = [
   {key: '1', label:'Art' },
   { key: '2', label: 'GIF'},
   { key: '3', label: 'Music'},
@@ -40,7 +52,3 @@ export const creatorOptions = [
 ];
 
 
-
-let collections = [
-  
-]

@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
   },
   favoriteBtn: {
     background: theme.palette.surface[0],
-    padding: 6,
+    padding: 7,
     boxShadow: '0 4px 8px 6px #3333',
     '&:hover': {
       background: `${theme.palette.surface[0]}90`,
@@ -128,17 +128,16 @@ const useStyles = makeStyles(theme => ({
     visibility: 'hidden',
   },
   productWrapper: {
-    display : 'flex',
+    minWidth: 258,
+    margin: '0 10px',
+    display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems : 'center',
-    maxWidth: 228,
-    margin: '0 auto',
-    height: 304,
+    alignItems: 'center',
+    justifyContent : 'center',
     '& .overlay': {
       position: 'absolute',
-      top: 0,
-      left: 0,
+      top: 5,
+      left: 30,
       width: '20%',
       height: '20%',
       opacity: 0,
@@ -148,7 +147,7 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'space-between',
       alignItems: 'center',
       borderRadius: theme.shape.cardBorderRadius,
-      padding: theme.spacing(1, 0, 2),
+      padding: theme.spacing(1, 0, 3),
     },
     '&:hover': {
       cursor: 'pointer',
@@ -254,7 +253,7 @@ const ProductCard = ({ className, product, showFooter = false }: PropsType) => {
         <Body1
           className={clsx(
             classes.minBidPrice,
-            product?.nftType == '1' && product?.minBidPrice ? '' : classes.visibilityNone,
+            (product?.status == 1 || product?.status == 2) && product?.minBidPrice ? '' : classes.visibilityNone,
           )}
         >
           Min Bid Price : {product?.minBidPrice} BNB

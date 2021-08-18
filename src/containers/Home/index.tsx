@@ -76,7 +76,12 @@ const Home = () => {
       <div className={classes.section}>
         <ProductSection
           title="Buy now"
-          resources={totalNFTListData?.nftList}
+          resources={totalNFTListData?.nftList.filter((product) => {
+            if(product?.status==2){
+              return product;
+            }
+
+          })}
           viewAllHandler={() => {
             history.push("/explore");
           }}

@@ -15,7 +15,11 @@ import { SettingsCellOutlined, TextRotationAngleupOutlined } from '@material-ui/
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import toast from 'react-hot-toast';
 import { Box } from '@material-ui/core';
-
+import { SearchState } from '../../store/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearch} from '../../store/hooks';
+import { loadSearchAction } from '../../store/actions/search';
+import { ReducerState } from '../../store/actionTypes';
 const LIST_SIZE = 8;
 const Explore = () => {
   const classes = useStyles();
@@ -30,21 +34,28 @@ const Explore = () => {
   const[rangeMin,setRangeMin]=useState(0);
 const [status,setStatus]=useState(3);
   const[rangeMax,setRangeMax]=useState(100000);
-
-
+const [searchT,setSearchT]=useState("");
+const dispatch=useDispatch();
   const breakpointColumnsObj = {
     default: 4,
     900: 4,
     700: 3,
     500: 1,
   };
-
+  const searchTerm: string  =useSelector((state:ReducerState)=> state.search.searchTerm);
   const totalNFTListData = useGetNFTObjectList({ count: count, sortField: sortField, sortOrder: sortOrder, category: category,subcategory:subcategory,rangeMin: rangeMin, rangeMax: rangeMax, status: status });
 
   function isAlreadyAdded(item: NFTObjectData) {
     return NFTListData?.find(list => list.baseID === item.baseID);
   }
+  useEffect(() => {
+    if(searchTerm?.length>0){
+console.log("UseEffect: "+ searchTerm);
+    dispatch(loadSearchAction())
+    
 
+    }
+  },[dispatch,searchTerm]);
   useEffect(() => {
 
     console.log("this is length  :" + totalNFTListData?.nftList?.length);
@@ -110,13 +121,22 @@ setSortOrder('desc');
 
 }
 function sidebarFilter(filterProp){
+  if(filterProp!="All"){
   setLoading(true);
   setCategory(filterProp);
 
   setStart(0);
 
   console.log(filterProp);
+  }
+  else{
+    setLoading(true);
+  setCategory("");
+  
+  setStart(0);
 
+  console.log("Alllxd "+filterProp);
+  }
   
 }
 function sidebarGalleryFilter(filterPropa){
@@ -217,7 +237,25 @@ filterRadio(e.target.value)
           </div>
 
           <Box display="flex" flexWrap="wrap">
-            {NFTListData?.map((product, index) => (
+            {NFTListData.length>0 && NFTListData?.filter((product) => {
+
+              if(searchTerm ==""){
+                console.log("Burda");
+                return product;
+              }
+              else if(searchTerm){
+                if(product?.category?.toLowerCase().includes(searchTerm.toLowerCase()) || product?.name?.toLowerCase().includes(searchTerm.toLowerCase()) || product?.subcategory?.toLowerCase().includes(searchTerm.toLowerCase())){
+                  console.log("Dimi"+searchTerm);
+                  return product;
+
+                } 
+                
+                  console.log("O da değil");
+                  
+                
+              }
+
+            }).map((product, index) => (
                 <div key={index} className={classes.productWrapper}>
                   <ProductCard product={product}  />
                 </div>

@@ -65,6 +65,7 @@ const Routes = () => (
         path="/profile/:customUrl"
         component={Profile}
         layout={Layout}
+        
       />
     </Switch>
   </>

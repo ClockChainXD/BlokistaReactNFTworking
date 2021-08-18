@@ -35,7 +35,7 @@ import { mint, multipleMint } from '../../utils/contracts';
 import { NFTObjectData } from '../../hooks/useApi';
 import DateTimePickerField from '../../components/DateTimePicker/index';
 import SelectField from '../../components/Forms/SelectField';
-import { addedOptions, categoryOptions } from '../../constants/filter';
+import { addedOptions, categoryOptions, mintCategoryOptions } from '../../constants/filter';
 
 interface FormInputs {
   name: string;
@@ -418,15 +418,15 @@ const Create = () => {
                   <SelectField
                     name="category"
                     className={classes.formWrapper}
-                    options={categoryOptions}
-                    value={categoryOptions[0].label}
-                    label="Category (Music,Painting,GIF,Secret Footage)"
+                    options={mintCategoryOptions}
+                    value={"Select a Category"}
+                    label="Category (Art,Music,GIF,Secret Footage)"
                     onChangeHandler={e => {
                       setNFTCategory(e.target.value);
                       console.log(e.target.value)
                     }}
                 />
-                <ErrorAlert title="NFT Description Field is required !" show={formSubmit && !category} />
+                <ErrorAlert title="NFT Category Field is required !" show={formSubmit && !category} />
                 <InputField
                   name="subcategory"
                   wrapperClass={classes.formWrapper}

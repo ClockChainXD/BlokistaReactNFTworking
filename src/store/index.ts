@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import profileReducer from './profile';
 import profileListReducer from './profileList';
 import pricesReducer from './prices';
-
+import search from './search';
 import main from './reducers/main';
 import theme from './reducers/theme';
 import common from './reducers/common';
@@ -15,6 +15,8 @@ const store = configureStore({
     prices: pricesReducer,
     profile: profileReducer,
     profileList: profileListReducer,
+    search: search,
+
     main: main,
     theme: theme,
     common: common,

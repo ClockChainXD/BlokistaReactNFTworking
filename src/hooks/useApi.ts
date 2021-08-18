@@ -40,6 +40,7 @@ export interface NFTObjectData {
   attributes?: [];
   category?: string;
   subcategory?: string;
+  status:number;
 
   approved?: boolean;
   verified?: boolean;

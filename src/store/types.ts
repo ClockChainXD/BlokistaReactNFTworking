@@ -148,7 +148,7 @@ export interface PriceState{
 }
 export interface State{
     
-    prices: PriceState;
+    prices: PriceState
     profile: ProfileState
     profileList: ProfileListState
     
@@ -185,4 +185,7 @@ export interface ProfileState {
     isInitialized: boolean
     isLoading: boolean
     data: Profile
+  }
+ export interface SearchState {
+    searchTerm: string
   }

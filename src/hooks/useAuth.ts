@@ -16,7 +16,7 @@ const useAuth = () => {
         await activate(injectedConnector);
       }
       else {
-        toast.error("Unsupported Network. This platform is working on BSC Test NET");
+        toast.error("Unsupported Network. This platform is working on BSC Main Net");
       }
     }
   }, [activate, chainId, library]);

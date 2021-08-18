@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import NavigationItem from './NavigationItem';
 import { FormControl, Input, InputAdornment, InputBase, } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { SearchOutlined, SearchRounded, SearchSharp, YoutubeSearchedForOutlined } from '@material-ui/icons';
+import { useSearchTerm } from '../../../../hooks/useSearch';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchState } from '../../../../store/types'
+import search from '../../../../store/search';
+import { useAppDispatch } from '../../../../store';
+import { setSearchAction } from '../../../../store/actions/search';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +75,18 @@ const useStyles = makeStyles((theme) => ({
 
 const NavigationList = () => {
   const classes = useStyles();
+  const[sea,setSea]=useState<string>("");
+  const dispatch=useDispatch();
+  const history=useHistory();
+  const[searchy,setSearchy]=useState("");
+
+
+function handleSearch(){
+  if(searchy){
+  dispatch(setSearchAction(searchy));
+  history.push(`/explore`);
+}
+}
 
   return (
     <Box component="ul" className={classes.root}>
@@ -83,9 +103,13 @@ const NavigationList = () => {
             placeholder="Search items, Galleries and accounts"
             className={classes.input}
             inputProps={{ 'aria-label': 'search' }}
+            onChange={ val => {setSearchy(val.target.value);
+            console.log(val.target.value);}}
+            onKeyDown = { e => { if(e.key==='Enter')  handleSearch();} }
           />
       </div>
     </Box>
   );
 };
 export default NavigationList;
+

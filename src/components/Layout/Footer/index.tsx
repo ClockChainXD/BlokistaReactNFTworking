@@ -14,13 +14,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     borderTop: `1px solid ${theme.palette.divider}`,
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
-      paddingTop: 78,
+      paddingTop:10,
     },
     [theme.breakpoints.down('xs')]: {
       backgroundColor: theme.palette.surface[1],
-      paddingTop: 59,
+      paddingTop: 10,
     },
   },
   logoWrapper: {
@@ -100,10 +100,11 @@ const Footer = () => {
           <Grid item md={3} sm={3} xs={12} className={classes.column1}>
             <div className={classes.logoWrapper}>
               <img src={`/assets/images/logo-${theme.palette.type}.png`} alt="logo" />
+              <Body1>
+              Transform the World 
+              </Body1>
             </div>
-            <Body1>
-            Transform the World 
-            </Body1>
+           
           </Grid>
           <Grid item md={4} container spacing={2}>
             <Grid item md={6} sm={6} xs={12}>

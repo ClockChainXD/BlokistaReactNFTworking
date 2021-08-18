@@ -12,7 +12,7 @@ export const Networks = {
 export const CONTRACTS_BY_NETWORK = {
   [Networks.MainNet]: {
     BlokistaVault: {
-      address: '0xc342f9A22289DEC49B70EdD0E39aEcDca5991034',
+      address: '0xCAD0dEa1695d1Da5475A54084C6Da811a3271A26',
       abi: BlokistaVaultABI,
     },
     WBNB: {
@@ -20,7 +20,7 @@ export const CONTRACTS_BY_NETWORK = {
       abi: WBNBABI,
     },
     BlokistaAuction:{
-      address: '0x75f84EC7643dEC4c44551D942A4c61c608398F81',
+      address: '0x86b20a5BE63e5C8F34330a098b22956AdD06b651',
       abi: BlokistaAuctionABI,
     }
   },

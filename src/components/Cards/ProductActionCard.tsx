@@ -51,6 +51,8 @@ const useStyles = makeStyles(theme => ({
   button: {
     width: '45%',
     marginTop: theme.spacing(5),
+    height:'20%',
+    background: 'linear-gradient(rgba(236,45,162,1),transparent)'
   },
   productWrapper: {
     width: '100%',
@@ -537,29 +539,29 @@ const sellthis = async (nftPrice) => {
 
       {ownsProduct && (
         <Grid container justify="space-between">
-          {(nftDetails?.nft?.nftType == '0' || nftDetails?.nft?.nftType == '2') && (
+          {/* {(nftDetails?.nft?.nftType == '0' || nftDetails?.nft?.nftType == '2') && (
             <FilledButton
               className={classes.button}
               label={nftDetails?.nft.listed ? 'Disable for sale' : 'Enable for sale'}
               handleClick={cancelNFTBid}
             />
-          )}
+          )} */}
           {nftDetails?.nft?.listed == true && nftDetails?.nft?.nftType == '0' && (
             <OutlinedButton className={classes.button} label="Update Price" handleClick={showUpdatePriceModal} />
           )}
           {nftDetails?.nft?.listed == false && (
-            <OutlinedButton className={classes.button} label="Start Sale" handleClick={showSaleModal} />
+            <FilledButton className={classes.button} label="Sell With Fixed Price" handleClick={showSaleModal} />
           )}
           { nftDetails?.nft?.listed == false && (
-            <FilledButton className={classes.button} label="Auction With Deadline Start" handleClick={showActionModal} />
+            <FilledButton className={classes.button} label="Start an Auction With Deadline" handleClick={showActionModal} />
           )}
            { nftDetails?.nft?.listed == false && (
-            <FilledButton className={classes.button} label="Unlimited Time Auction Start" handleClick={showActionDeadModal} />
+            <FilledButton className={classes.button} icon={<img  src="/assets/images/time.svg" alt="time-icon" />} label="Start an Unlimited Time Auction" handleClick={showActionDeadModal} />
           )}
           {nftDetails?.nft?.nftType != '0' &&
             nftDetails?.nft?.listed == true &&  nftDetails?.bids!==undefined &&
             moment(nftDetails?.nft?.endTime * 1000).isBefore(new Date().getTime()) && (
-              <FilledButton className={classes.button} label="Claim Auction" handleClick={submitClaimAuction} />
+              <FilledButton className={classes.button}  label="Claim Auction" handleClick={submitClaimAuction} />
             )}
         </Grid>
       )}
