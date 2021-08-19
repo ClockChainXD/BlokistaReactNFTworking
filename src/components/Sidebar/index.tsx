@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     filter: {
         fontSize: '20px',
         paddingBottom : '13%'
-
     },
     filterArea : {
         marginTop: '20px',
@@ -43,21 +42,20 @@ const useStyles = makeStyles(theme => ({
       border: '50px solid rgba(#000, #000, #000, 1)'
     },
     select: {
+        width: '90%',
         margin: '0 0 3vw 0',
         borderRadius: '20%',
-        width: '100%',
-        border: '50px solid rgba(#000, #000, #000, 1)'
     },
     formField: {
         display: 'flex',
-        flexDirection : 'column',
+        width: '100%',
     },
     button: {
-        width: '50%',
-        margin : '10px auto 10px',
+        marginTop: '.4vw !important',
+        marginLeft : '.6vw !important'
     },
     margin : {
-        margin: '90px 0',
+        margin: '60px 0',
     }
   }));
     
@@ -93,69 +91,47 @@ function Sidebar({ select2ChangeHandler ,select3ChangeHandler, OnApplyFilter } )
           };
           
         return(
-            
-                 <CDBSidebar className={classes.main}>
+            <CDBSidebar className={classes.main}>
                 <CDBSidebarHeader prefix={ <i className={"fa fa-filter " + classes.filter} /> }   />
                 <CDBSidebarContent className={classes.filterArea} >
                     <CDBSidebarMenu className={classes.content}>
-                        <CDBSidebarMenuItem  icon="tags">
+                            <CDBSidebarMenuItem icon="tags">
                             <CDBSidebarHeader>
-                                Price
+                                Price (BSC)
                             </CDBSidebarHeader>
                             <div className={classes.formField}>
-                                <InputField name="minBidPrice"
-                             onChangeData={val => {
-                                    setRangeMax(parseFloat(val));
-                                          }} icon={<span className="fas fa-coins" />} placeholder="Max 10 BSC" type="number" />
+                                <InputField name="minBidPrice" onChangeData={val => { setRangeMax(parseFloat(val));}} icon={<span className="fas fa-coins" />} placeholder="Max" type="number" />
                                 
-                                <FilledButton className={classes.button} label={"Apply Price"} handleClick={handleSave} size="medium" />
+                                <FilledButton className={classes.button} icon={<span className="fas fa-search" />} handleClick={handleSave} size="small" />
                             </div>
-                               
-                                         {/*    <label>Max (ETH)</label>
-                                            <input type="number" className="form-control" id="priceMin" placeholder="$0" onChange={e => setMaxPrice(e.currentTarget.valueAsNumber)}/>         */}
-                                           
-                                       
-                               
-                            </CDBSidebarMenuItem>
-                            <hr className={classes.margin} />
-
-                            <CDBSidebarMenuItem   className={""} icon="columns">
-                                <CDBSidebarHeader>
-                                      Categories
-                                </CDBSidebarHeader>
-                                
-                                    
-                                        <SelectField 
-                                            className={classes.select}
-                                            options={categoryOptions}
-                                            value={categoryOptions[0].label}
-                                            onChangeHandler={select3ChangeHandler}
-                                        />
-                                      
-                                
-                            </CDBSidebarMenuItem>      
-                            <hr  className={classes.margin} />
-
-                       
-                            {/* <CDBSidebarMenuItem   className={""} icon="video">
+                        </CDBSidebarMenuItem>
+                     
+                        <hr className={classes.margin} />
+                        <CDBSidebarMenuItem icon="columns">
                             <CDBSidebarHeader>
-                                Galleries 
+                                    Categories
                             </CDBSidebarHeader>
-                            <SelectField 
-                                className={classes.select}
-                                options={userOptions}
-                                value={userOptions[0].label}
-                                        onChangeHandler={select2ChangeHandler && select2ChangeHandler}
+                                    <SelectField 
+                                        className={classes.select}
+                                        options={categoryOptions}
+                                        value={categoryOptions[0].label}
+                                        onChangeHandler={select3ChangeHandler}
                                     />
-                                
-                            </CDBSidebarMenuItem>       */}
-                                         
-
-                            
-                        </CDBSidebarMenu>
-                    </CDBSidebarContent>
-                </CDBSidebar>
-            
+                        </CDBSidebarMenuItem>      
+                      
+                        <hr className={classes.margin} />
+                        <CDBSidebarMenuItem icon="video">
+                                <CDBSidebarHeader>
+                                    Sub Categories 
+                                </CDBSidebarHeader>
+                                <InputField 
+                                    className={classes.select}
+                                    placeholder={"Enter a SubCategories !!!"}    
+                                />
+                            </CDBSidebarMenuItem>  
+                    </CDBSidebarMenu>
+                </CDBSidebarContent>
+            </CDBSidebar>
         )
 }
 
