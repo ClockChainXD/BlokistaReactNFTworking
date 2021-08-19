@@ -13,9 +13,9 @@ export default function Auction({ onClose, onAuctionStart }) {
   const classes = useStyles();
   const [startTime, setNFTAuctionStartTime] = useState(new Date());
   const [endTime, setNFTAuctionEndTime] = useState(new Date());
-  const [minBidPrice, setNFTMinBidPrice] = useState(0);
-  const[instBuyPrice, setinstBuyPrice] = useState(0);
-  const[minIncPercent, setminIncPercent] = useState(0);
+  const [minBidPrice, setNFTMinBidPrice] = useState("");
+  const[instBuyPrice, setinstBuyPrice] = useState("");
+  const[minIncPercent, setminIncPercent] = useState("");
   const handleClose = () => {
     onClose();
   };
@@ -27,7 +27,7 @@ export default function Auction({ onClose, onAuctionStart }) {
       return;
     }
 
-    if (minBidPrice <= 0) {
+    if (parseFloat(minBidPrice) <= 0) {
       toast.error("Minimum bid price should be over than 0");
       return;
     }
@@ -48,7 +48,7 @@ export default function Auction({ onClose, onAuctionStart }) {
             name="minBidPrice"
             type="number"
             onChangeData={val => {
-              setNFTMinBidPrice(parseFloat(val));
+              setNFTMinBidPrice(val);
             }}
             label="Minimum bid"
           />
@@ -58,7 +58,7 @@ export default function Auction({ onClose, onAuctionStart }) {
             name="minIncPercent"
             type="number"
             onChangeData={val => {
-              setminIncPercent(parseFloat(val));
+              setminIncPercent(val);
             }}
             label="Minimum Increase Percent For Bids"
           />
@@ -68,7 +68,7 @@ export default function Auction({ onClose, onAuctionStart }) {
             name="instBuyPrice"
             type="number"
             onChangeData={val => {
-              setinstBuyPrice(parseFloat(val));
+              setinstBuyPrice(val);
             }}
             label="Instant Buy Price (Optional) (We recommend that you choose this price as it will satisfy your expectations)"
           />

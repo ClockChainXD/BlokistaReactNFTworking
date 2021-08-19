@@ -255,7 +255,7 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
         <Body1
           className={clsx(
             classes.minBidPrice,
-            (product?.status == 1 || product?.status == 2) && product?.minBidPrice ? '' : classes.visibilityNone,
+            (product?.status == 1 || product?.status == 3) && product?.minBidPrice ? '' : classes.visibilityNone,
           )}
         >
           Min Bid Price : {product?.minBidPrice} BNB
