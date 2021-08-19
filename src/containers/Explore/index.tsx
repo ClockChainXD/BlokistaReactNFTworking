@@ -249,10 +249,8 @@ filterRadio(e.target.value)
                   return product;
 
                 } 
-                
-                  console.log("O da değil");
+                console.log("O da değil");
                   
-                
               }
 
             }).map((product, index) => (

@@ -37,9 +37,8 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid #fff',
     borderRadius: theme.shape.cardBorderRadius,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
-    boxShadow: '0 25px 28px 10px #1111',
-    maxWidth: 300,
     margin : '5px 10px',
+    boxShadow: '15px 20px 20px 0px rgba(0,0,0, 0.4)',
   },
   loadBtn: {
     display: 'flex',

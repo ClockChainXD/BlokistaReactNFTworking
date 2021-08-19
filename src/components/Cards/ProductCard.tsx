@@ -33,77 +33,116 @@ interface PropsType {
   showFooter?: boolean;
   user?: NFTUserFullDetail;
 }
+//theme 
+//background: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    borderRadius: theme.shape.cardBorderRadius,
-    background: 'transparent',
-    maxWidth: 258,
-    minWidth: 258,
-    margin: '0 20px',
+  card : {
+    position: 'relative',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent : 'center'
+    width: 258,
+    height: 500, 
+    margin: '1em 2vw',
+    borderRadius: 'calc(40 * 1px)',
+    overflow: 'hidden',
+    textDecoration: 'none',
+    '&:hover':{
+        '& $overlay': {
+            transform : 'translateY(0)',
+        },
+        '& $header': {
+            transform: 'translateY(0)',
+        },
+        '& $buttonOverlay':{
+          opacity: 1
+        }
+    }
   },
   media: {
-    width: '100%',
-    maxWidth: 258,
-    height: 304,
+      width: '100%',
+      height: '60%',
+      marginBottom: '30px'
+  },
+  overlay:{
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    borderRadius: '',    
+    backgroundColor: '#fff',
+    transform: 'translateY(100%)',
+    transition: '.2s ease-in-out',
+  },
+  header: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    textAlign: 'center',
-    background: theme.palette.surface[2],
-    borderRadius: theme.shape.cardBorderRadius,
-    backgroundSize: 'cover !important',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '100%',
-    },
+    gap: '2em',
+    padding: '2em',
+    borderRadius: '40px  40px 0 0',
+    backgroundColor : '#fff',
+    transform: 'translateY(-100%)',
+    transition: '.2s ease-in-out',
   },
-  content: {
-    padding: '10px 0 12px',
-    height: 130,
+  arc: {
+      width: '80px',
+      height: '80px',
+      position: 'absolute',
+      bottom: '100%',
+      zIndex: 1,
   },
-  avatarGroup: {
+  thumb:{
+      flexShrink: 0,
+      width: '50px',
+      height: '50px',
+      borderRadius: '50%',
+  },
+  title: {
+      fontSize: '1em',
+      margin: '0 0 .3em',
+      color: '#6A515E',
+  },
+  tagline: {
+      display: 'block',
+      margin: '1em 0',
+      fontSize: '.8em',
+      color: '#D7BCA',
+  },
+  status: {
+      fontSize: '1em',
+      color: '#000',
+  },
+  description: {
+      padding: '0 2em 2em',
+      margin: '0',
+      color: '#D8BDCA',
+      display: '-webkit-box',
+      '-webkit-box-orient': 'vertical',
+      '-webkit-line-clamp': 3,
+      overflow: 'hidden',
+  },
+  minBidPrice: {
+    color: theme.palette.info.main
+  },
+  visibilityNone: {
+    visibility: 'hidden',
+  },
+  avatarGroup:{
     marginLeft: theme.spacing(1.1),
   },
   avatar: {
     width:35,
     height: 35,
   },
-  title: {
-    fontWeight: 500,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    width: '100%',
-  },
-  noPreview: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  icon: {
-    marginRight: theme.spacing(1),
-  },
-  price: {
-    color: theme.palette.text.primary,
-    marginLeft: theme.spacing(0.25),
-    letterSpacing: 0,
-  },
-  minBidPrice: {
-    color: theme.palette.warning.main,
-  },
-  count: {
-    letterSpacing: 1.1,
-  },
-  footer: {
-    padding: '11px 2px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  fire: {
-    marginLeft: theme.spacing(0.25),
+  purchaseBtn: {
+    height: 26,
+    // paddingTop: 10,
+    borderRadius: 3,
+    width: 103,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    fontSize: 10,
   },
   favoriteBtn: {
     background: theme.palette.surface[0],
@@ -115,18 +154,6 @@ const useStyles = makeStyles(theme => ({
   },
   bidButton: {
     padding: '5px 14px',
-  },
-  purchaseBtn: {
-    height: 26,
-    // paddingTop: 10,
-    borderRadius: 3,
-    width: 103,
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    fontSize: 10,
-  },
-  visibilityNone: {
-    visibility: 'hidden',
   },
   productWrapper: {
     minWidth: 258,
@@ -156,41 +183,62 @@ const useStyles = makeStyles(theme => ({
         opacity: 1,
       },
     },
+  }, 
+  buttonOverlay:{
+    position:'absolute',
+     width:'100%',
+     opacity:0,
+  },
+  fire: {
+    marginLeft: theme.spacing(0.25),
+  },
+  footer: {
+    padding: '11px 2px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  price: {
+    color: theme.palette.text.primary,
+    marginLeft: theme.spacing(0.25),
+    letterSpacing: 0,
+  },
+  icon: {
+    marginRight: theme.spacing(1),
   },
 }));
 
-const ProductCard = ({ className, product, showFooter = false, user }: PropsType) => {
+const ProductCard = ({ className, product, showFooter = true, user }: PropsType) => {
   const classes = useStyles();
   const history = useHistory();
 
   const owner = useProfileForWallet(product?.ownerAddress);
   const creator = useProfileForWallet(product?.initialCreatorAddress);
 
-  function Footer() {
-    return (
-      <>
-        <Box display="flex" alignItems="center">
-          <img className={clsx(classes.icon, 'icon-img')} src="/assets/images/bid-icon.png" alt="bid-icon" />
-          <Tiny>
-            Highest bid
-            <TinyBold className={classes.price}>
-              {`${0.0} ETH`}
-            </TinyBold>
-          </Tiny>
-        </Box>
-        <Box display="flex" alignItems="center">
-          <Tiny >New bid</Tiny>
-          <img className={clsx(classes.fire, 'icon-img')} src="/assets/images/fire.png" alt="new" />
-        </Box>
-      </>
-    );
-  }
+function Footer() {
+  return (
+    <>
+      <Box display="flex" alignItems="center">
+        <img className={clsx(classes.icon, 'icon-img')} src="/assets/images/bid-icon.png" alt="bid-icon" />
+        <Tiny>
+          Highest bid
+          <TinyBold className={classes.price}>
+            {`${0.0} ETH`}
+          </TinyBold>
+        </Tiny>
+      </Box>
+      <Box display="flex" alignItems="center">
+        <Tiny >New bid</Tiny>
+        <img className={clsx(classes.fire, 'icon-img')} src="/assets/images/fire.png" alt="new" />
+      </Box>
+    </>
+  );
+}
   function Overlay() {
     return (
-      <div className="overlay">
-        <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">{ product?.status!=0 &&
-          <FilledButton className={classes.purchaseBtn} size="small" color="success" label="Purchasing !" />
-        }
+      <div className={classes.buttonOverlay}>
+        <Box display="flex" justifyContent="space-around" alignItems="center" width="100%" position="relative"  top="15px">
+          { product?.status!=0 && <FilledButton className={classes.purchaseBtn} size="small" color="success" label="Purchasing !" />}
           <IconButton className={classes.favoriteBtn} color="default" size="small">
             <FavoriteIcon color="error" fontSize="small" />
           </IconButton>
@@ -234,16 +282,55 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
     );
   }
   return (
-    <Card
-      className={clsx(classes.root, className)}
-      elevation={0}
-      onClick={() => history.push(`/product/${product?.baseID}`)}
-    >
-      <div className={classes.productWrapper}>
-        <CardsMedia />
-        {product?.assetUrl && <Overlay />}
+    <Card className={classes.card} elevation={0} onClick={() => history.push(`/product/${product?.baseID}`)} >
+      <CardsMedia />
+      {product?.assetUrl && <Overlay />}
+
+      <div className={classes.overlay}>
+        <div className={classes.header}>
+          <AvatarGroup max={5} className={classes.avatarGroup}>
+            {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
+            {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
+          </AvatarGroup>
+     
+          <div>
+            <h3 className={classes.title}>
+                owner:name
+            </h3>
+            <span className={classes.tagline}>
+              category:name  
+            </span>  
+            <p className={classes.status}> 
+              {product?.startTime && product?.endTime && product?.assetUrl && (
+                  <Timer
+                    startTime={parseInt(product?.startTime) * 1000}
+                    textForEnd='End '
+                    textForStart= 'Start  '
+                    endTime={parseInt(product?.endTime) * 1000}
+                  />
+                )}
+            </p>
+          </div>
+
+        </div>
+        <p className={classes.description}>
+        {showFooter && (
+              <CardActions className={classes.footer}>
+                <Footer />
+              </CardActions>
+          )}
+        </p>
       </div>
-      {product?.startTime && product?.endTime && product?.assetUrl && (
+    </Card>
+  );
+};
+
+export default ProductCard;
+
+
+{/*  Timer */}
+{/* 
+     {product?.startTime && product?.endTime && product?.assetUrl && (
         <Timer
           startTime={parseInt(product?.startTime) * 1000}
           textForStart="Start in"
@@ -251,38 +338,43 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
           endTime={parseInt(product?.endTime) * 1000}
         />
       )}
-      <CardContent className={classes.content}>
-        <Body1
-          className={clsx(
-            classes.minBidPrice,
-            (product?.status == 1 || product?.status == 3) && product?.minBidPrice ? '' : classes.visibilityNone,
-          )}
-        >
-          Min Bid Price : {product?.minBidPrice} BNB
-        </Body1>
+*/}
 
-        <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Body1 className={classes.title}>{product?.assetUrl && product?.name}</Body1>
-          {product?.status == 2 && product?.price && product?.assetUrl && <PriceTag price={product?.price} />}
-        </Box>
-        <Box display="flex" alignItems="center" justifyContent="space-between" marginTop="12px">
-          <AvatarGroup max={5} className={classes.avatarGroup}>
-            {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
-            {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
-          </AvatarGroup>
-          {/* {product?.count && <Body2 className={classes.count}>{`${product?.count || 0} in stock`}</Body2>} */}
-        </Box>
-      </CardContent>
-      {showFooter && (
-        <>
-          <Divider />
-          <CardActions className={classes.footer}>
-            <Footer />
-          </CardActions>
-        </>
-      )}
-    </Card>
-  );
-};
+{/* Footer */}
+{/*
+   {showFooter && (
+      <>
+        <Divider />
+        <CardActions className={classes.footer}>
+          <Footer />
+        </CardActions>
+      </>
+    )}
+*/}
 
-export default ProductCard;
+{/* MIN BID PRICE */}
+
+{/* 
+    <span
+        className={clsx(
+          (product?.status == 1 || product?.status == 3) && product?.minBidPrice ? '' : classes.visibilityNone,
+        )}
+      >
+        Min Bid Price :<span className={classes.minBidPrice}> {product?.minBidPrice} </span> BNB
+      </span>
+*/}
+
+
+{/* BASIC INFO */}
+{/*
+<Box display="flex" alignItems="center" justifyContent="space-between">
+<Body1 className={classes.title}>{product?.assetUrl && product?.name}</Body1>
+{product?.status == 2 && product?.price && product?.assetUrl && <PriceTag price={product?.price} />}
+</Box>
+<Box>
+<AvatarGroup max={5} className={classes.avatarGroup}>
+  {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
+  {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
+</AvatarGroup>
+ {product?.count && <Body2 className={classes.count}>{`${product?.count || 0} in stock`}</Body2>}
+</Box> */}
