@@ -23,12 +23,15 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(12),
   },
   productWrapper: {
-    padding: theme.spacing(1, 1, 1),
-    border: '1px solid #fff',
+    display: 'flex',
+    paddingTop: 10,
+    flexDirection : 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: theme.shape.cardBorderRadius,
+    maxWidth: 305,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
-    margin : '5px 10px',
-    boxShadow: '15px 20px 20px 0px rgba(0,0,0, 0.4)',
+    boxShadow: '0 20px 10px 4px #000',
   },
 }));
 
