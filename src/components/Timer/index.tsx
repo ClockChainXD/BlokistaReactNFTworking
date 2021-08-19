@@ -17,7 +17,7 @@ function renderDuration(difference, duration) {
 export default function Timer({
   startTime = null,
   endTime,
-  showDurations = ['days', 'hours', 'minutes', 'seconds'],
+  showDurations = ['days', 'hours',],
   textForStart = '',
   textForEnd = '',
 }) {
