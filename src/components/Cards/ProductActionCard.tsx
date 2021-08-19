@@ -513,25 +513,25 @@ const sellthis = async (nftPrice) => {
 
   return (
     <Pane className={classes.root}>
-      {nftDetails?.nft?.nftType == '0' && nftDetails?.nft?.listed==true && (
+      {nftDetails?.nft?.status == 1 && nftDetails?.nft?.listed==true && (
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Body1>Price For Buy:</Body1>
+          <Body1>Fixed Price To Buy:</Body1>
           <h3>{`${price} BNB`}</h3>
         </Box>
       )}
-      {nftDetails?.nft?.nftType != '0' && nftDetails?.nft?.listed==true && nftDetails?.nft?.instBuyPrice!=0 &&  (
+      {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) && nftDetails?.nft?.listed==true && nftDetails?.nft?.instBuyPrice!=0 &&  (
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Body1>INSTANT BUY! :</Body1>
           <h3>{`${instBuyPrice} BNB`}</h3>
         </Box>
       )}
-      {nftDetails?.nft?.nftType == '1' && nftDetails?.nft?.listed==true && (
+      {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) && nftDetails?.nft?.listed==true && (
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Body1>Min Bid Price:</Body1>
           <h3>{`${minBidPrice}  BNB`}</h3>
         </Box>
       )}
-      {nftDetails?.nft?.nftType == '2' && nftDetails?.nft?.listed==true && (
+      {nftDetails?.nft?.status == 1 && nftDetails?.nft?.listed==true && (
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Body1>Unlimited Auction & Bid</Body1>
         </Box>
@@ -539,13 +539,13 @@ const sellthis = async (nftPrice) => {
 
       {ownsProduct && (
         <Grid container justify="space-between">
-          {/* {(nftDetails?.nft?.nftType == '0' || nftDetails?.nft?.nftType == '2') && (
+          {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) && nftDetails?.nft.listed && (
             <FilledButton
               className={classes.button}
-              label={nftDetails?.nft.listed ? 'Disable for sale' : 'Enable for sale'}
+              label={'Cancel Auction'}
               handleClick={cancelNFTBid}
             />
-          )} */}
+          )} 
           {nftDetails?.nft?.listed == true && nftDetails?.nft?.nftType == '0' && (
             <OutlinedButton className={classes.button} label="Update Price" handleClick={showUpdatePriceModal} />
           )}
@@ -558,7 +558,7 @@ const sellthis = async (nftPrice) => {
            { nftDetails?.nft?.listed == false && (
             <FilledButton className={classes.button} icon={<img  src="/assets/images/time.svg" alt="time-icon" />} label="Start an Unlimited Time Auction" handleClick={showActionDeadModal} />
           )}
-          {nftDetails?.nft?.nftType != '0' &&
+          {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) &&
             nftDetails?.nft?.listed == true &&  nftDetails?.bids!==undefined &&
             moment(nftDetails?.nft?.endTime * 1000).isBefore(new Date().getTime()) && (
               <FilledButton className={classes.button}  label="Claim Auction" handleClick={submitClaimAuction} />
@@ -568,7 +568,7 @@ const sellthis = async (nftPrice) => {
 
       {!ownsProduct && nftDetails?.nft?.listed == true && (
         <Grid container justify="space-between">
-          {nftDetails?.nft?.nftType == '0' && (
+          {nftDetails?.nft?.status == 2 && (
             <FilledButton className={classes.button} label="Buy Now" handleClick={buyNowNFT} />
           )}
           {nftDetails?.nft?.nftType != '0' && (
