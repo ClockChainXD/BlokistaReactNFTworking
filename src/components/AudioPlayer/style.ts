@@ -14,8 +14,8 @@ const useButtonStyles = makeStyles(theme => ({
   button: {
     zIndex: 9999,
     position: 'absolute',
-    left: 37,
-    bottom: 10,
+    left: 100,
+    top: 80,
     display: 'block',
     width: 48,
     height: 48,

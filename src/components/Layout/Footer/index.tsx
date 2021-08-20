@@ -143,7 +143,7 @@ const Footer = () => {
                     <TinyBold className={classes.link}>Instagram</TinyBold>
                   </a>
                   <a target="_blank"  rel="noopener noreferrer" href="https://www.linkedin.com/company/blokista">
-                    <TinyBold className={classes.link}>Linkedn</TinyBold>
+                    <TinyBold className={classes.link}>Linkedin</TinyBold>
                   </a>
                 
                 </ExpandableColumn>

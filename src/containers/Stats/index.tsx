@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Masonry from 'react-masonry-css';
 // import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import { NFTObjectData } from '../../hooks/useApi';
 
 import Container from '../../components/Layout/Container';
 import LoaderIndicator from '../../components/Loader';
@@ -10,7 +11,6 @@ import Body1 from '../../components/Typography/Body1';
 import FilterSection from '../../components/Filters/FilterSection';
 import ProductCard from '../../components/Cards/ProductCard';
 import Filter from '../../components/Filters/Filter';
-import ProductNew from '../../components/Cards/ProductNew';
  
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Stats = () => {
+  
+  const [NFTListData, setstate] = useState<NFTObjectData[]>([]);
+
   const classes = useStyles();
   const breakpointColumnsObj = {
     default: 4,
@@ -60,40 +63,13 @@ const Stats = () => {
       </div>
       <div className={classes.topFilter}>
         <FilterSection />
+ 
       </div>
 
       <div className={classes.cards}>
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
-        <ProductNew />
+         {console.log(NFTListData?.length)}
+    
+        <ProductCard />
       </div>   
     </div>
   );

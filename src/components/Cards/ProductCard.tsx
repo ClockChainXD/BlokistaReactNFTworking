@@ -201,7 +201,7 @@ const useStyles = makeStyles(theme => ({
   },
   bidIcon:{
     marginRight: theme.spacing(1),
-  }
+  },
 }));
 
 const ProductCard = ({ className, product, showFooter = false, user }: PropsType) => {
