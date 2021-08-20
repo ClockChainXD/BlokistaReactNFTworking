@@ -264,7 +264,7 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
         )}
         {product?.assetType == 'Video' && (
           <>
-            <video className={classes.media} controls autoPlay loop>
+            <video className={classes.media} controls >
               <source src={product?.assetUrl} type="video/mp4" />
             </video>
           </>
