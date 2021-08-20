@@ -39,19 +39,20 @@ interface PropsType {
 const useStyles = makeStyles(theme => ({
   card : {
     position: 'relative',
-    display: 'flex',
     width: 258,
-    height: 500, 
-    margin: '1em 2vw',
-    borderRadius: 'calc(40 * 1px)',
+    height: 350, 
+    margin: '.5em .8vw',
+    borderRadius: 'calc(20 * 1px)',
     overflow: 'hidden',
     textDecoration: 'none',
     '&:hover':{
         '& $overlay': {
             transform : 'translateY(0)',
+            backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[1] : theme.palette.surface[0],
         },
         '& $header': {
-            transform: 'translateY(0)',
+            transform: 'translateY(0%)',
+            backgroundColor : 'transparent',
         },
         '& $buttonOverlay':{
           opacity: 1
@@ -61,7 +62,6 @@ const useStyles = makeStyles(theme => ({
   media: {
       width: '100%',
       height: '60%',
-      marginBottom: '30px'
   },
   overlay:{
     position: 'absolute',
@@ -69,8 +69,8 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     right: 0,
     zIndex: 1,
-    borderRadius: '',    
-    backgroundColor: '#fff',
+    borderRadius: '',   
+    backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[1] : theme.palette.surface[0],
     transform: 'translateY(100%)',
     transition: '.2s ease-in-out',
   },
@@ -79,10 +79,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '2em',
-    padding: '2em',
-    borderRadius: '40px  40px 0 0',
-    backgroundColor : '#fff',
-    transform: 'translateY(-100%)',
+    padding: '1.6em ',
+    borderRadius: '40px',
+    backgroundColor : 'transparent',
     transition: '.2s ease-in-out',
   },
   arc: {
@@ -102,11 +101,19 @@ const useStyles = makeStyles(theme => ({
       fontSize: '1em',
       margin: '0 0 .3em',
       color: '#6A515E',
+      display: 'flex',
+      width: "100%",
+      justifyContent: 'space-between',
+  },
+  itemHeader : {
+    marginRight: '15%',
+    textTransform: 'capitalize',
+    width : "100%",
   },
   tagline: {
       display: 'block',
       margin: '1em 0',
-      fontSize: '.8em',
+      fontSize: '.7em ',
       color: '#D7BCA',
   },
   status: {
@@ -135,9 +142,12 @@ const useStyles = makeStyles(theme => ({
     width:35,
     height: 35,
   },
+  content:{
+    display: 'flex',
+    flexDirection: 'column',
+  },
   purchaseBtn: {
     height: 26,
-    // paddingTop: 10,
     borderRadius: 3,
     width: 103,
     textTransform: 'uppercase',
@@ -162,32 +172,13 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent : 'center',
-    '& .overlay': {
-      position: 'absolute',
-      top: 5,
-      left: 30,
-      width: '20%',
-      height: '20%',
-      opacity: 0,
-      transition: '.5s ease',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderRadius: theme.shape.cardBorderRadius,
-      padding: theme.spacing(1, 0, 3),
-    },
-    '&:hover': {
-      cursor: 'pointer',
-      '& .overlay': {
-        opacity: 1,
-      },
-    },
   }, 
   buttonOverlay:{
     position:'absolute',
-     width:'100%',
-     opacity:0,
+    width:'100%',
+    opacity:0,
+
+    top: 0,
   },
   fire: {
     marginLeft: theme.spacing(0.25),
@@ -204,36 +195,41 @@ const useStyles = makeStyles(theme => ({
     letterSpacing: 0,
   },
   icon: {
-    marginRight: theme.spacing(1),
+    width : '12px',
+    height: '12px',
+    marginLeft: 6,
   },
+  bidIcon:{
+    marginRight: theme.spacing(1),
+  }
 }));
 
-const ProductCard = ({ className, product, showFooter = true, user }: PropsType) => {
+const ProductCard = ({ className, product, showFooter = false, user }: PropsType) => {
   const classes = useStyles();
   const history = useHistory();
 
   const owner = useProfileForWallet(product?.ownerAddress);
   const creator = useProfileForWallet(product?.initialCreatorAddress);
 
-function Footer() {
-  return (
-    <>
-      <Box display="flex" alignItems="center">
-        <img className={clsx(classes.icon, 'icon-img')} src="/assets/images/bid-icon.png" alt="bid-icon" />
-        <Tiny>
-          Highest bid
-          <TinyBold className={classes.price}>
-            {`${0.0} ETH`}
-          </TinyBold>
-        </Tiny>
-      </Box>
-      <Box display="flex" alignItems="center">
-        <Tiny >New bid</Tiny>
-        <img className={clsx(classes.fire, 'icon-img')} src="/assets/images/fire.png" alt="new" />
-      </Box>
-    </>
-  );
-}
+  function Footer() {
+   return (
+     <>
+       <Box display="flex" alignItems="center">
+         <img className={clsx(classes.bidIcon, 'icon-img')} src="/assets/images/bid-icon.png" alt="bid-icon" />
+         <Tiny>
+           Highest bid
+           <TinyBold className={classes.price}>
+             {`${0.0} ETH`}
+           </TinyBold>
+         </Tiny>
+       </Box>
+       <Box display="flex" alignItems="center">
+         <Tiny >New bid</Tiny>
+         <img className={clsx(classes.fire, 'icon-img')} src="/assets/images/fire.png" alt="new" />
+       </Box>
+     </>
+   );
+  }
   function Overlay() {
     return (
       <div className={classes.buttonOverlay}>
@@ -243,12 +239,7 @@ function Footer() {
             <FavoriteIcon color="error" fontSize="small" />
           </IconButton>
         </Box>
-        {/* <FilledButton
-          label="Place a bid"
-          className={classes.bidButton}
-          icon={<img src="/assets/images/bid-btn-icon.png" alt="bid-icon" />}
-          handleClick={() => history.push(`/product/${product?.baseID}`)}
-        /> */}
+      
       </div>
     );
   }
@@ -262,6 +253,11 @@ function Footer() {
         )}
 
         {product?.assetType == 'Image' && (
+          <CardMedia image={`${product?.assetUrl}`} className={classes.media}>
+            {!product?.assetUrl && <TinyBold>Upload file to preview your brand new NFT</TinyBold>}
+          </CardMedia>
+        )}
+           {product?.assetType == 'GIF' && (
           <CardMedia image={`${product?.assetUrl}`} className={classes.media}>
             {!product?.assetUrl && <TinyBold>Upload file to preview your brand new NFT</TinyBold>}
           </CardMedia>
@@ -281,45 +277,54 @@ function Footer() {
       </>
     );
   }
+
   return (
     <Card className={classes.card} elevation={0} onClick={() => history.push(`/product/${product?.baseID}`)} >
       <CardsMedia />
       {product?.assetUrl && <Overlay />}
-
-      <div className={classes.overlay}>
+      <div>
         <div className={classes.header}>
-          <AvatarGroup max={5} className={classes.avatarGroup}>
-            {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
-            {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
-          </AvatarGroup>
-     
-          <div>
-            <h3 className={classes.title}>
-                owner:name
-            </h3>
-            <span className={classes.tagline}>
-              category:name  
-            </span>  
-            <p className={classes.status}> 
-              {product?.startTime && product?.endTime && product?.assetUrl && (
-                  <Timer
-                    startTime={parseInt(product?.startTime) * 1000}
-                    textForEnd='End '
-                    textForStart= 'Start  '
-                    endTime={parseInt(product?.endTime) * 1000}
-                  />
-                )}
-            </p>
-          </div>
-
+        <AvatarGroup max={5} className={classes.avatarGroup}>
+          {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
+          {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
+        </AvatarGroup>
+        <div className={classes.content}>
+          <h3 className={classes.title}>
+            <div className={classes.itemHeader}>{product?.assetUrl && product?.name}</div>
+            <span>
+              {product?.status == 2 && product?.price && product?.assetUrl && <PriceTag size="small" unit={<img className={classes.icon} src="/assets/images/binance.svg" />} price={product?.price} />}
+            </span>
+          </h3>
+          <span className={classes.tagline}>
+            {product?.assetUrl && product?.category}
+          </span>  
+          <span className={clsx(classes.tagline, (product?.status == 1 || product?.status == 3) && product?.minBidPrice ? '' : classes.visibilityNone)}> 
+            Min Bid Price : 
+              <span className={classes.minBidPrice}>
+                {product?.minBidPrice} 
+              </span>
+              BNB
+          </span>
+          <p className={classes.status}> 
+            {product?.startTime && product?.endTime && product?.assetUrl && (
+                <Timer
+                  startTime={parseInt(product?.startTime) * 1000}
+                  textForEnd='End '
+                  textForStart= 'Start  '
+                  endTime={parseInt(product?.endTime) * 1000}
+                />
+              )}
+          </p>
         </div>
+        </div>
+
         <p className={classes.description}>
-        {showFooter && (
-              <CardActions className={classes.footer}>
-                <Footer />
-              </CardActions>
-          )}
-        </p>
+          {showFooter && (
+                <CardActions className={classes.footer}>
+                  <Footer />
+                </CardActions>
+            )}
+        </p> 
       </div>
     </Card>
   );
@@ -328,53 +333,16 @@ function Footer() {
 export default ProductCard;
 
 
-{/*  Timer */}
-{/* 
-     {product?.startTime && product?.endTime && product?.assetUrl && (
-        <Timer
-          startTime={parseInt(product?.startTime) * 1000}
-          textForStart="Start in"
-          textForEnd="Left"
-          endTime={parseInt(product?.endTime) * 1000}
-        />
-      )}
-*/}
-
-{/* Footer */}
+{/* PLACE A BID */}
 {/*
-   {showFooter && (
-      <>
-        <Divider />
-        <CardActions className={classes.footer}>
-          <Footer />
-        </CardActions>
-      </>
-    )}
-*/}
-
-{/* MIN BID PRICE */}
-
-{/* 
-    <span
-        className={clsx(
-          (product?.status == 1 || product?.status == 3) && product?.minBidPrice ? '' : classes.visibilityNone,
-        )}
-      >
-        Min Bid Price :<span className={classes.minBidPrice}> {product?.minBidPrice} </span> BNB
-      </span>
-*/}
-
-
-{/* BASIC INFO */}
-{/*
-<Box display="flex" alignItems="center" justifyContent="space-between">
-<Body1 className={classes.title}>{product?.assetUrl && product?.name}</Body1>
-{product?.status == 2 && product?.price && product?.assetUrl && <PriceTag price={product?.price} />}
-</Box>
-<Box>
-<AvatarGroup max={5} className={classes.avatarGroup}>
-  {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
-  {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
-</AvatarGroup>
  {product?.count && <Body2 className={classes.count}>{`${product?.count || 0} in stock`}</Body2>}
-</Box> */}
+ 
+    <span>
+      <FilledButton
+        label="Place a bid"
+        className={classes.bidButton}
+        icon={<img src="/assets/images/bid-btn-icon.png" alt="bid-icon" />}
+        handleClick={() => history.push(`/product/${product?.baseID}`)}
+      /> 
+    </span>
+*/}

@@ -128,7 +128,7 @@ export interface NFTTopArtist {
   createdNFTs?: NFTObjectData[];
 }
 
-export const useGetNFTObjectList = ({ count, category = '', subcategory= '' , sortField = '', sortOrder = '', nftType = '' , rangeMin, rangeMax, status=3 }) => {
+export const useGetNFTObjectList = ({ count, category = '', subcategory= '' , sortField = '', sortOrder = '', nftType = '' , rangeMin, rangeMax, status=4 }) => {
   const [data, setData] = useState<NFTList>();
 
   useEffect(() => {
@@ -139,13 +139,7 @@ export const useGetNFTObjectList = ({ count, category = '', subcategory= '' , so
         const responseData = await response.json();
         if (responseData.status === 'success') {
           const nftObjectList: NFTList = responseData;
-         
-         
-            
-         
-            
-           
-                    setData(nftObjectList);
+          setData(nftObjectList);
         }
       } catch (error) {
         console.error('Unable to fetch data:', error);

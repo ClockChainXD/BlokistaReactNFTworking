@@ -8,10 +8,10 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
-      paddingTop: 76,
+      paddingTop: 46,
       textAlign: 'center',
     },
   },
@@ -26,13 +26,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   section: {
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(2),
+    padding: '20px 0',
   },
   bottom: {
     padding: theme.spacing(8, 0),
     display: 'flex',
     justifyContent: 'center',
   },
+
 }));
 
 const Home = () => {

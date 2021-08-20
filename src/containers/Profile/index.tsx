@@ -39,6 +39,16 @@ const useStyles = makeStyles<Theme, NFTUserFullDetail>(theme => ({
       height: '61vw',
     },
   },
+  productWrapper: {
+    display: 'flex',
+    maxWidth: 285,
+    padding: '8px 0',
+    justifyContent: 'center',
+    borderRadius: theme.shape.cardBorderRadius,
+    backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
+    margin : '5px 10px',
+    boxShadow: '15px 20px 20px 0px rgba(0,0,0, 0.4)',
+  },
   container: {
     display: 'flex',
     flexDirection: 'column-reverse',
@@ -110,19 +120,6 @@ const useStyles = makeStyles<Theme, NFTUserFullDetail>(theme => ({
   masonry: {
     display: 'flex',
     margin: theme.spacing(0, -1.75),
-  },
-  productWrapper: {
-    padding: theme.spacing(1.5, 1.5, 2.75),
-    marginBottom: theme.spacing(4),
-    borderRadius: theme.shape.cardBorderRadius,
-    backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
-    boxShadow: '0 25px 28px 10px #1111',
-    [theme.breakpoints.up('sm')]: {
-      width: 284,
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: 304,
-    },
   },
   gridColumn: {
     margin: theme.spacing(0, 2),

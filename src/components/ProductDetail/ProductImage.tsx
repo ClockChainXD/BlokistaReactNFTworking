@@ -106,6 +106,7 @@ const ProductImage = ({ src, nftDetails }) => {
     return (
       <>
         {nftDetails?.nft?.assetType == 'Image' && <ImageWrapper className={classes.productWrapper} content={src} />}
+        {nftDetails?.nft?.assetType == 'GIF' && <ImageWrapper className={classes.productWrapper} content={src} />}
         {nftDetails?.nft?.assetType == 'Video' && (
           <>
             <video className={classes.productWrapper} controls>

@@ -159,7 +159,7 @@ function filterRadio(filterPropi){
     setStatus(1);
   }
   else if(filterPropi=="all"){
-    setStatus(3);
+    setStatus(4);
   }
   // else if(filterPropi=="new"){
   //   setNFTListData(NFTListData.filter(item => item.createdAt > Date.now()-10000));

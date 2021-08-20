@@ -445,12 +445,12 @@ const Create = () => {
                   wrapperClass={classes.formWrapper}
                   label="Royalty (%)"
                   type="number"
-                  error={formSubmit && royaltyFee < 0}
+                  error={formSubmit && royaltyFee <= 0}
                   onChangeData={val => {
                     setNFTRoyalty(parseFloat(val));
                   }}
                 />
-                <ErrorAlert title="'Royalties' must be a valid number" show={formSubmit && royaltyFee < 0} /> 
+                <ErrorAlert title="'Royalties' must be a valid number" show={formSubmit && royaltyFee <= 0} /> 
               </Box>
 
               <Box marginTop={5} className={classes.buttonGroup}>

@@ -10,22 +10,19 @@ interface MakeStylesPropsType {
 const useStyles = makeStyles<Theme, MakeStylesPropsType>(theme => ({
   root: {
     fontSize: props => (props.size === 'small' ? theme.spacing(1.5) : theme.spacing(2)),
-    borderWidth: 2,
-    borderStyle: 'solid',
-    padding: props => (props.size === 'small' ? theme.spacing(0.5) : '4px 7px'),
-    borderRadius: 3,
+    padding: props => (props.size === 'small' ? theme.spacing(0.5) : '2px 3px'),
+    borderRadius: 5,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: 'bold',
-    minWidth: theme.spacing(8.5),
+    minWidth: theme.spacing(3.5),
   },
   unit: {
     marginLeft: theme.spacing(0.5),
   },
   price: {
-    borderColor: theme.palette.success.main,
-    color: theme.palette.success.main,
+    color: theme.palette.text.primary,
   },
   count: {
     borderColor: theme.palette.surface[4],
@@ -41,7 +38,7 @@ const PriceTag = ({ price, unit, type, disableUnit, size }) => {
   const classes = useStyles({ size });
 
   return (
-    <div
+    <span
       className={clsx(classes.root, {
         [classes.price]: type === 'price',
         [classes.count]: type === 'count',
@@ -50,13 +47,13 @@ const PriceTag = ({ price, unit, type, disableUnit, size }) => {
     >
       {price}
       {!disableUnit && <span className={classes.unit}>{unit}</span>}
-    </div>
+    </span>
   );
 };
 
 PriceTag.propTypes = {
   price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  unit: PropTypes.string,
+  unit: PropTypes.element,
   type: PropTypes.oneOf(['price', 'count', 'amount']),
   disableUnit: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'medium']),

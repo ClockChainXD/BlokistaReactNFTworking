@@ -8,8 +8,9 @@ import ProductCard from './Cards/ProductCard';
 import Carousel from './Carousel/index';
 
 const useStyles = makeStyles(theme => ({
-  content: {},
-  root: {},
+  content: {  },
+  root: {   
+  },
   top: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -23,17 +24,20 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(12),
   },
   productWrapper: {
+    minWidth: 258,
+    maxWidth: 285,
     display: 'flex',
-    paddingTop: 10,
+    paddingTop: '5px',
+    margin: '4px 10px',
     flexDirection : 'column',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: theme.shape.cardBorderRadius,
-    maxWidth: 305,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
-    boxShadow: '0 20px 10px 4px #000',
+    boxShadow: '0 2px 6px 0px #000',
   },
 }));
+
 
 const ProductSection = ({ resources, title, viewAllHandler, type }) => {
   const classes = useStyles();

@@ -12,10 +12,10 @@ const useButtonStyles = makeStyles(theme => ({
     fill: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
   },
   button: {
+    zIndex: 9999,
     position: 'absolute',
     left: 37,
     bottom: 10,
-    zIndex: 2,
     display: 'block',
     width: 48,
     height: 48,
