@@ -36,6 +36,7 @@ const Explore = () => {
 const [status,setStatus]=useState(4);
   const[rangeMax,setRangeMax]=useState(100000);
 const [searchT,setSearchT]=useState("");
+const[filter,setFilter]=useState();
 const dispatch=useDispatch();
   const breakpointColumnsObj = {
     default: 4,
@@ -150,24 +151,23 @@ function sidebarGalleryFilter(filterPropa){
 
   
 }
-function filterRadio(filterPropi){
+   function filterRadio(filterPropi){
   setLoading(true);
+  setFilter(filterPropi);
+
   if(filterPropi=="buy_now"){
-    setStatus(2);
+     setStatus(2);
 
   }
   else if(filterPropi=="auction"){
-    setStatus(4);
-    let newNFTList=NFTListData?.filter(product => {
-      if(product?.minBidPrice){
-        return product;
-      }
+     setStatus(4);
+     
 
-    })
-    setNFTListData(newNFTList);
   }
   else if(filterPropi=="all"){
     setStatus(4);
+
+
   }
   // else if(filterPropi=="new"){
   //   setNFTListData(NFTListData.filter(item => item.createdAt > Date.now()-10000));
@@ -247,13 +247,32 @@ filterRadio(e.target.value)
           <Box display="flex" flexWrap="wrap">
             {NFTListData.length>0 && NFTListData?.filter((product) => {
 
+
+
+              
+
+
               if(searchTerm ==""){
                 console.log("Burda");
-                return product;
+                if(filter=="auction"){
+                  if(product?.status==1 || product?.status==3  ){
+                  return product;
+                              }
+                            }
+
+                            else
+                            return product;
+                
               }
               else if(searchTerm){
                 if(product?.category?.toLowerCase().includes(searchTerm.toLowerCase()) || product?.name?.toLowerCase().includes(searchTerm.toLowerCase()) || product?.subcategory?.toLowerCase().includes(searchTerm.toLowerCase())){
                   console.log("Dimi"+searchTerm);
+                  if(filter=="auction"){
+                    if(product?.status==1 || product?.status==3  ){
+                    return product;
+                                }
+                              }
+                    else
                   return product;
 
                 } 
