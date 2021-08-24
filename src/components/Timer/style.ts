@@ -1,23 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
+
 const useStyles = makeStyles(theme => ({
   root: {
-    '& span': {
-      display: 'flex',
-      gap: 5,
-    },
-    padding: 6,
-    gap: 5,
-    marginTop: 10,
-    marginBottom: 8,
-    paddingRight: 20,
+    display:'flex',
     zIndex: 1,
-    top: 130,
-    right: 10,
-    fontWeight: 700,
-    display: 'flex',
-    border: `2px solid ${theme.palette.surface[4]}`,
-    borderRadius: theme.shape.cardBorderRadius,
-    background: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
+    color:'#fff',
+    fontSize: '13px',
+    backgroundColor: '#663dff',
+    backgroundImage: 'linear-gradient(319deg, #663dff 0%, #aa00ff 37%, #cc4499 100%)',
+    borderRadius: '10px',
+    padding: '10px 20px 0',
+    '& p':{
+      marginRight:'5px',
+    },
+    '& span':{
+      width:'100%',
+      display:'flex',
+    }
   },
 }));
 

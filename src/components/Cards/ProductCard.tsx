@@ -3,7 +3,6 @@ import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -26,7 +25,7 @@ import Timer from '../../components/Timer';
 import { NFTObjectData, NFTUserFullDetail } from '../../hooks/useApi';
 import { useProfileForWallet } from '../../store/hooks';
 import  AudioPlayerButton  from '../AudioPlayer/AudioPlayerButton';
-
+import { useStyles } from './style';
 interface PropsType {
   className?: string;
   product?: NFTObjectData;
@@ -34,173 +33,41 @@ interface PropsType {
   user?: NFTUserFullDetail;
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    borderRadius: theme.shape.cardBorderRadius,
-    background: 'transparent',
-    maxWidth: 258,
-    minWidth: 258,
-    margin: '0 20px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent : 'center'
-  },
-  media: {
-    width: '100%',
-    maxWidth: 258,
-    height: 304,
-    display: 'flex',
-    alignItems: 'center',
-    textAlign: 'center',
-    background: theme.palette.surface[2],
-    borderRadius: theme.shape.cardBorderRadius,
-    backgroundSize: 'cover !important',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '100%',
-    },
-  },
-  content: {
-    padding: '10px 0 12px',
-    height: 130,
-  },
-  avatarGroup: {
-    marginLeft: theme.spacing(1.1),
-  },
-  avatar: {
-    width:35,
-    height: 35,
-  },
-  title: {
-    fontWeight: 500,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    width: '100%',
-  },
-  noPreview: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  icon: {
-    marginRight: theme.spacing(1),
-  },
-  price: {
-    color: theme.palette.text.primary,
-    marginLeft: theme.spacing(0.25),
-    letterSpacing: 0,
-  },
-  minBidPrice: {
-    color: theme.palette.warning.main,
-  },
-  count: {
-    letterSpacing: 1.1,
-  },
-  footer: {
-    padding: '11px 2px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  fire: {
-    marginLeft: theme.spacing(0.25),
-  },
-  favoriteBtn: {
-    background: theme.palette.surface[0],
-    padding: 7,
-    boxShadow: '0 4px 8px 6px #3333',
-    '&:hover': {
-      background: `${theme.palette.surface[0]}90`,
-    },
-  },
-  bidButton: {
-    padding: '5px 14px',
-  },
-  purchaseBtn: {
-    height: 26,
-    // paddingTop: 10,
-    borderRadius: 3,
-    width: 103,
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    fontSize: 10,
-  },
-  visibilityNone: {
-    visibility: 'hidden',
-  },
-  productWrapper: {
-    minWidth: 258,
-    margin: '0 10px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent : 'center',
-    '& .overlay': {
-      position: 'absolute',
-      top: 5,
-      left: 30,
-      width: '20%',
-      height: '20%',
-      opacity: 0,
-      transition: '.5s ease',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderRadius: theme.shape.cardBorderRadius,
-      padding: theme.spacing(1, 0, 3),
-    },
-    '&:hover': {
-      cursor: 'pointer',
-      '& .overlay': {
-        opacity: 1,
-      },
-    },
-  },
-}));
-
 const ProductCard = ({ className, product, showFooter = false, user }: PropsType) => {
   const classes = useStyles();
   const history = useHistory();
-
   const owner = useProfileForWallet(product?.ownerAddress);
   const creator = useProfileForWallet(product?.initialCreatorAddress);
-
+  
   function Footer() {
-    return (
-      <>
-        <Box display="flex" alignItems="center">
-          <img className={clsx(classes.icon, 'icon-img')} src="/assets/images/bid-icon.png" alt="bid-icon" />
-          <Tiny>
-            Highest bid
-            <TinyBold className={classes.price}>
-              {`${0.0} ETH`}
-            </TinyBold>
-          </Tiny>
-        </Box>
-        <Box display="flex" alignItems="center">
-          <Tiny >New bid</Tiny>
-          <img className={clsx(classes.fire, 'icon-img')} src="/assets/images/fire.png" alt="new" />
-        </Box>
-      </>
-    );
+   return (
+     <>
+       <Box display="flex" alignItems="center">
+         <img className={clsx(classes.bidIcon, 'icon-img')} src="/assets/images/bid-icon.png" alt="bid-icon" />
+         <Tiny>
+           Highest bid
+           <TinyBold className={classes.price}>
+             {`${0.0} ETH`}
+           </TinyBold>
+         </Tiny>
+       </Box>
+       <Box display="flex" alignItems="center">
+         <Tiny >New bid</Tiny>
+         <img className={clsx(classes.fire, 'icon-img')} src="/assets/images/fire.png" alt="new" />
+       </Box>
+     </>
+   );
   }
   function Overlay() {
     return (
-      <div className="overlay">
-        <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">{ product?.status!=0 &&
-          <FilledButton className={classes.purchaseBtn} size="small" color="success" label="Purchasing !" />
-        }
+      <div className={classes.buttonOverlay}>
+        <Box display="flex" justifyContent="space-around" alignItems="center" width="100%" position="relative"  top="15px">
+          { product?.status!=0 && <FilledButton className={classes.purchaseBtn} size="small" color="success" label="Purchasing !" />}
           <IconButton className={classes.favoriteBtn} color="default" size="small">
             <FavoriteIcon color="error" fontSize="small" />
           </IconButton>
         </Box>
-        {/* <FilledButton
-          label="Place a bid"
-          className={classes.bidButton}
-          icon={<img src="/assets/images/bid-btn-icon.png" alt="bid-icon" />}
-          handleClick={() => history.push(`/product/${product?.baseID}`)}
-        /> */}
+      
       </div>
     );
   }
@@ -225,7 +92,7 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
         )}
         {product?.assetType == 'Video' && (
           <>
-            <video className={classes.media} controls autoPlay loop>
+            <video className={classes.media} controls >
               <source src={product?.assetUrl} type="video/mp4" />
             </video>
           </>
@@ -238,56 +105,77 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
       </>
     );
   }
-  return (
-    <Card
-      className={clsx(classes.root, className)}
-      elevation={0}
-      onClick={() => history.push(`/product/${product?.baseID}`)}
-    >
-      <div className={classes.productWrapper}>
-        <CardsMedia />
-        {product?.assetUrl && <Overlay />}
-      </div>
-      {product?.startTime && product?.endTime && product?.assetUrl && (
-        <Timer
-          startTime={parseInt(product?.startTime) * 1000}
-          textForStart="Start in"
-          textForEnd="Left"
-          endTime={parseInt(product?.endTime) * 1000}
-        />
-      )}
-      <CardContent className={classes.content}>
-        <Body1
-          className={clsx(
-            classes.minBidPrice,
-            (product?.status == 1 || product?.status == 3) && product?.minBidPrice ? '' : classes.visibilityNone,
-          )}
-        >
-          Min Bid Price : {product?.minBidPrice} BNB
-        </Body1>
 
-        <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Body1 className={classes.title}>{product?.assetUrl && product?.name}</Body1>
-          {product?.status == 2 && product?.price && product?.assetUrl && <PriceTag price={product?.price} />}
-        </Box>
-        <Box display="flex" alignItems="center" justifyContent="space-between" marginTop="12px">
-          <AvatarGroup max={5} className={classes.avatarGroup}>
-            {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
-            {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
-          </AvatarGroup>
-          {/* {product?.count && <Body2 className={classes.count}>{`${product?.count || 0} in stock`}</Body2>} */}
-        </Box>
-      </CardContent>
-      {showFooter && (
-        <>
-          <Divider />
-          <CardActions className={classes.footer}>
-            <Footer />
-          </CardActions>
-        </>
-      )}
+  return (
+    <Card className={classes.card} elevation={0} onClick={() => history.push(`/product/${product?.baseID}`)} >
+      <CardsMedia />
+      {product?.assetUrl && <Overlay />}
+      <div className={classes.header}>
+          <div className={classes.container}>
+            <div className={classes.itemHeader}>
+              <p className={classes.title}>
+                {product?.assetUrl &&  product?.name.slice(0, 9)} 
+              </p>
+              <p className={classes.tagline}>
+                {product?.category}
+              </p>
+            </div>
+            <AvatarGroup max={5} className={classes.avatarGroup}>
+              {owner && <Avatar src={owner?.profile?.userAvatarUrl} className={classes.avatar} />}
+              {creator && <Avatar src={creator?.profile?.userAvatarUrl} className={classes.avatar} />}
+            </AvatarGroup>
+          </div>
+          <div className={classes.container}>
+            <h4 className={classes.price}>
+              {product?.status == 2 && product?.price && product?.assetUrl && <PriceTag size="small" unit={<img className={classes.icon} src="/assets/images/binance.svg" />} price={product?.price} />}
+            </h4>
+            <span className={clsx(classes.tagline, (product?.status == 1 || product?.status == 3) && product?.minBidPrice ? '' : classes.visibilityNone)}> 
+                <span className={classes.minBidPrice}>
+                   Min Bid Price : {product?.minBidPrice}  BNB
+                </span>
+            </span>
+            <p className={classes.timer}> 
+              {product?.startTime && product?.endTime && product?.assetUrl && (
+                <Timer
+                  startTime={parseInt(product?.startTime) * 1000}
+                  textForEnd='End '
+                  textForStart= 'Start  '
+                  endTime={parseInt(product?.endTime) * 1000}
+                />
+              )}
+            </p>
+          </div>
+        </div>
     </Card>
   );
 };
 
 export default ProductCard;
+
+
+{/* PLACE A BID */}
+{/*
+ {product?.count && <Body2 className={classes.count}>{`${product?.count || 0} in stock`}</Body2>}
+ 
+    <span>
+      <FilledButton
+        label="Place a bid"
+        className={classes.bidButton}
+        icon={<img src="/assets/images/bid-btn-icon.png" alt="bid-icon" />}
+        handleClick={() => history.push(`/product/${product?.baseID}`)}
+      /> 
+    </span>
+*/}
+{/* 
+<p className={classes.status}> 
+  {product?.startTime && product?.endTime && product?.assetUrl && (
+    <Timer
+      startTime={parseInt(product?.startTime) * 1000}
+      textForEnd='End '
+      textForStart= 'Start  '
+      endTime={parseInt(product?.endTime) * 1000}
+    />
+  )}
+</p>
+*/}
+

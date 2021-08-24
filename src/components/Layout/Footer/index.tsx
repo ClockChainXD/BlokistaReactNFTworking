@@ -9,6 +9,7 @@ import Body1 from '../../Typography/Body1';
 import TinyBold from '../../Typography/TinyBold';
 import Tiny from '../../Typography/Tiny';
 import ExpandableColumn from './ExpandableColumn';
+import { HTML5_FMT } from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,19 +32,26 @@ const useStyles = makeStyles((theme) => ({
       height: 'auto',
     },
   },
+  title : {
+    textAlign: 'start',
+    color: '#387ad1',
+    display: 'block',
+    width: 200,
+    paddingTop: theme.spacing(2)
+  },
   top: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingBottom: theme.spacing(5),
+    paddingBottom: theme.spacing(2),
   },
   center: {
-    padding: theme.spacing(5, 0),
+    padding: theme.spacing(2, 0),
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   bottom: {
-    padding: theme.spacing(3, 0),
+    padding: theme.spacing(6, 0),
     letterSpacing: 0.4,
   },
   list: {
@@ -100,9 +108,14 @@ const Footer = () => {
           <Grid item md={3} sm={3} xs={12} className={classes.column1}>
             <div className={classes.logoWrapper}>
               <img src={`/assets/images/logo-${theme.palette.type}.png`} alt="logo" />
-              <Body1>
-              Transform the World 
-              </Body1>
+              <h5 className={classes.title}>
+                Transform the World 
+              </h5>
+              <div className={classes.bottom}>
+                <Tiny>
+                  © blokista. 2021
+                </Tiny>
+              </div>
             </div>
            
           </Grid>
@@ -118,9 +131,6 @@ const Footer = () => {
                   </Link>
                   <Link to="/explore">
                     <TinyBold className={classes.link}>Explore</TinyBold>
-                  </Link>
-                  <Link to="/stats">
-                    <TinyBold className={classes.link}>Stats</TinyBold>
                   </Link>
                   <Link to="/home">
                     <TinyBold className={classes.link}>Contact</TinyBold>
@@ -143,7 +153,7 @@ const Footer = () => {
                     <TinyBold className={classes.link}>Instagram</TinyBold>
                   </a>
                   <a target="_blank"  rel="noopener noreferrer" href="https://www.linkedin.com/company/blokista">
-                    <TinyBold className={classes.link}>Linkedn</TinyBold>
+                    <TinyBold className={classes.link}>Linkedin</TinyBold>
                   </a>
                 
                 </ExpandableColumn>
@@ -152,11 +162,6 @@ const Footer = () => {
           </Grid>
         </Grid>
         <Divider />
-        <div className={classes.bottom}>
-          <Tiny>
-            © blokista. 2021
-          </Tiny>
-        </div>
       </Container>
     </footer>
   );

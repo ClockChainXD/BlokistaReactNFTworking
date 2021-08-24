@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'flex-start',
       border: '50px solid rgba(#000, #000, #000, 1)'
     },
-    select: {
+    input: {
         width: '90%',
         margin: '0 0 3vw 0',
         borderRadius: '20%',
@@ -112,7 +112,7 @@ function Sidebar({ select2ChangeHandler ,select3ChangeHandler, OnApplyFilter } )
                                     Categories
                             </CDBSidebarHeader>
                                     <SelectField 
-                                        className={classes.select}
+                                        className={classes.input}
                                         options={categoryOptions}
                                         value={categoryOptions[0].label}
                                         onChangeHandler={select3ChangeHandler}
@@ -125,8 +125,8 @@ function Sidebar({ select2ChangeHandler ,select3ChangeHandler, OnApplyFilter } )
                                     Sub Categories 
                                 </CDBSidebarHeader>
                                 <InputField 
-                                    className={classes.select}
-                                    placeholder={"Enter a SubCategories !!!"}    
+                                    className={classes.input}
+                                    placeholder={"SubCategories"}    
                                 />
                             </CDBSidebarMenuItem>  
                     </CDBSidebarMenu>

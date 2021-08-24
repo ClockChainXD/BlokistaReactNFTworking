@@ -5,18 +5,18 @@ const useButtonStyles = makeStyles(theme => ({
     cursor: 'pointer',
     '& svg': {
       position: 'absolute',
-      bottom: -6,
+      display: 'none',
     },
   },
   btnHolderFill: {
     fill: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
   },
   button: {
+    zIndex: 9999,
     position: 'absolute',
-    left: 37,
-    bottom: 10,
-    zIndex: 2,
     display: 'block',
+    top: 20,
+    left: 10,
     width: 48,
     height: 48,
     borderRadius: 48,

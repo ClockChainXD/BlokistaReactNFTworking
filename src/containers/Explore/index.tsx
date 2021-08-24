@@ -20,7 +20,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearch} from '../../store/hooks';
 import { loadSearchAction } from '../../store/actions/search';
 import { ReducerState } from '../../store/actionTypes';
-const LIST_SIZE = 8;
+
+
 const Explore = () => {
   const classes = useStyles();
   const [NFTListData, setNFTListData] = useState<NFTObjectData[]>([]);
@@ -256,10 +257,8 @@ filterRadio(e.target.value)
                   return product;
 
                 } 
-                
-                  console.log("O da değil");
+                console.log("O da değil");
                   
-                
               }
 
             }).map((product, index) => (

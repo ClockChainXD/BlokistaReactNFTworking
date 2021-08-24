@@ -17,7 +17,7 @@ function renderDuration(difference, duration) {
 export default function Timer({
   startTime = null,
   endTime,
-  showDurations = ['days', 'hours', 'minutes', 'seconds'],
+  showDurations = ['days', 'hours'],
   textForStart = '',
   textForEnd = '',
 }) {
@@ -44,16 +44,17 @@ export default function Timer({
     text = textForStart;
     return (
       <div className={classes.root}>
-        {text} <TimeDiff difference={difference} />
+        <p>{text}</p> <TimeDiff difference={difference} />
       </div>
     );
   } else if (endTime && moment(endTime).isSameOrAfter(currentTime)) {
     difference = timeDiff(currentTime, endTime);
     text = textForEnd;
+
     if (difference && endTime) {
       return (
         <div className={classes.root}>
-          <TimeDiff difference={difference} /> {text}
+         <p> {text} </p> <TimeDiff difference={difference} />  
         </div>
       );
     } else {
