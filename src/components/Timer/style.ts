@@ -5,10 +5,11 @@ const useStyles = makeStyles(theme => ({
     display:'flex',
     zIndex: 1,
     color:'#fff',
+    fontSize: '13px',
     backgroundColor: '#663dff',
     backgroundImage: 'linear-gradient(319deg, #663dff 0%, #aa00ff 37%, #cc4499 100%)',
     borderRadius: '10px',
-    padding: '10px 10px 0 ',
+    padding: '10px 20px 0',
     '& p':{
       marginRight:'5px',
     },
