@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
   },
   productWrapper: {
     padding: theme.spacing(1, 1, 1),
-    border: '1px solid #fff',
     borderRadius: theme.shape.cardBorderRadius,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
     margin : '5px 10px',

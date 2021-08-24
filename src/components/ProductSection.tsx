@@ -24,17 +24,14 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(12),
   },
   productWrapper: {
-    minWidth: 258,
-    maxWidth: 285,
     display: 'flex',
-    paddingTop: '5px',
-    margin: '4px 10px',
-    flexDirection : 'column',
-    alignItems: 'center',
+    maxWidth: 285,
+    padding: '8px 0',
     justifyContent: 'center',
     borderRadius: theme.shape.cardBorderRadius,
     backgroundColor: theme.palette.type === 'light' ? theme.palette.surface[0] : theme.palette.surface[1],
-    boxShadow: '0 2px 6px 0px #000',
+    margin : '5px 10px',
+    boxShadow: '15px 20px 20px 0px rgba(0,0,0, 0.4)',
   },
 }));
 
