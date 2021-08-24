@@ -28,7 +28,7 @@ export async function multipleMint(chainId: any, provider: ethers.Signer | ether
     return false;
   }
 }
-export async function buy(chainId: any, provider, _tokenID, _price) {
+export async function buy(chainId: any, provider, _tokenID, _price:string) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
   try {
 
@@ -55,6 +55,7 @@ export async function sell(chainId: any, provider, _tokenID, _price) {
     return tx.hash;
   } catch (e) {
     console.log(e);
+    toast.error(e);
     return false;
   }
 }
@@ -64,7 +65,7 @@ export async function bid(chainId: any, library: { getBalance: (arg0: any) => an
   try {
 
 
-    const load_bid_toast_id = toast.loading(`Plesae wait until send bid offer...`);
+    const load_bid_toast_id = toast.loading(`Please wait until send bid offer...`);
     const placeBidToNFT = await nftContract.makeOffer(_tokenID, ethers.utils.parseEther(_price), { value: ethers.utils.parseEther(_price),});
     await placeBidToNFT.wait(1);
     toast.dismiss(load_bid_toast_id);
@@ -73,6 +74,7 @@ export async function bid(chainId: any, library: { getBalance: (arg0: any) => an
   } catch (e) {
     toast.dismiss();
     console.log(e);
+    toast.error(e.data.message);
     return false;
   }
 }
@@ -146,6 +148,7 @@ export async function startAuction(chainId, provider, _tokenID, _startPrice,_min
 export async function startDeadlineAuction(chainId, provider, _tokenID, _startPrice, _minBidPrice, _endTime,_instantPrice) {
   const nftContract = getContractObj('BlokistaAuction', chainId, provider);
   const endUnixTimeStamp = Math.round(_endTime.getTime() / 1000);
+  console.log("And In contracts this happens: "+ endUnixTimeStamp);
   try {
     const tx = await nftContract.createDeadlineAuction(_tokenID, ethers.utils.parseEther(_startPrice) , parseFloat(_minBidPrice), endUnixTimeStamp,ethers.utils.parseEther(_instantPrice));
     await tx.wait(1);
@@ -172,6 +175,7 @@ export async function claimAuction(chainId, provider, _tokenID) {
 
 export async function getFeePercent(chainId, provider) {
   const nftContract = getContractObj('BlokistaVault', chainId, provider);
+  if(nftContract){
   try {
     const feePercent = await nftContract.getFeePercent();
     return parseFloat(feePercent.toString());
@@ -179,6 +183,8 @@ export async function getFeePercent(chainId, provider) {
     console.log(e);
     return 0;
   }
+}
+return 0;
 }
 
 /*export async function getBalanceOfWBNB(chainId, provider, account) {

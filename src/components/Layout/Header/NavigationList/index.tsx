@@ -100,7 +100,7 @@ function handleSearch(){
             <SearchSharp />
           </div>
           <InputBase
-            placeholder="Search items, Galleries and accounts"
+            placeholder="Search NFT's by Name,Owner,Description,Category etc..."
             className={classes.input}
             inputProps={{ 'aria-label': 'search' }}
             onChange={ val => {setSearchy(val.target.value);

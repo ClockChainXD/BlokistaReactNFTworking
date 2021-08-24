@@ -32,7 +32,7 @@ const Explore = () => {
   const[subcategory,setSubCategory]=useState("");
   const[count,setCount]=useState(8);
   const[rangeMin,setRangeMin]=useState(0);
-const [status,setStatus]=useState(3);
+const [status,setStatus]=useState(4);
   const[rangeMax,setRangeMax]=useState(100000);
 const [searchT,setSearchT]=useState("");
 const dispatch=useDispatch();
@@ -156,10 +156,17 @@ function filterRadio(filterPropi){
 
   }
   else if(filterPropi=="auction"){
-    setStatus(1);
+    setStatus(4);
+    let newNFTList=NFTListData?.filter(product => {
+      if(product?.minBidPrice){
+        return product;
+      }
+
+    })
+    setNFTListData(newNFTList);
   }
   else if(filterPropi=="all"){
-    setStatus(3);
+    setStatus(4);
   }
   // else if(filterPropi=="new"){
   //   setNFTListData(NFTListData.filter(item => item.createdAt > Date.now()-10000));

@@ -30,10 +30,12 @@ import {
   startDeadlineAuction,
   updatePrice,
   sell,
+  cancelAuction,
 } from '../../utils/contracts';
 import toast from 'react-hot-toast';
 import { baseApiUrl } from '../../utils';
 import moment from 'moment';
+import TopArtistsSection from '../TopArtists';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,7 +54,8 @@ const useStyles = makeStyles(theme => ({
     width: '45%',
     marginTop: theme.spacing(5),
     height:'20%',
-    background: 'linear-gradient(rgba(236,45,162,1),transparent)'
+    background: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 68%)',
+
   },
   productWrapper: {
     width: '100%',
@@ -135,6 +138,7 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
 
     getFeePercent(chainId, library).then(fee => {
       setNFTFee(fee);
+      console.log(fee);
     });
 
  /*   getBalanceOfWBNB(chainId, library, account).then(amountWBNB => {
@@ -145,6 +149,49 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
       setBalanceBNB(amountBNB);
     });
   }, [connector, library, account, active, chainId]);
+/////////////////// Cancel Auction //////////////////////////////
+
+
+const cancelNFTAuction= async () => {
+  if (!loginStatus || !ownsProduct) {
+    toast.error('Please connect correctly!');
+    return;
+  }
+
+  setLoading(true);
+  const load_toast_id = toast.loading('Please wait...');
+  try {
+    const txhash = await cancelAuction(chainId, library.getSigner(), nftDetails?.nft?.tokenID);
+
+    if (txhash !== false) {
+      await fetch(`${baseApiUrl}/syncBlock`);
+      toast.dismiss(load_toast_id);
+      toast.success('Auction Cancelled successfully!');
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    } else {
+      toast.dismiss(load_toast_id);
+      toast.error('Auction Cancel Failed!');
+    }
+  } catch (error) {
+    toast.dismiss(load_toast_id);
+    toast.error('Auction Cancel Failed!');
+  }
+  setLoading(false);
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
   /////////////////////////// NFT Enable & Disable ////////////////////////////
   /*const updateNFTListingStatus = async () => {
@@ -238,7 +285,7 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
     setLoading(true);
     const load_toast_id = toast.loading('Please wait...');
     try {
-      const txhash = await buy(chainId, library.getSigner(), nftDetails?.nft?.tokenID, nftDetails?.nft?.price);
+      const txhash = await buy(chainId, library.getSigner(), nftDetails?.nft?.tokenID, nftDetails?.nft?.price.toString());
       if (txhash !== false) {
         await fetch(`${baseApiUrl}/syncBlock`);
         toast.success('Purchased current NFT!');
@@ -291,7 +338,7 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
     setLoading(true);
     const load_toast_id = toast.loading('Please wait...');
     try {
-      const txhash = await bid(chainId, library, library.getSigner(), account, nftDetails?.nft?.tokenID, bidPrice);
+      const txhash = await bid(chainId, library, library.getSigner(), account, nftDetails?.nft?.tokenID, bidPrice.toString());
       if (txhash !== false) {
         await fetch(`${baseApiUrl}/syncBlock`);
         toast.success('Bid Offered Successfully!');
@@ -364,17 +411,17 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
 */
     setLoading(true);
     const load_toast_id = toast.loading('Please wait...');
-    
+    console.log("Now End Time comes here as: "+ endTime);
     try {
-      if(endTime!=0){
+      if(endTime){
         const txhash = await startDeadlineAuction(
           chainId,
           library.getSigner(),
           nftDetails?.nft?.tokenID,
-          minBidPrice,
-          minIncPercent,
+          minBidPrice.toString(),
+          minIncPercent.toString(),
           endTime,
-          instBuyPrice
+          instBuyPrice.toString()
         );
         if (txhash !== false) {
           await fetch(`${baseApiUrl}/syncBlock`);
@@ -394,9 +441,9 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
         chainId,
         library.getSigner(),
         nftDetails?.nft?.tokenID,
-        minBidPrice,
-        minIncPercent,
-        instBuyPrice
+        minBidPrice.toString(),
+        minIncPercent.toString(),
+        instBuyPrice.toString()
       );
 
       if (txhash !== false) {
@@ -459,7 +506,7 @@ const sellthis = async (nftPrice) => {
   setLoading(true);
   const load_toast_id = toast.loading('Please wait...');
   try {
-    const txhash = await sell(chainId, library.getSigner(), nftDetails?.nft?.tokenID,nftPrice);
+    const txhash = await sell(chainId, library.getSigner(), nftDetails?.nft?.tokenID,nftPrice.toString());
 
     if (txhash !== false) {
       await fetch(`${baseApiUrl}/syncBlock`);
@@ -470,7 +517,7 @@ const sellthis = async (nftPrice) => {
       }, 3000);
     } else {
       toast.dismiss(load_toast_id);
-      toast.error('Bid Cancel Failed!');
+      toast.error('Bid Cancel Failed! :' );
     }
   } catch (error) {
     toast.dismiss(load_toast_id);
@@ -509,13 +556,14 @@ const sellthis = async (nftPrice) => {
     setShowAuction(false);
     setShowPrice(false);
     setShowSale(false);
+    setShowAuctionWithDeadline(false);
   }
 
   return (
     <Pane className={classes.root}>
-      {nftDetails?.nft?.status == 1 && nftDetails?.nft?.listed==true && (
+      {nftDetails?.nft?.status == 2 && nftDetails?.nft?.listed==true && (
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Body1>Fixed Price To Buy:</Body1>
+          <Body1>Fixed Price To Buy :</Body1>
           <h3>{`${price} BNB`}</h3>
         </Box>
       )}
@@ -537,16 +585,17 @@ const sellthis = async (nftPrice) => {
         </Box>
       )}
 
-      {ownsProduct && (
+      { loginStatus && ownsProduct  && (
         <Grid container justify="space-between">
-          {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) && nftDetails?.nft.listed && (
+          {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) && !nftDetails?.bids?.length && nftDetails?.nft.listed && (
             <FilledButton
               className={classes.button}
               label={'Cancel Auction'}
-              handleClick={cancelNFTBid}
+              handleClick={cancelNFTAuction}
             />
           )} 
-          {nftDetails?.nft?.listed == true && nftDetails?.nft?.nftType == '0' && (
+          
+          {nftDetails?.nft?.listed == true && nftDetails?.nft?.status == 2 && (
             <OutlinedButton className={classes.button} label="Update Price" handleClick={showUpdatePriceModal} />
           )}
           {nftDetails?.nft?.listed == false && (
@@ -559,25 +608,25 @@ const sellthis = async (nftPrice) => {
             <FilledButton className={classes.button} icon={<img  src="/assets/images/time.svg" alt="time-icon" />} label="Start an Unlimited Time Auction" handleClick={showActionDeadModal} />
           )}
           {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) &&
-            nftDetails?.nft?.listed == true &&  nftDetails?.bids!==undefined &&
-            moment(nftDetails?.nft?.endTime * 1000).isBefore(new Date().getTime()) && (
+            nftDetails?.nft?.listed == true &&  nftDetails?.bids?.length>0 &&
+            (
               <FilledButton className={classes.button}  label="Claim Auction" handleClick={submitClaimAuction} />
             )}
         </Grid>
       )}
 
-      {!ownsProduct && nftDetails?.nft?.listed == true && (
+      {!ownsProduct && nftDetails?.nft?.listed == true && loginStatus &&(
         <Grid container justify="space-between">
           {nftDetails?.nft?.status == 2 && (
             <FilledButton className={classes.button} label="Buy Now" handleClick={buyNowNFT} />
           )}
-          {nftDetails?.nft?.nftType != '0' && (
+          {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) && (
             <FilledButton className={classes.button} label=" INSTANT BUY RIGHT NOW " handleClick={buyNowNFT} />
           )}
-          {nftDetails?.nft?.nftType != '0' && !isAlreadyBid() && (
-            <FilledButton className={classes.button} label="Place Bid" handleClick={placeBidModal} />
+          {(nftDetails?.nft?.status == 1 || (nftDetails?.nft?.status == 3 &&  moment(nftDetails?.nft?.endTime * 1000).isAfter(new Date().getTime()))) && !isAlreadyBid() && (
+            <FilledButton className={classes.button} label="Place Bid" handleClick={ placeBidModal} />
           )}
-          {nftDetails?.nft?.nftType != '0' && isAlreadyBid() && (
+          {(nftDetails?.nft?.status == 1 || (nftDetails?.nft?.status == 3 && moment(nftDetails?.nft?.endTime * 1000).isAfter(new Date().getTime()))) && isAlreadyBid() && (
             <OutlinedButton className={classes.button} label="Cancel Bid" handleClick={cancelNFTBid} />
           )}
         </Grid>
@@ -589,6 +638,9 @@ const sellthis = async (nftPrice) => {
           balanceBNB={balanceBNB}
        //   balanceWBNB={balanceWBNB}
           nftFee={nftFee}
+        
+          bidders={nftDetails?.bids}
+          minBidInc={nftDetails?.nft?.minBidInc}
         />
       )}
       {showPrice && <UpdatePrice onClose={modalClose} onUpdate={updateNFTPrice} />}

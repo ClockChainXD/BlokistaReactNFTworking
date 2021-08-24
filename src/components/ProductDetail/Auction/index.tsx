@@ -22,7 +22,7 @@ export default function Auction({ onClose, onAuctionStart }) {
 
   const [showTimePick, setShowTimePick]=useState(true);
   const handleSave = () => {
-    if (endTime <= new Date() || endTime <= startTime) {
+    if (endTime <= new Date()) {
       toast.error("Auction End Time should be later than current time and start time");
       return;
     }
@@ -89,6 +89,9 @@ export default function Auction({ onClose, onAuctionStart }) {
                 label="End Date"
                 onChange={selectedEndTime => {
                   setNFTAuctionEndTime(selectedEndTime);
+                  console.log("End Time: " + endTime);
+                  console.log("Start Time: "+ new Date());
+                  console.log(Math.round(endTime.getTime()/1000));
                 }}
               />
             </Grid>

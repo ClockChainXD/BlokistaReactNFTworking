@@ -23,7 +23,6 @@ function App() {
     dispatch(loadThemeAction());
   }, [dispatch]);
 
-  useEagerConnect();
   useFetchProfileList();
   useFetchProfile();
 

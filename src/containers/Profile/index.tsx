@@ -172,7 +172,6 @@ const Profile = () => {
   const [loginStatus, setLoginStatus] = useState(false);
   const { connector, library, chainId, account, active } = useWeb3React();
 
-  const { profile } = useProfile();
   const nftUserFullDetail = useGetNFTUserFullDetail(walletAddress) || {};
 
   const classes = useStyles({ ...nftUserFullDetail });
@@ -188,8 +187,9 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    const isLoggedin = account && active && chainId === parseInt(process.env.REACT_APP_NETWORK_ID, 10);
+    const isLoggedin = account  && chainId === parseInt(process.env.REACT_APP_NETWORK_ID, 10);
     setLoginStatus(isLoggedin);
+    console.log("Wowaa  "+account)
   }, [connector, library, account, active, chainId]);
 
   if (!nftUserFullDetail!.userProfile) {
@@ -221,11 +221,12 @@ const Profile = () => {
               />
             </label> */}
 
-            <FilledButton
+            {  (loginStatus) && (account?.toLowerCase()==nftUserFullDetail.userProfile.walletAddress) &&  <FilledButton
               label="Edit profile"
               icon={<BorderColorOutlinedIcon className={classes.icon} />}
-              handleClick={() => history.push('/profile/edit')}
+              handleClick={() => history.push('/profile/edit') }
             />
+                   }
           </div>
         </Container>
       </div>

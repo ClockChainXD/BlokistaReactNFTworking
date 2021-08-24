@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
     background: theme.palette.surface[1],
-    position: 'relative',
 
     display: 'flex',
     alignItems: 'center',
@@ -74,7 +73,6 @@ const useStyles = makeStyles(theme => ({
   timer: {
     '& div': {
       border: 0,
-      position: 'relative',
       margin: 'auto',
       background: 'transparent',
       display: 'inline-block',
@@ -86,7 +84,7 @@ const ProductImage = ({ src, nftDetails }) => {
   const classes = useStyles();
   const [showAuction, setShowAuction] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
-  const [currentTime] = useState(new Date().getTime());
+  const [currentTime] = useState(Date.now());
 
   console.log('nftDetails', nftDetails);
 
@@ -106,6 +104,7 @@ const ProductImage = ({ src, nftDetails }) => {
     return (
       <>
         {nftDetails?.nft?.assetType == 'Image' && <ImageWrapper className={classes.productWrapper} content={src} />}
+        {nftDetails?.nft?.assetType == 'GIF' && <ImageWrapper className={classes.productWrapper} content={src} />}
         {nftDetails?.nft?.assetType == 'Video' && (
           <>
             <video className={classes.productWrapper} controls>
@@ -125,29 +124,16 @@ const ProductImage = ({ src, nftDetails }) => {
     );
   };
 
-  function updateNFTListingStatus() {}
   return (
     <div>
       <MediaBox />
-      {moment(nftDetails?.nft?.startTime * 1000).isSameOrAfter(currentTime) && (
-        <div className={classes.status}>
-          <UpdateIcon className={classes.icon} />
-          <Body1 className={classes.timer}>
-            Auction starts in{' '}
-            {nftDetails?.nft?.startTime && nftDetails?.nft?.endTime && (
-              <Timer endTime={nftDetails?.nft?.startTime * 1000} />
-            )}
-          </Body1>
-        </div>
-      )}
-      {!moment(nftDetails?.nft?.startTime * 1000).isSameOrAfter(currentTime) &&
-        moment(nftDetails?.nft?.endTime * 1000).isSameOrAfter(currentTime) && (
+       {nftDetails?.nft?.status==3 && moment(nftDetails?.nft?.endTime*1000 ).isSameOrAfter(currentTime) &&(
           <div className={classes.status}>
             <UpdateIcon className={classes.icon} />
             <Body1 className={classes.timer}>
-              Auction ends in{' '}
-              {nftDetails?.nft?.startTime && nftDetails?.nft?.endTime && (
-                <Timer endTime={nftDetails?.nft?.endTime * 1000} />
+              Auction ends in
+              {nftDetails?.nft?.endTime && (
+                <Timer endTime={nftDetails?.nft?.endTime * 1000 } />
               )}
             </Body1>
           </div>

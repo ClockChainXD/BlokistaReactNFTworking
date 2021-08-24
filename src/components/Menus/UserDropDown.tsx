@@ -6,7 +6,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import WallpaperIcon from '@material-ui/icons/Wallpaper';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
+import  useAuth  from '../../hooks/useAuth'
 import UserChip from '../AvatarInfoItems/UserChip';
 import PopoverMenu from '../PopoverMenu';
 import TinyBold from '../Typography/TinyBold';
@@ -80,14 +80,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress, customUrl }) => {
+const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress, customUrl, onLogOut }) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const theme = storageService.getItem(config.themeKey);
-
   const [themeState, setThemeState] = useState(theme === 'dark');
+function handleLogOut(){
 
+  onLogOut()
+}
   useEffect(() => {
     if (themeState) dispatch(changeThemeAction('dark'));
     else dispatch(changeThemeAction('light'));
@@ -137,12 +139,12 @@ const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress, customUr
             />
           </div>
 
-         {/*  
-         <div className={classes.menuItem}>
+         {
+         <div className={classes.menuItem} onClick={ () => {handleLogOut();} }>
             <ExitToAppIcon />
-            <TinyBold className={classes.label}>Disconnect</TinyBold>
+            <TinyBold className={classes.label}>LogOut</TinyBold>
           </div>
-          */} 
+          } 
         </div>
       </div>
     </PopoverMenu>

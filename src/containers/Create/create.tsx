@@ -354,7 +354,7 @@ const Create = () => {
                     }
                   }}
                 />
-                <ErrorAlert title="Please select the Artist!" show={formSubmit && !nftAsset} />
+                <ErrorAlert title="Please upload the NFT!" show={formSubmit && !nftAsset} />
               </Box>
 
               {nftAssetType == 'Audio' && (

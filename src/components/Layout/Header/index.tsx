@@ -13,6 +13,9 @@ import useAuth from '../../../hooks/useAuth';
 import { useProfile } from '../../../store/hooks';
 import { getBalanceOfBNB } from '../../../utils/contracts';
 import { truncateWalletString } from '../../../utils';
+import { LocalDiningOutlined } from '@material-ui/icons';
+import { injectedConnector } from '../../../utils/connectors';
+import { useEagerConnect } from '../../../hooks/useEagerConnect';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,18 +75,19 @@ const Header = () => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { connector, library, chainId, account, active } = useWeb3React();
+  const { connector, library, chainId, account, active , deactivate , activate } = useWeb3React();
 
   const [loginStatus, setLoginStatus] = useState(false);
   let [etherBalance, setEtherBalance] = useState('0.00');
-  let [wbnbBalance, setWBNBBalance] = useState('0.00');
+  // let [wbnbBalance, setWBNBBalance] = useState('0.00');
 
-  const { login } = useAuth();
+  const { login , logout } = useAuth();
   const { profile } = useProfile();
 
   useEffect(() => {
     const isLoggedin = account && active && chainId === parseInt(process.env.REACT_APP_NETWORK_ID, 10);
     if (isLoggedin) {
+      
       getBalanceOfBNB(library, account).then(balance => {
         setEtherBalance(balance.toFixed(4));
       });
@@ -93,8 +97,19 @@ const Header = () => {
       */
     }
     setLoginStatus(isLoggedin);
-  }, [connector, library, account, active, chainId, profile]);
+  }, [connector, library, account, active, chainId]);
 
+  const goLogin= async () =>  {
+ login();
+ setLoginStatus(true);
+
+  }
+  const logOut = async () => {
+    logout();
+    setLoginStatus(false);
+    
+    
+  };
   let displayName = '';
   let userAvatar = '/assets/images/users/default-profile.png';
   let customUrl='';
@@ -111,18 +126,19 @@ const Header = () => {
       <Container className={classes.container}>
         <div className={classes.wrapper}>
           <div className={classes.logoWrapper}>
-            <Link to="/" className={classes.logo}>
+            <Link to="/home" className={classes.logo}>
               <img src={`/assets/images/logo-${theme.palette.type}.png`} alt="Supfam logo" width="100%" height="auto" />
             </Link>
           </div>
           <NavigationList />
           {loginStatus && profile ? (
-            <UserDropDown avatarUrl={userAvatar} displayName={displayName} balance={etherBalance} walletAddress={account} customUrl={customUrl}  />
+            <UserDropDown avatarUrl={userAvatar} displayName={displayName} balance={etherBalance} walletAddress={account} customUrl={customUrl} onLogOut={logOut}  />
           ) : (
             <Button
               className={classes.connectBtn}
               onClick={() => {
-                login();
+               
+                goLogin();
               }}
             >
               🦊 CONNECT WALLET

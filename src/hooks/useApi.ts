@@ -128,7 +128,7 @@ export interface NFTTopArtist {
   createdNFTs?: NFTObjectData[];
 }
 
-export const useGetNFTObjectList = ({ count, category = '', subcategory= '' , sortField = '', sortOrder = '', nftType = '' , rangeMin, rangeMax, status=3 }) => {
+export const useGetNFTObjectList = ({ count, category = '', subcategory= '' , sortField = '', sortOrder = '', nftType = '' , rangeMin, rangeMax, status=4 }) => {
   const [data, setData] = useState<NFTList>();
 
   useEffect(() => {

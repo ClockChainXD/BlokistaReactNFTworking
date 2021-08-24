@@ -30,12 +30,12 @@ export default function Timer({
       </span>
     );
   }
-  const [currentTime, setCurrentTime] = useState(new Date().getTime());
+  const [currentTime, setCurrentTime] = useState(Date.now());
   const classes = useStyles();
   let text = '';
 
   useEffect(() => {
-    setTimeout(() => setCurrentTime(new Date().getTime()), 1000);
+    setTimeout(() => setCurrentTime(Date.now()), 1000);
   });
 
   let difference = null;

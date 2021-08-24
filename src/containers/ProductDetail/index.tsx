@@ -15,7 +15,7 @@ import ProductActionCard from '../../components/Cards/ProductActionCard';
 import ProductImage from '../../components/ProductDetail/ProductImage';
 import TradingHistory from '../../components/ProductDetail/TradingHistory';
 import BidInfo from '../../components/ProductDetail/BidInfo';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useGetNFTObjectDetail } from '../../hooks/useApi';
 import { useProfile } from '../../store/hooks';
 import FilledButton from '../../components/Buttons/FilledButton';
@@ -23,11 +23,19 @@ import { useWeb3React } from '@web3-react/core';
 import toast from 'react-hot-toast';
 import { claimAuction } from '../../utils/contracts';
 import { baseApiUrl } from '../../utils';
+import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: 97,
     paddingBottom: 96,
+    display: 'flex',
+  },
+  avatar: {
+    width:35,
+    height: 35,
+    marginLeft:90,
+    display:'flex',
   },
   icon: {
     color: theme.palette.text.primary,
@@ -51,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   description: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(3),
   },
   btnGroup: {
     '& .MuiButton-outlined': {
@@ -77,7 +85,7 @@ const ProductDetail = () => {
   };
 
   const location = useLocation();
-
+ const history=useHistory();
   const baseId = location.pathname.split('/').pop();
   const nftObjectDetail = useGetNFTObjectDetail(baseId);
   const { profile } = useProfile();
@@ -148,6 +156,9 @@ const ProductDetail = () => {
 
             <Body1 className={classes.description} color="secondary">
               {nftObjectDetail?.nft?.description}
+            </Body1>
+            <Body1 className={classes.root} color="secondary" onClick={() => history.push(`/profile/${nftObjectDetail?.owner?.customUrl ? nftObjectDetail?.owner?.customUrl : nftObjectDetail?.owner?.walletAddress }`)}  >
+              Owner : { <Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
             </Body1>
           </Grid>
 

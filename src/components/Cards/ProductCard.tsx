@@ -218,6 +218,11 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
             {!product?.assetUrl && <TinyBold>Upload file to preview your brand new NFT</TinyBold>}
           </CardMedia>
         )}
+        {product?.assetType == 'GIF' && (
+          <CardMedia image={`${product?.assetUrl}`} className={classes.media}>
+            {!product?.assetUrl && <TinyBold>Upload file to preview your brand new NFT</TinyBold>}
+          </CardMedia>
+        )}
         {product?.assetType == 'Video' && (
           <>
             <video className={classes.media} controls autoPlay loop>

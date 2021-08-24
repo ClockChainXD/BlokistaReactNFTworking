@@ -5,25 +5,26 @@ import { injectedConnector } from "../utils/connectors";
 import { toast } from 'react-hot-toast';
 import { currentNetwork } from '../utils';
 
+
 const useAuth = () => {
   const { library, chainId, active, activate, deactivate } = useWeb3React();
 
   const login = useCallback(async () => {
     await activate(injectedConnector);
-    if (library && chainId !== parseInt(currentNetwork)) {
+    if (library && chainId != parseInt(currentNetwork)) {
       const hasSetup = await setupNetwork();
       if (hasSetup) {
         await activate(injectedConnector);
       }
       else {
-        toast.error("Unsupported Network. This platform is working on BSC Main Net");
+        toast.error("Unsupported Network. This platform is working on BSC Main NET");
       }
     }
-  }, [activate, chainId, library]);
+  }, [chainId]);
 
-  const logout = useCallback(() => {
+  const logout = useCallback( async () => {
     deactivate();
-  }, [deactivate]);
+  },[deactivate]);
 
   return { login, logout };
 };
