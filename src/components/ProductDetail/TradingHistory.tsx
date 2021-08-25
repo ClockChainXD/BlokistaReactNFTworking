@@ -103,7 +103,64 @@ const TradingHistory = ({ historyEvents  }) => {
       user_name = user && user.displayName ? user.displayName : truncateWalletString(buyer);
       user_verified = user && user.verified ? user.verified : false;
       event_content = `Bought at ${nftSoldAtPrice} BNB From Bid`;
-    } else {
+    } else if(eventType===12) {
+      let buyer = sorted_nft_events[i].buyer;
+      let nftSoldAtPrice = sorted_nft_events[i].nftSoldAtPrice;
+
+      let user = null;
+      if (profileList) user = profileList.find(user => user.walletAddress === buyer);
+
+      user_wallet = buyer;
+      user_image = user && user.userAvatarUrl ? user.userAvatarUrl : '/img/default-profile.png';
+      user_name = user && user.displayName ? user.displayName : truncateWalletString(buyer);
+      user_verified = user && user.verified ? user.verified : false;
+      event_content = `INSTANT Bought at ${nftSoldAtPrice} BNB`;
+      
+    }
+    else if(eventType===9) {
+
+      /* 
+      
+         await NFTObjectModel.findOneAndUpdate({ tokenID: nftID }, {
+                        updatedAt: timestamp,
+                        listed: true,
+                        minBidPrice: minBidPrice,
+                        instBuyPrice: instBuyPrice,
+                        minBidInc: minBidInc,
+                        startTime: startTime,
+                        endTime: endTime,
+                        nftType: 2,
+                        status: 3
+                    });
+
+                    await NFTEventModel.findOneAndUpdate({
+                        doneOn: timestamp,
+                        eventType: 9, //0 : MINT, 1 : SALE, 2 : PRICE_UPDATE, 3 : UPDATE_STATUS
+                        nftIDSold: nftID,
+                        transactionHash: txhash,
+                    }, {
+                        auctionStarter: owner,
+                        minBidPrice: minBidPrice,
+                        instBuyPrice: instBuyPrice,
+                        startTime: startTime,
+                        endTime: endTime
+                    }, { upsert: true });
+                }
+      */
+      let auctionStarter = sorted_nft_events[i].auctionStarter;
+      let minBidPrice=sorted_nft_events[i].minBidPrice;
+      let user = null;
+      if (profileList) user = profileList.find(user => user.walletAddress === auctionStarter);
+
+      user_wallet = auctionStarter;
+      user_image = user && user.userAvatarUrl ? user.userAvatarUrl : '/img/default-profile.png';
+      user_name = user && user.displayName ? user.displayName : truncateWalletString(auctionStarter);
+      user_verified = user && user.verified ? user.verified : false;
+      event_content = `Auction With Deadline Started with ${minBidPrice} BNB`;
+      
+    }
+
+    else{
       continue;
     }
     rows.push({
