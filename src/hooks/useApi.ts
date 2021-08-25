@@ -25,7 +25,7 @@ export interface NFTObjectData {
   price?: string;
   minBidPrice?: string;
   startTime?: string;
-  endTime?: string;
+  endTime?: number;
   instBuyPrice?: string;
 
   mintTransactionHash?: string;

@@ -8,8 +8,8 @@ function renderDuration(difference, duration) {
   if (difference[duration]) {
     return (
       <div>
-        {difference[duration]}
-        {duration[0]}
+        {difference[duration]} 
+        <br />{duration[0]}
       </div>
     );
   }
@@ -17,13 +17,13 @@ function renderDuration(difference, duration) {
 export default function Timer({
   startTime = null,
   endTime,
-  showDurations = ['days', 'hours'],
+  showDurations = ['days', 'hours', 'minutes','seconds',],
   textForStart = '',
   textForEnd = '',
 }) {
   function TimeDiff({ difference }) {
     return (
-      <span>
+      <span className={classes.timer}>
         {Object.keys(difference)
           .filter(duration => difference[duration] && showDurations.includes(duration))
           .map(duration => renderDuration(difference, duration))}
@@ -55,6 +55,7 @@ export default function Timer({
       return (
         <div className={classes.root}>
          <p> {text} </p> <TimeDiff difference={difference} />  
+            {/* difference */}
         </div>
       );
     } else {

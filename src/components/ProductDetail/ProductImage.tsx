@@ -19,15 +19,20 @@ import { CardMedia } from '@material-ui/core';
 import AudioPlayerButton from '../AudioPlayer/AudioPlayerButton';
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    width: '100%',
+    height: '70%',
+    objectFit: 'cover', 
+    backgroundColor: theme.palette.background.default, 
+    borderRadius: '4px',
+    display: 'flex',
+  },
   productWrapper: {
     width: '100%',
-    height: 500,
-    borderRadius: theme.shape.cardBorderRadius,
+    height: '100%',
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
-    background: theme.palette.surface[1],
-
+    background: 'transparent',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -86,8 +91,6 @@ const ProductImage = ({ src, nftDetails }) => {
   const [showPrice, setShowPrice] = useState(false);
   const [currentTime] = useState(Date.now());
 
-  console.log('nftDetails', nftDetails);
-
   function showActionModal() {
     setShowAuction(true);
   }
@@ -117,7 +120,7 @@ const ProductImage = ({ src, nftDetails }) => {
             image={`${nftDetails?.nft?.bannerImage || '/assets/images/default-audio.jpeg'}`}
             className={classes.productWrapper}
           >
-            <AudioPlayerButton product={nftDetails?.nft} showBottomBg={false} />
+            <AudioPlayerButton product={nftDetails?.nft} showBottomBg={true} />
           </CardMedia>
         )}
       </>
@@ -125,19 +128,8 @@ const ProductImage = ({ src, nftDetails }) => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <MediaBox />
-       {nftDetails?.nft?.status==3 && moment(nftDetails?.nft?.endTime*1000 ).isSameOrAfter(currentTime) &&(
-          <div className={classes.status}>
-            <UpdateIcon className={classes.icon} />
-            <Body1 className={classes.timer}>
-              Auction ends in
-              {nftDetails?.nft?.endTime && (
-                <Timer endTime={nftDetails?.nft?.endTime * 1000 } />
-              )}
-            </Body1>
-          </div>
-        )}
     </div>
   );
 };

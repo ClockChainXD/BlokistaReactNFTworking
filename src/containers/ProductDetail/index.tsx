@@ -1,72 +1,25 @@
-import React from 'react';
+import React,  { useState }  from 'react';
 // import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-
 import Container from '../../components/Layout/Container';
-import Title from '../../components/Typography/Title';
 import Body1 from '../../components/Typography/Body1';
 import Body2 from '../../components/Typography/Body2';
-import ProductActionCard from '../../components/Cards/ProductActionCard';
 import ProductImage from '../../components/ProductDetail/ProductImage';
-import TradingHistory from '../../components/ProductDetail/TradingHistory';
-import BidInfo from '../../components/ProductDetail/BidInfo';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useGetNFTObjectDetail } from '../../hooks/useApi';
 import { useProfile } from '../../store/hooks';
-import FilledButton from '../../components/Buttons/FilledButton';
 import { useWeb3React } from '@web3-react/core';
 import toast from 'react-hot-toast';
 import { claimAuction } from '../../utils/contracts';
 import { baseApiUrl } from '../../utils';
-import { Avatar } from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    paddingTop: 97,
-    paddingBottom: 96,
-    display: 'flex',
-  },
-  avatar: {
-    width:35,
-    height: 35,
-    marginLeft:90,
-    display:'flex',
-  },
-  icon: {
-    color: theme.palette.text.primary,
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    margin: theme.spacing(3, 0),
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  tag: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  row: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: theme.spacing(1, 0),
-  },
-
-  description: {
-    paddingTop: theme.spacing(3),
-  },
-  btnGroup: {
-    '& .MuiButton-outlined': {
-      border: `1px solid ${theme.palette.surface[3]}`,
-    },
-  },
-}));
+import { Avatar, Typography } from '@material-ui/core';
+import clsx from 'clsx';
+import moment from 'moment';
+import { useStyles } from './style';
+import ProductActionCard from '../../components/Cards/ProductActionCard';
+import Timer from '../../components/Timer'
+import Auction from '../../components/ProductDetail/Auction';
+import AuctionTime from '../../components/ProductDetail/AuctionTime';
 
 const ProductDetail = () => {
   const classes = useStyles();
@@ -88,15 +41,16 @@ const ProductDetail = () => {
  const history=useHistory();
   const baseId = location.pathname.split('/').pop();
   const nftObjectDetail = useGetNFTObjectDetail(baseId);
+  console.log(nftObjectDetail)
   const { profile } = useProfile();
-
+  const [currentTime] = useState(Date.now())
+  
   function isOwnsProduct() {
     return nftObjectDetail?.owner?.walletAddress?.toLowerCase() === profile?.walletAddress?.toLowerCase();
   }
 
   const { connector, library, chainId, account, active } = useWeb3React();
 
-  /////////////////////////// Sell Auction Unlimited NFT //////////////////////////// DEĞİŞECEK BUNLAR HEP KÖKTEN
   const sellNFTToUser = async () => {
     const load_toast_id = toast.loading('Please wait...');
     try {
@@ -119,55 +73,71 @@ const ProductDetail = () => {
   return (
     <div className={classes.root}>
       <Container>
-        <Grid container spacing={6}>
-          <Grid item md={6} sm={6} xs={12}>
+        <Grid container spacing={5}>
+          <Grid xs={4} className={classes.media}>
             <ProductImage
               nftDetails={nftObjectDetail}
               src={nftObjectDetail?.nft?.assetUrl}
             />
-          </Grid>
 
-          <Grid item md={6} sm={6} xs={12}>
-            <Title className={classes.title}>{nftObjectDetail?.nft?.name}</Title>
-            <Body1 color="secondary" >
-              CREATED BY: {nftObjectDetail?.creator?.displayName}
-            </Body1>
-            {/* <div className={classes.row}>
-              <div className={classes.tag}>
-                <VisibilityIcon className={classes.icon} />
-                <Body2>14 Views</Body2>
+            {/* DESCRIPTION SECTION */}
+            <Body1 className={classes.description} color="secondary">
+              <h6> Description 
+                <span className={classes.category}>
+                  {" " + nftObjectDetail?.nft?.category}
+                </span>
+              </h6>
+
+              <div className={classes.descriptionText}>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, facere!
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur fugit sequi, earum repellendus dolorem nemo sit eos perspiciatis similique commodi!
+                {/* nftObjectDetail?.nft?.description */}
               </div>
 
-              <ButtonGroup className={classes.btnGroup}>
-                <Button onClick={refreshClickHandler}>Refresh</Button>
-                <Button onClick={shareClickHandler}>Share</Button>
-                <Button onClick={reportClickHandler}>Report</Button>
-              </ButtonGroup>
-            </div> */}
-            <ProductActionCard
-              price={parseFloat(nftObjectDetail?.nft?.price)}
-              instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
-              minBidPrice={parseFloat(nftObjectDetail?.nft?.minBidPrice)}
-              ownsProduct={isOwnsProduct()}
-              nftDetails={nftObjectDetail}
-            />
-
-            <Divider />
-
-            <Body1 className={classes.description} color="secondary">
-              {nftObjectDetail?.nft?.description}
+              <div className={classes.owner}>
+                { <Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
+                <div className={clsx(classes.user)}>
+                  <span className={classes.bold}>Creator</span>
+                  <span>{nftObjectDetail?.owner.displayName}</span>
+                </div>
+              </div>
             </Body1>
-            <Body1 className={classes.root} color="secondary" onClick={() => history.push(`/profile/${nftObjectDetail?.owner?.customUrl ? nftObjectDetail?.owner?.customUrl : nftObjectDetail?.owner?.walletAddress }`)}  >
-              Owner : { <Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
-            </Body1>
+          
+            <Body2 className={classes.contract}>
+              <span className={classes.addressTitle}>
+                Contract Adress
+              </span>
+              <span className={classes.address}>
+                {nftObjectDetail?.owner?.walletAddress}
+              </span>
+              <span className={classes.addressTitle} style={{marginTop: '15px',}}>
+                Token ID
+              </span>
+              <span className={classes.address}>
+                {nftObjectDetail?.nft?.tokenID}
+              </span>
+            </Body2>
           </Grid>
+          <Grid item xs={2}></Grid>
+          <Grid xs={6} className={classes.info}>
+            <div className={classes.box}>
+              <p className={classes.headerNft}>
+                {nftObjectDetail?.nft?.name}
+              </p>
+            </div>
+            
+           <div className={classes.auctionBox}>
+                {nftObjectDetail?.nft?.status==3  && moment(nftObjectDetail?.nft?.endTime * 1000).isSameOrAfter(currentTime) &&(
+                <div >
+                  {nftObjectDetail?.nft?.endTime && (
+                      <Timer endTime={nftObjectDetail?.nft?.endTime * 1000 } />
+                  )}
+                </div>
+              )}
 
-          <Grid item md={6} sm={6} xs={12}>
-            <TradingHistory historyEvents={nftObjectDetail?.historyEvents} />
-          </Grid>
+              {/* <AuctionTime nftDetails={nftObjectDetail} /> */}
+            </div> 
 
-          <Grid item md={6} sm={6} xs={12}>
-            <BidInfo bids={nftObjectDetail?.bids} nftType={nftObjectDetail?.nft?.nftType} ownsProduct={isOwnsProduct()} sellNFTToUser={sellNFTToUser} />
           </Grid>
         </Grid>
       </Container>
@@ -180,3 +150,52 @@ ProductDetail.propTypes = {};
 ProductDetail.defaultProps = {};
 
 export default ProductDetail;
+{/* SOCIAL BUTTON */}
+{/* 
+  <div className={classes.row}>
+    <div className={classes.tag}>
+      <VisibilityIcon className={classes.icon} />
+      <Body2>14 Views</Body2>
+    </div>
+    <ButtonGroup className={classes.btnGroup}>
+      <Button onClick={refreshClickHandler}>Refresh</Button>
+      <Button onClick={shareClickHandler}>Share</Button>
+      <Button onClick={reportClickHandler}>Report</Button>
+    </ButtonGroup>
+  </div>  
+  */}
+
+{/* NFT INFO */}
+{/*
+ <Grid item md={6} sm={6} xs={12}>
+    <Title className={classes.title}>{nftObjectDetail?.nft?.name}</Title>
+    <Body1 color="secondary" >
+      CREATED BY: {nftObjectDetail?.creator?.displayName}
+    </Body1>
+    <ProductActionCard
+      price={parseFloat(nftObjectDetail?.nft?.price)}
+      instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
+      minBidPrice={parseFloat(nftObjectDetail?.nft?.minBidPrice)}
+      ownsProduct={isOwnsProduct()}
+      nftDetails={nftObjectDetail}
+    />
+    <Divider />
+
+    <Body1 className={classes.root} color="secondary" onClick={() => history.push(`/profile/${nftObjectDetail?.owner?.customUrl ? nftObjectDetail?.owner?.customUrl : nftObjectDetail?.owner?.walletAddress }`)}  >
+      Owner : { <Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
+    </Body1>
+  </Grid>
+*/}
+ 
+{/* BIDS */}
+{/*
+<Grid item md={6} sm={6} xs={12}>
+  <BidInfo bids={nftObjectDetail?.bids} nftType={nftObjectDetail?.nft?.nftType} ownsProduct={isOwnsProduct()} sellNFTToUser={sellNFTToUser} />
+</Grid>
+*/}
+
+{/* TRADING HISTORY */}
+
+{/* <Grid item md={6} sm={6} xs={12}>
+    <TradingHistory historyEvents={nftObjectDetail?.historyEvents} />
+  </Grid> */}

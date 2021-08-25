@@ -53,7 +53,6 @@ const Home = () => {
         />
       </div>
       
-     
       <div className={classes.section}>
         <ProductSection
           title="Recently added"
