@@ -37,20 +37,14 @@ export default function Timer({
   useEffect(() => {
     setTimeout(() => setCurrentTime(Date.now()), 1000);
   });
-
+ 
   let difference = null;
-  if (startTime && moment(startTime).isSameOrAfter(currentTime)) {
-    difference = timeDiff(currentTime, startTime);
-    text = textForStart;
-    return (
-      <div className={classes.root}>
-        <p>{text}</p> <TimeDiff difference={difference} />
-      </div>
-    );
-  } else if (endTime && moment(endTime).isSameOrAfter(currentTime)) {
+  
+ 
+    
+
     difference = timeDiff(currentTime, endTime);
     text = textForEnd;
-
     if (difference && endTime) {
       return (
         <div className={classes.root}>
@@ -61,7 +55,5 @@ export default function Timer({
     } else {
       return null;
     }
-  } else {
-    return null;
-  }
+   
 }

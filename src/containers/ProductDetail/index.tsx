@@ -127,10 +127,10 @@ const ProductDetail = () => {
             </div>
             
            <div className={classes.auctionBox}>
-                {nftObjectDetail?.nft?.status==3  && moment(nftObjectDetail?.nft?.endTime * 1000).isSameOrAfter(currentTime) &&(
+                {nftObjectDetail?.nft?.status==3  && moment((nftObjectDetail?.nft?.endTime-nftObjectDetail?.nft?.startTime) * 1000).isSameOrAfter(currentTime) &&(
                 <div >
                   {nftObjectDetail?.nft?.endTime && (
-                      <Timer endTime={nftObjectDetail?.nft?.endTime * 1000 } />
+                      <Timer endTime={(nftObjectDetail?.nft?.endTime-nftObjectDetail?.nft?.startTime)*1000} />
                   )}
                 </div>
               )}
