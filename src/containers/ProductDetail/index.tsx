@@ -7,11 +7,11 @@ import Body2 from '../../components/Typography/Body2';
 import ProductImage from '../../components/ProductDetail/ProductImage';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useGetNFTObjectDetail } from '../../hooks/useApi';
-import { useProfile } from '../../store/hooks';
+import { useFetchPriceList, useGetApiPrice, useProfile } from '../../store/hooks';
 import { useWeb3React } from '@web3-react/core';
 import toast from 'react-hot-toast';
 import { claimAuction } from '../../utils/contracts';
-import { baseApiUrl } from '../../utils';
+import { baseApiUrl, getContractInfo } from '../../utils';
 import { Avatar, Divider, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import moment from 'moment';
@@ -25,7 +25,7 @@ import TradingHistory from '../../components/ProductDetail/TradingHistory';
 
 const ProductDetail = () => {
   const classes = useStyles();
-
+const contractOfNFT=getContractInfo('BlokistaVault',97);
   const refreshClickHandler = () => {
     console.log('refreshClickHandler clicked ! ');
   };
@@ -46,7 +46,9 @@ const ProductDetail = () => {
   console.log(nftObjectDetail)
   const { profile } = useProfile();
   const [currentTime] = useState(Date.now())
-  
+  useFetchPriceList();
+  const price  =useGetApiPrice('0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c').toString();
+  console.log("Thisd:" + price)
   function isOwnsProduct() {
     return nftObjectDetail?.owner?.walletAddress?.toLowerCase() === profile?.walletAddress?.toLowerCase();
   }
@@ -90,9 +92,8 @@ const ProductDetail = () => {
                 </span>
               </h6>
               <div className={classes.descriptionText}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, facere!
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur fugit sequi, earum repellendus dolorem nemo sit eos perspiciatis similique commodi!
-                {/* nftObjectDetail?.nft?.description */}
+                
+                { nftObjectDetail?.nft?.description }
               </div>
 
             </Body1>
@@ -102,7 +103,7 @@ const ProductDetail = () => {
                 Contract Adress
               </span>
               <span className={classes.address}>
-                {nftObjectDetail?.owner?.walletAddress}
+                {contractOfNFT.address}
               </span>
               <span className={classes.addressTitle} style={{marginTop: '15px',}}>
                 Token ID
@@ -156,24 +157,23 @@ const ProductDetail = () => {
                 <div className={classes.flexRow}>
                   <h4 className={classes.price}>
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
-                    <span>120 BNB</span> 
+                    <span>{(nftObjectDetail?.nft?.instBuyPrice)} BNB</span> 
                   </h4>
-                  <span className={classes.realPrice}> ≈ $ 77.99 </span>
+                  <span className={classes.realPrice}> ≈ $ {(parseFloat(price)*parseFloat(nftObjectDetail?.nft?.instBuyPrice)).toFixed(2)} </span>
                 </div>
               </div>
               <div>
                 <div className={classes.auctionText}>Ends in</div>
-                <div className={classes.timer}>
-                  <div>02</div>
-                  <div>15</div>
-                  <div>33</div>
-                  <div>12</div>
-                </div>
+                
+                 { nftObjectDetail?.nft?.endTime &&
+                  <Timer endTime={(nftObjectDetail?.nft?.endTime-nftObjectDetail?.nft?.startTime)*1000}/>
+                }
+            
               </div>
             </div>
             <div className={classes.buyNow}>
               <div className={classes.buyNowBox}>
-                <button className={classes.buyNowButton}>Buy Now</button>
+                <button className={classes.buyNowButton}>INSTANT BUY</button>
               </div>
             </div>        
             <ProductActionCard
