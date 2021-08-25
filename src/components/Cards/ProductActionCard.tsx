@@ -151,7 +151,6 @@ const ProductActionCard = ({ price,instBuyPrice, minBidPrice, ownsProduct, nftDe
   }, [connector, library, account, active, chainId]);
 /////////////////// Cancel Auction //////////////////////////////
 
-
 const cancelNFTAuction= async () => {
   if (!loginStatus || !ownsProduct) {
     toast.error('Please connect correctly!');

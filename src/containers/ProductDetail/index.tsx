@@ -12,7 +12,7 @@ import { useWeb3React } from '@web3-react/core';
 import toast from 'react-hot-toast';
 import { claimAuction } from '../../utils/contracts';
 import { baseApiUrl } from '../../utils';
-import { Avatar, Typography } from '@material-ui/core';
+import { Avatar, Divider, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import moment from 'moment';
 import { useStyles } from './style';
@@ -20,6 +20,8 @@ import ProductActionCard from '../../components/Cards/ProductActionCard';
 import Timer from '../../components/Timer'
 import Auction from '../../components/ProductDetail/Auction';
 import AuctionTime from '../../components/ProductDetail/AuctionTime';
+import { pricesSlice } from '../../store/prices';
+import TradingHistory from '../../components/ProductDetail/TradingHistory';
 
 const ProductDetail = () => {
   const classes = useStyles();
@@ -87,20 +89,12 @@ const ProductDetail = () => {
                   {" " + nftObjectDetail?.nft?.category}
                 </span>
               </h6>
-
               <div className={classes.descriptionText}>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, facere!
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur fugit sequi, earum repellendus dolorem nemo sit eos perspiciatis similique commodi!
                 {/* nftObjectDetail?.nft?.description */}
               </div>
 
-              <div className={classes.owner}>
-                { <Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
-                <div className={clsx(classes.user)}>
-                  <span className={classes.bold}>Creator</span>
-                  <span>{nftObjectDetail?.owner.displayName}</span>
-                </div>
-              </div>
             </Body1>
           
             <Body2 className={classes.contract}>
@@ -118,25 +112,77 @@ const ProductDetail = () => {
               </span>
             </Body2>
           </Grid>
-          <Grid item xs={2}></Grid>
+          <Grid item xs={1}></Grid>
+
           <Grid xs={6} className={classes.info}>
             <div className={classes.box}>
               <p className={classes.headerNft}>
                 {nftObjectDetail?.nft?.name}
               </p>
             </div>
-            
-           <div className={classes.auctionBox}>
-                {nftObjectDetail?.nft?.status==3  && moment(nftObjectDetail?.nft?.endTime * 1000).isSameOrAfter(currentTime) &&(
+            <div className={classes.profile}>
+              <div className={classes.owner} onClick={() => history.push(`/profile/${nftObjectDetail?.owner?.customUrl ? nftObjectDetail?.owner?.customUrl : nftObjectDetail?.owner?.walletAddress }`)}>
+                { <Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
+                <div className={clsx(classes.user)}>
+                  <span className={classes.bold}>Owner</span>
+                  <span>{nftObjectDetail?.owner.displayName}</span>
+                </div>
+              </div>
+              <div className={classes.creator}>
+                {<Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
+                <div className={clsx(classes.user)}>
+                  <span className={classes.bold}>Creator</span>
+                  <span>{nftObjectDetail?.owner.displayName}</span>
+                </div>
+              </div>
+            </div>            
+            <div className={classes.auctionBox}>
+                {/* {nftObjectDetail?.nft?.status==3  && moment(nftObjectDetail?.nft?.endTime * 1000).isSameOrAfter(currentTime) &&(
                 <div >
                   {nftObjectDetail?.nft?.endTime && (
                       <Timer endTime={nftObjectDetail?.nft?.endTime * 1000 } />
                   )}
                 </div>
-              )}
+              )} */}
 
               {/* <AuctionTime nftDetails={nftObjectDetail} /> */}
             </div> 
+            <div className={classes.bid}>
+              <div>
+                <Typography className={classes.bidText}>Current Bid</Typography>
+                <div className={classes.flexRow}>
+                  <h4 className={classes.price}>
+                    <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
+                    <span>120 BNB</span> 
+                  </h4>
+                  <span className={classes.realPrice}> ≈ $ 77.99 </span>
+                </div>
+              </div>
+              <div>
+                <div className={classes.auctionText}>Ends in</div>
+                <div className={classes.timer}>
+                  <div>02</div>
+                  <div>15</div>
+                  <div>33</div>
+                  <div>12</div>
+                </div>
+              </div>
+            </div>
+            <div className={classes.buyNow}>
+              <div className={classes.buyNowBox}>
+                <button className={classes.buyNowButton}>Buy Now</button>
+              </div>
+            </div>        
+            <ProductActionCard
+              price={parseFloat(nftObjectDetail?.nft?.price)}
+              instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
+              minBidPrice={parseFloat(nftObjectDetail?.nft?.minBidPrice)}
+              ownsProduct={isOwnsProduct()}
+              nftDetails={nftObjectDetail}
+            />
+            <Divider />
+        
+           <TradingHistory historyEvents={nftObjectDetail?.historyEvents} />
 
           </Grid>
         </Grid>
@@ -172,14 +218,13 @@ export default ProductDetail;
     <Body1 color="secondary" >
       CREATED BY: {nftObjectDetail?.creator?.displayName}
     </Body1>
-    <ProductActionCard
-      price={parseFloat(nftObjectDetail?.nft?.price)}
-      instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
-      minBidPrice={parseFloat(nftObjectDetail?.nft?.minBidPrice)}
-      ownsProduct={isOwnsProduct()}
-      nftDetails={nftObjectDetail}
-    />
-    <Divider />
+     <ProductActionCard
+              price={parseFloat(nftObjectDetail?.nft?.price)}
+              instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
+              minBidPrice={parseFloat(nftObjectDetail?.nft?.minBidPrice)}
+              ownsProduct={isOwnsProduct()}
+              nftDetails={nftObjectDetail}
+            />
 
     <Body1 className={classes.root} color="secondary" onClick={() => history.push(`/profile/${nftObjectDetail?.owner?.customUrl ? nftObjectDetail?.owner?.customUrl : nftObjectDetail?.owner?.walletAddress }`)}  >
       Owner : { <Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
