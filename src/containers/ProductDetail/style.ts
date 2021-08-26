@@ -89,7 +89,7 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
     },
     description: {
-      paddingTop: theme.spacing(6),
+      paddingTop: theme.spacing(3),
       color : theme.palette.text.primary,
     },
     addressTitle:{

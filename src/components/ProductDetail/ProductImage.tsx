@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
   root: {},
   productWrapper: {
     width: '100%',
-    height: 500,
-    borderRadius: theme.shape.cardBorderRadius,
+    maxHeight: '500px',
+    maxWidth: '500px',
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
     background: theme.palette.surface[1],
@@ -117,7 +117,9 @@ const ProductImage = ({ src, nftDetails }) => {
             image={`${nftDetails?.nft?.bannerImage || '/assets/images/default-audio.jpeg'}`}
             className={classes.productWrapper}
           >
-            <AudioPlayerButton product={nftDetails?.nft} showBottomBg={false} />
+            <div style={{position:'absolute', width:'300px', height:'400px'}}>
+              <AudioPlayerButton product={nftDetails?.nft} showBottomBg={true} />
+            </div>
           </CardMedia>
         )}
       </>

@@ -78,13 +78,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 500,
     lineWeight: '20px',
     wordBreak:'keep-all',
-    color: 'rgb(33, 40, 51)',
+    color: "#fff",
     borderRadius: '4px',
     padding: '4px 8px',
     minHeight: '24px',
     border: 'none',
-    backgroundImage: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 68%)',
-    width: '100%',
+    backgroundImage: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 58%)',
+    width: '50%',
     height: '48px',
     fontSize: '16px',
   },
@@ -623,21 +623,21 @@ const sellthis = async (nftPrice) => {
           )} 
           
           {nftDetails?.nft?.listed == true && nftDetails?.nft?.status == 2 && (
-            <OutlinedButton className={classes.button} label="Update Price" handleClick={showUpdatePriceModal} />
+            <OutlinedButton className={classes.buyNowButton} label="Update Price" handleClick={showUpdatePriceModal} />
           )}
           {nftDetails?.nft?.listed == false && (
-            <FilledButton className={classes.button} label="Sell With Fixed Price" handleClick={showSaleModal} />
+            <FilledButton className={classes.buyNowButton} label="Sell With Fixed Price" handleClick={showSaleModal} />
           )}
           { nftDetails?.nft?.listed == false && (
-            <FilledButton className={classes.button} label="Start an Auction With Deadline" handleClick={showActionModal} />
+            <FilledButton className={classes.buyNowButton} label="Start an Auction With Deadline" handleClick={showActionModal} />
           )}
            { nftDetails?.nft?.listed == false && (
-            <FilledButton className={classes.button} icon={<img  src="/assets/images/time.svg" alt="time-icon" />} label="Start an Unlimited Time Auction" handleClick={showActionDeadModal} />
+            <FilledButton className={classes.buyNowButton} icon={<img  src="/assets/images/time.svg" alt="time-icon" />} label="Start an Unlimited Time Auction" handleClick={showActionDeadModal} />
           )}
           {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) &&
             nftDetails?.nft?.listed == true &&  nftDetails?.bids?.length>0 &&
             (
-              <FilledButton className={classes.button}  label="Claim Auction" handleClick={submitClaimAuction} />
+              <FilledButton className={classes.buyNowButton}  label="Claim Auction" handleClick={submitClaimAuction} />
             )}
         </Grid>
       )}
