@@ -47,7 +47,7 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
   const { profile } = useProfile();
   const [currentTime] = useState(Date.now())
   useFetchPriceList();
-  const price  =useGetApiPrice('0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c').toString();
+  const price  =useGetApiPrice('0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c');
   console.log("Thisd:" + price)
   function isOwnsProduct() {
     return nftObjectDetail?.owner?.walletAddress?.toLowerCase() === profile?.walletAddress?.toLowerCase();
@@ -159,7 +159,7 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
                     <span>{(nftObjectDetail?.nft?.instBuyPrice)} BNB</span> 
                   </h4>
-                  <span className={classes.realPrice}> ≈ $ {(parseFloat(price)*parseFloat(nftObjectDetail?.nft?.instBuyPrice)).toFixed(2)} </span>
+                  <span className={classes.realPrice}> ≈ $ {(parseFloat(price?.toString())*parseFloat(nftObjectDetail?.nft?.instBuyPrice)).toFixed(2)} </span>
                 </div>
               </div>
               <div>
