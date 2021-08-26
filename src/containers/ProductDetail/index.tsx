@@ -115,7 +115,6 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
             </Body2>
           </Grid>
           <Grid item xs={1}></Grid>
-
           <Grid xs={6} className={classes.info}>
             <div className={classes.box}>
               <p className={classes.headerNft}>
@@ -166,32 +165,26 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
               </div>
               {nftObjectDetail?.nft?.status==3  && moment((nftObjectDetail?.nft?.endTime) * 1000).isSameOrAfter(currentTime) &&
               <div>
-              
                 <div className={classes.auctionText}>Ends in</div>
-                
-                 
-                  <Timer endTime={(nftObjectDetail?.nft?.endTime)*1000}/>
-              
-                  
-
+                <Timer endTime={(nftObjectDetail?.nft?.endTime)*1000}/>
               </div>
               }
             </div>
 }
-{ nftObjectDetail?.nft?.status==2 &&
+          { nftObjectDetail?.nft?.status==2 &&
 
-<div>
-<Typography className={classes.bidText}> Price</Typography>
-<div className={classes.flexRow}>
-  <h4 className={classes.price}>
-    <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
-    <span>{(nftObjectDetail?.nft?.price)} BNB</span> 
-  </h4>
-  <span className={classes.realPrice}> ≈ $ {(parseFloat(price?.toString())*parseFloat(nftObjectDetail?.nft?.price)).toFixed(2)} </span>
-</div>
-</div>
+          <div>
+          <Typography className={classes.bidText}> Price</Typography>
+          <div className={classes.flexRow}>
+            <h4 className={classes.price}>
+              <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
+              <span>{(nftObjectDetail?.nft?.price)} BNB</span> 
+            </h4>
+            <span className={classes.realPrice}> ≈ $ {(parseFloat(price?.toString())*parseFloat(nftObjectDetail?.nft?.price)).toFixed(2)} </span>
+          </div>
+          </div>
 
-}    
+          }    
             <ProductActionCard
               price={parseFloat(nftObjectDetail?.nft?.price)}
               instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
@@ -201,7 +194,10 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
             />
         
            <TradingHistory historyEvents={nftObjectDetail?.historyEvents} />
-           <BidInfo bids={nftObjectDetail?.bids} nftType={nftObjectDetail?.nft?.nftType} ownsProduct={isOwnsProduct()} sellNFTToUser={sellNFTToUser} />
+          </Grid>
+          
+          <Grid xs={5} style={{marginTop: 25,}}>
+            <BidInfo bids={nftObjectDetail?.bids} nftType={nftObjectDetail?.nft?.nftType} ownsProduct={isOwnsProduct()} sellNFTToUser={sellNFTToUser} />
           </Grid>
         </Grid>
       </Container>
