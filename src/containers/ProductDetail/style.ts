@@ -191,7 +191,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 'bold',
       fontSize: '14px',
       lineHeight: '20px',
-      textAlign: 'right',
+      textAlign: 'left',
     },
     buyNow:{
       boxSizing: 'border-box',

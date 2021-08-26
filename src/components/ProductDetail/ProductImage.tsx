@@ -19,20 +19,15 @@ import { CardMedia } from '@material-ui/core';
 import AudioPlayerButton from '../AudioPlayer/AudioPlayerButton';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    height: '70%',
-    objectFit: 'cover', 
-    backgroundColor: theme.palette.background.default, 
-    borderRadius: '4px',
-    display: 'flex',
-  },
+  root: {},
   productWrapper: {
     width: '100%',
-    height: '100%',
+    height: 500,
+    borderRadius: theme.shape.cardBorderRadius,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
-    background: 'transparent',
+    background: theme.palette.surface[1],
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -91,6 +86,8 @@ const ProductImage = ({ src, nftDetails }) => {
   const [showPrice, setShowPrice] = useState(false);
   const [currentTime] = useState(Date.now());
 
+  console.log('nftDetails', nftDetails);
+
   function showActionModal() {
     setShowAuction(true);
   }
@@ -120,7 +117,7 @@ const ProductImage = ({ src, nftDetails }) => {
             image={`${nftDetails?.nft?.bannerImage || '/assets/images/default-audio.jpeg'}`}
             className={classes.productWrapper}
           >
-            <AudioPlayerButton product={nftDetails?.nft} showBottomBg={true} />
+            <AudioPlayerButton product={nftDetails?.nft} showBottomBg={false} />
           </CardMedia>
         )}
       </>
@@ -128,8 +125,9 @@ const ProductImage = ({ src, nftDetails }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <MediaBox />
+     
     </div>
   );
 };

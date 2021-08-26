@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -8,6 +9,7 @@ import { useProfileList } from '../../store/hooks';
 import moment from 'moment';
 import { Avatar } from '@material-ui/core';
 import { Profile } from '../../store/types';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -18,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 const TradingHistory = ({ historyEvents  }) => {
   const classes = useStyles();
-
+ const history=useHistory();
   const { profileList } = useProfileList();
 
   const sorted_nft_events = historyEvents?.sort((evt1, evt2) => {
@@ -52,11 +54,11 @@ const TradingHistory = ({ historyEvents  }) => {
     let user_verified = false;
     let event_content = '';
     let event_date = moment(doneOn * 1000).fromNow();
-
+    let user = null;
     if (eventType === 0) {
       let minter = sorted_nft_events[i].minter;
 
-      let user = null;
+     
       if (profileList) user = profileList.find(user => user.walletAddress === minter);
 
       user_wallet = minter;
@@ -69,7 +71,6 @@ const TradingHistory = ({ historyEvents  }) => {
       let buyer = sorted_nft_events[i].buyer;
       let nftSoldAtPrice = sorted_nft_events[i].nftSoldAtPrice;
 
-      let user = null;
       if (profileList) user = profileList.find(user => user.walletAddress === buyer);
 
       user_wallet = buyer;
@@ -82,7 +83,6 @@ const TradingHistory = ({ historyEvents  }) => {
       let newNftPrice = sorted_nft_events[i].newNftPrice;
       // let oldNftPrice = sorted_nft_events[i].oldNftPrice;
 
-      let user = null;
       if (profileList) user = profileList.find(user => user.walletAddress === priceUpdater);
 
       user_wallet = priceUpdater;
@@ -95,7 +95,6 @@ const TradingHistory = ({ historyEvents  }) => {
       let buyer = sorted_nft_events[i].buyer;
       let nftSoldAtPrice = sorted_nft_events[i].nftSoldAtPrice;
 
-      let user = null;
       if (profileList) user = profileList.find(user => user.walletAddress === buyer);
 
       user_wallet = buyer;
@@ -107,7 +106,6 @@ const TradingHistory = ({ historyEvents  }) => {
       let buyer = sorted_nft_events[i].buyer;
       let nftSoldAtPrice = sorted_nft_events[i].nftSoldAtPrice;
 
-      let user = null;
       if (profileList) user = profileList.find(user => user.walletAddress === buyer);
 
       user_wallet = buyer;
@@ -148,7 +146,6 @@ const TradingHistory = ({ historyEvents  }) => {
       */
       let auctionStarter = sorted_nft_events[i].auctionStarter;
       let minBidPrice=sorted_nft_events[i].minBidPrice;
-      let user = null;
       if (profileList) user = profileList.find(user => user.walletAddress === auctionStarter);
 
       user_wallet = auctionStarter;
@@ -163,7 +160,7 @@ const TradingHistory = ({ historyEvents  }) => {
       continue;
     }
     rows.push({
-      user_image: <Avatar src={user_image} />,
+      user_image: <Avatar onClick={() => history.push(`/profile/${user?.customUrl ? user?.customUrl : user?.walletAddress }`)} src={user_image} />,
       display_name: user_name,
       event_content: event_content,
       event_date: event_date

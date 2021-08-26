@@ -159,7 +159,7 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
                 <div className={classes.flexRow}>
                   <h4 className={classes.price}>
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
-                    <span>{(nftObjectDetail?.bids[nftObjectDetail?.bids?.length-1].price)} BNB</span> 
+                    <span>{(nftObjectDetail?.bids[nftObjectDetail?.bids?.length-1]?.price)} BNB</span> 
                   </h4>
                   <span className={classes.realPrice}> ≈ $ {(parseFloat(price?.toString())*parseFloat(nftObjectDetail?.nft?.instBuyPrice)).toFixed(2)} </span>
                 </div>
@@ -167,7 +167,7 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
               {nftObjectDetail?.nft?.status==3  && moment((nftObjectDetail?.nft?.endTime) * 1000).isSameOrAfter(currentTime) &&
               <div>
               
-                <div className={classes.auctionText}>Ends in</div>
+                <div className={classes.bidText}>Ends in</div>
                 
                  
                   <Timer endTime={(nftObjectDetail?.nft?.endTime)*1000}/>

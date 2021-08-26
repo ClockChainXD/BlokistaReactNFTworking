@@ -137,7 +137,7 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
             <p className={classes.timer}> 
               { product?.endTime && product?.assetUrl && (
                 <Timer
-                  textForEnd='End '
+                  textForEnd='Ends In '
                   endTime={product?.endTime*1000}
                 />
               )}

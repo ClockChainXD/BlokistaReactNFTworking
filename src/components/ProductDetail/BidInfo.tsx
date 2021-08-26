@@ -12,6 +12,7 @@ import { useProfileList } from '../../store/hooks';
 import { truncateWalletString } from '../../utils';
 import { FilledInput } from '@material-ui/core';
 import FilledButton from '../Buttons/FilledButton';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -22,21 +23,12 @@ const useStyles = makeStyles(theme => ({
 
 const BidInfo = ({ bids, nftType, ownsProduct, sellNFTToUser }) => {
   const { profileList } = useProfileList();
-  const [sellToUserObject, setSellToUserObject] = useState(null);
+  const history=useHistory();
 
   const classes = useStyles();
 
 
-  function sellToUser(bidderDetail) {
-    console.log(bidderDetail);
-  }
-  function sellToUserDialogClose() {
-    setSellToUserObject(null);
-  }
 
-  function showSellToUserDialog(bidder) {
-    setSellToUserObject(bidder);
-  }
 
   const rows = [
     // {
@@ -59,7 +51,7 @@ const BidInfo = ({ bids, nftType, ownsProduct, sellNFTToUser }) => {
       price: `${bids[i].price} BNB`,
       info: `${bidderProfile?.displayName || truncateWalletString(bidderProfile?.walletAddress)}`,
       sell: (ownsProduct && nftType == "2") ? <FilledButton label="Sell" size="small" handleClick={() => sellNFTToUser(bidderProfile?.walletAddress)} /> : <></>,
-      image: <Avatar src={bidderProfile?.userAvatarUrl} />,
+      image: <Avatar onClick={() => history.push(`/profile/${bidderProfile?.customUrl ? bidderProfile?.customUrl : bidderProfile?.walletAddress }`)} />,
     }
     rows.push(bid);
   }
@@ -79,14 +71,7 @@ const BidInfo = ({ bids, nftType, ownsProduct, sellNFTToUser }) => {
       <div>
         <BasicTable columns={columns} rows={rows} />
       </div>
-      {sellToUserObject && (
-        <SellToUser
-          sellToUser={sellToUser}
-          bidderProfile={sellToUserObject}
-          show={sellToUserObject ? true : false}
-          onClose={sellToUserDialogClose}
-        />
-      )}
+     
     </div>
   );
 };

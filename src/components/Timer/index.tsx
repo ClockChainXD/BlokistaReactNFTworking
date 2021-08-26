@@ -2,14 +2,18 @@ import timeDiff from 'timediff';
 import { useEffect, useState } from 'react';
 import useStyles from './style';
 import moment from 'moment';
-import { textSpanContainsPosition } from 'typescript';
 
+/* <div className={classes.timer}>
+<div>02</div>
+<div>15</div>
+<div>33</div>
+<div>12</div>
+</div> */
 function renderDuration(difference, duration) {
   if (difference[duration]) {
     return (
       <div>
         {difference[duration]} 
-        <br />{duration[0]}
       </div>
     );
   }
