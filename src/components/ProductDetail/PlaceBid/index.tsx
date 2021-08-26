@@ -49,16 +49,17 @@ export default function PlaceBid({ balanceBNB, nftFee, onClose, onSubmit,minBidI
       toast.error('Your bid price is out of your balance');
       return;
     }
-    if(parseFloat(bidPrice) <=  parseFloat(bidders[bidders.length-1].price) ){
-      toast.error('Your bid price is lower than minimum bid price');
+    if(parseFloat(bidPrice) < (bidders[bidders?.length-1]?.price * minBidInc/100)){
+      toast.error('Your bid price is lower than minimum offerable price');
       return;
 
     }
+
+
     handleClose();
     onSubmit(bidPrice);
   };
   const onChangePrice = value => {
-    if(value< bidders[bidders.length-1].price * minBidInc/100)
     setBidPrice(value);
   };
 
@@ -85,7 +86,7 @@ export default function PlaceBid({ balanceBNB, nftFee, onClose, onSubmit,minBidI
               name="currency"
               label="&nbsp;"
               iconBorder={false}
-              value="bnb"
+              value='BNB'
               options={[{ key: 'bnb', label: 'BNB' }]}
             />
           </Grid>

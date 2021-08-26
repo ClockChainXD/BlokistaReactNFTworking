@@ -89,9 +89,6 @@ export default function Auction({ onClose, onAuctionStart }) {
                 label="End Date"
                 onChange={selectedEndTime => {
                   setNFTAuctionEndTime(selectedEndTime);
-                  console.log("End Time: " + endTime);
-                  console.log("Start Time: "+ new Date());
-                  console.log(Math.round(endTime.getTime()/1000));
                 }}
               />
             </Grid>

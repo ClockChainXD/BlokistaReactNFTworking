@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     },
     headerNft: {
       marginRight: '10px',
-      color: 'rgb(30, 35, 41)',
+      color: theme.palette.type==="light" ? 'black' : 'white',
       fontSize: '40px',
       lineHeight: '48px',
       overflow: 'hidden',
@@ -98,7 +98,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 400,
       fontSize: '12px',
       lineHeight: '16px',
-      color: '#707A8A',
+      color: theme.palette.type==="light" ? 'black' : 'white',
     },
     bid:{
       display: 'flex',
@@ -115,7 +115,7 @@ const useStyles = makeStyles(theme => ({
       fontSize: '14px',
       lineHeight: '20px',
       padding: 0,
-
+      color:  theme.palette.type==="light" ? 'black' : 'white', 
     },
     price:{
       boxSizing: 'border-box',
@@ -127,6 +127,7 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       '-webkit-box-align': 'center',
       alignItems: 'center',
+      color: theme.palette.type==="light" ? 'black' : 'white',
     },
     realPrice: {
       boxSizing: 'border-box',
@@ -135,7 +136,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 400,
       fontSize: '14px',
       lineHeight: '20px',
-      color: 'rgb(112, 122, 138)',
+      color: theme.palette.type==="light" ? 'rgb(112, 122, 138)' : 'white',
       paddingBottom: '4px',
     },
     priceLogo:{

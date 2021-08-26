@@ -13,11 +13,12 @@ const useStyles = makeStyles(theme => ({
       borderBottom: `1px solid ${theme.palette.surface[2]}`,
     },
     '& .MuiTableHead-root .MuiTableCell-root': {
-      background: theme.palette.surface[2],
+      background: 'transparent',
     },
   },
   container: {
     boxShadow: '0 37px 26px 10px #1111',
+    backgroundImage: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 68%)',
   },
 }));
 

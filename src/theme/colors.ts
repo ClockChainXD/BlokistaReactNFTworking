@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 export default {
   dark: {
     surface: ['#141416', '#23262f', '#353945', '#777e90', '#e6e8ec'],

@@ -28,10 +28,10 @@ const AuctionTime = ({ nftDetails }) => {
 
   return (
     <div>
-       {nftDetails?.nft?.status==3 && moment((nftDetails?.nft?.endTime * 1000)-Date.now() ).isSameOrAfter(currentTime) &&(
+       {nftDetails?.nft?.status==3 && moment(nftDetails?.nft?.endTime * 1000 ).isSameOrAfter(currentTime) &&(
           <div >
             {nftDetails?.nft?.endTime && (
-                <Timer endTime={(nftDetails?.nft?.endTime-Date.now()) * 1000 } />
+                <Timer endTime={nftDetails?.nft?.endTime * 1000 } />
             )}
           </div>
         )}

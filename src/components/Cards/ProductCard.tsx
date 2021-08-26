@@ -135,10 +135,10 @@ const ProductCard = ({ className, product, showFooter = false, user }: PropsType
                 </span>
             </span>
             <p className={classes.timer}> 
-              {product?.startTime && product?.endTime && product?.assetUrl && (
+              { product?.endTime && product?.assetUrl && (
                 <Timer
                   textForEnd='End '
-                  endTime={(product?.endTime-product?.startTime)*1000}
+                  endTime={product?.endTime*1000}
                 />
               )}
             </p>

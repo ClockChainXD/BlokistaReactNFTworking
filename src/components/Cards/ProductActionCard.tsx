@@ -41,11 +41,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: theme.shape.cardBorderRadius,
     padding: '23px 23px 26px',
-    boxShadow: '0 26px 26px 10px #1111',
     width: 380,
     margin: '32px auto',
     background: 'transparent',
-    borderSize: 1,
+    borderSize: 0,
     [theme.breakpoints.down('sm')]: {
       width: 280,
     },
@@ -55,7 +54,39 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(5),
     height:'20%',
     background: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 68%)',
-
+    
+  },
+  buyNowButton:{
+    margin: '0px',
+    minWidth: '0px',
+    appearance: 'none',
+    userSelect: 'none',
+    cursor: 'pointer',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    display: 'inline-flex',
+    '-webkit-box-align': 'center',
+    alignItems: 'center',
+    '-webkit-box-pack': 'center',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    fontFamily: 'inherit',
+    textAlign: 'center',
+    textDecoration: 'none',
+    outline: 'none',
+    fontWeight: 500,
+    lineWeight: '20px',
+    wordBreak:'keep-all',
+    color: 'rgb(33, 40, 51)',
+    borderRadius: '4px',
+    padding: '4px 8px',
+    minHeight: '24px',
+    border: 'none',
+    backgroundImage: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 68%)',
+    width: '100%',
+    height: '48px',
+    fontSize: '16px',
   },
   productWrapper: {
     width: '100%',
@@ -323,14 +354,11 @@ const cancelNFTAuction= async () => {
     }
     
     if (nftDetails?.nft?.nftType == '2') {
-      if (moment(nftDetails?.nft?.endTime * 1000).isBefore(new Date().getTime())) {
+      if (moment(nftDetails?.nft?.endTime * 1000).isBefore(Date.now())) {
         toast.error('Auction is already ended!');
         return;
       }
-      if (moment(nftDetails?.nft?.startTime * 1000).isAfter(new Date().getTime())) {
-        toast.error('Auction is not started yet!');
-        return;
-      }
+    
       
     }
 
@@ -560,7 +588,7 @@ const sellthis = async (nftPrice) => {
 
   return (
     <Pane className={classes.root}>
-      {nftDetails?.nft?.status == 2 && nftDetails?.nft?.listed==true && (
+      {/* {nftDetails?.nft?.status == 2 && nftDetails?.nft?.listed==true && (
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Body1>Fixed Price To Buy :</Body1>
           <h3>{`${price} BNB`}</h3>
@@ -582,7 +610,7 @@ const sellthis = async (nftPrice) => {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Body1>Unlimited Auction & Bid</Body1>
         </Box>
-      )}
+      )} */}
 
       { loginStatus && ownsProduct  && (
         <Grid container justify="space-between">
@@ -617,16 +645,16 @@ const sellthis = async (nftPrice) => {
       {!ownsProduct && nftDetails?.nft?.listed == true && loginStatus &&(
         <Grid container justify="space-between">
           {nftDetails?.nft?.status == 2 && (
-            <FilledButton className={classes.button} label="Buy Now" handleClick={buyNowNFT} />
+            <FilledButton className={classes.buyNowButton} label="Buy Now" handleClick={buyNowNFT} />
           )}
           {(nftDetails?.nft?.status == 1 || nftDetails?.nft?.status == 3) && (
-            <FilledButton className={classes.button} label=" INSTANT BUY RIGHT NOW " handleClick={buyNowNFT} />
+            <FilledButton className={classes.buyNowButton} label=" INSTANT BUY RIGHT NOW " handleClick={buyNowNFT} />
           )}
           {(nftDetails?.nft?.status == 1 || (nftDetails?.nft?.status == 3 &&  moment(nftDetails?.nft?.endTime * 1000).isAfter(new Date().getTime()))) && !isAlreadyBid() && (
-            <FilledButton className={classes.button} label="Place Bid" handleClick={ placeBidModal} />
+            <FilledButton className={classes.buyNowButton} label="Place Bid" handleClick={ placeBidModal} />
           )}
-          {(nftDetails?.nft?.status == 1 || (nftDetails?.nft?.status == 3 && moment(nftDetails?.nft?.endTime * 1000).isAfter(new Date().getTime()))) && isAlreadyBid() && (
-            <OutlinedButton className={classes.button} label="Cancel Bid" handleClick={cancelNFTBid} />
+          {(nftDetails?.nft?.status == 1 || (nftDetails?.nft?.status == 3 && moment(nftDetails?.nft?.endTime * 1000).isBefore(new Date().getTime()))) && isAlreadyBid() && (
+            <OutlinedButton className={classes.buyNowButton} label="Cancel Bid" handleClick={cancelNFTBid} />
           )}
         </Grid>
       )}

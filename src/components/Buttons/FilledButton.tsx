@@ -18,17 +18,17 @@ const useStyles = makeStyles(theme => ({
     },
   },
   primary: {
-    background: theme.palette.primary.main,
+    background: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 68%)',
     color: theme.palette.primary.contrastText,
     '&:hover': {
-      background: theme.palette.primary.dark,
+      background: theme.palette.warning.light,
     },
   },
   error: {
     background: theme.palette.error.main,
     color: theme.palette.error.contrastText,
     '&:hover': {
-      background: theme.palette.error.dark,
+      background: theme.palette.warning.light,
     },
   },
   disabled: {
@@ -36,10 +36,10 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.5,
   },
   success: {
-    background: theme.palette.success.main,
+    background: 'linear-gradient(140deg, rgba(242,220,102,1) 16%, rgba(255,37,213,0.8519782913165266) 68%)',
     color: theme.palette.success.contrastText,
     '&:hover': {
-      background: theme.palette.success.dark,
+      background: theme.palette.warning.light,
     },
   },
 }));

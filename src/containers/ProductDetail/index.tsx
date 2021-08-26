@@ -47,7 +47,7 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
   const { profile } = useProfile();
   const [currentTime] = useState(Date.now())
   useFetchPriceList();
-  const price  =useGetApiPrice('0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c').toString();
+  const price  =useGetApiPrice('0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c');
   console.log("Thisd:" + price)
   function isOwnsProduct() {
     return nftObjectDetail?.owner?.walletAddress?.toLowerCase() === profile?.walletAddress?.toLowerCase();
@@ -129,8 +129,8 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
                   <span>{nftObjectDetail?.owner.displayName}</span>
                 </div>
               </div>
-              <div className={classes.creator}>
-                {<Avatar className={classes.avatar} src={nftObjectDetail?.owner?.userAvatarUrl} />}
+              <div className={classes.creator}  onClick={() => history.push(`/profile/${nftObjectDetail?.creator?.customUrl ? nftObjectDetail?.creator?.customUrl : nftObjectDetail?.creator?.walletAddress }`)}>
+                {<Avatar className={classes.avatar} src={nftObjectDetail?.creator?.userAvatarUrl} />}
                 <div className={clsx(classes.user)}>
                   <span className={classes.bold}>Creator</span>
                   <span>{nftObjectDetail?.owner.displayName}</span>
@@ -141,41 +141,56 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
                 {/* {nftObjectDetail?.nft?.status==3  && moment(nftObjectDetail?.nft?.endTime * 1000).isSameOrAfter(currentTime) &&(
             
            <div className={classes.auctionBox}>
-                {nftObjectDetail?.nft?.status==3  && moment((nftObjectDetail?.nft?.endTime-nftObjectDetail?.nft?.startTime) * 1000).isSameOrAfter(currentTime) &&(
+                {nftObjectDetail?.nft?.status==3  && moment((nftObjectDetail?.nft?.endTime) * 1000).isSameOrAfter(currentTime) &&(
                 <div >
                   {nftObjectDetail?.nft?.endTime && (
-                      <Timer endTime={(nftObjectDetail?.nft?.endTime-nftObjectDetail?.nft?.startTime)*1000} />
+                      <Timer endTime={(nftObjectDetail?.nft?.endTime)*1000} />
                   )}
                 </div>
               )} */}
 
               {/* <AuctionTime nftDetails={nftObjectDetail} /> */}
             </div> 
+            { (nftObjectDetail?.nft?.status==3 || nftObjectDetail?.nft?.status==1) &&
             <div className={classes.bid}>
               <div>
                 <Typography className={classes.bidText}>Current Bid</Typography>
                 <div className={classes.flexRow}>
                   <h4 className={classes.price}>
                     <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
-                    <span>{(nftObjectDetail?.nft?.instBuyPrice)} BNB</span> 
+                    <span>{(nftObjectDetail?.bids[nftObjectDetail?.bids?.length-1].price)} BNB</span> 
                   </h4>
-                  <span className={classes.realPrice}> ≈ $ {(parseFloat(price)*parseFloat(nftObjectDetail?.nft?.instBuyPrice)).toFixed(2)} </span>
+                  <span className={classes.realPrice}> ≈ $ {(parseFloat(price?.toString())*parseFloat(nftObjectDetail?.nft?.instBuyPrice)).toFixed(2)} </span>
                 </div>
               </div>
+              {nftObjectDetail?.nft?.status==3  && moment((nftObjectDetail?.nft?.endTime) * 1000).isSameOrAfter(currentTime) &&
               <div>
+              
                 <div className={classes.auctionText}>Ends in</div>
                 
-                 { nftObjectDetail?.nft?.endTime &&
-                  <Timer endTime={(nftObjectDetail?.nft?.endTime-nftObjectDetail?.nft?.startTime)*1000}/>
-                }
-            
+                 
+                  <Timer endTime={(nftObjectDetail?.nft?.endTime)*1000}/>
+              
+                  
+
               </div>
+              }
             </div>
-            <div className={classes.buyNow}>
-              <div className={classes.buyNowBox}>
-                <button className={classes.buyNowButton}>INSTANT BUY</button>
-              </div>
-            </div>        
+}
+{ nftObjectDetail?.nft?.status==2 &&
+
+<div>
+<Typography className={classes.bidText}> Price</Typography>
+<div className={classes.flexRow}>
+  <h4 className={classes.price}>
+    <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" className={classes.priceLogo} />
+    <span>{(nftObjectDetail?.nft?.price)} BNB</span> 
+  </h4>
+  <span className={classes.realPrice}> ≈ $ {(parseFloat(price?.toString())*parseFloat(nftObjectDetail?.nft?.price)).toFixed(2)} </span>
+</div>
+</div>
+
+}    
             <ProductActionCard
               price={parseFloat(nftObjectDetail?.nft?.price)}
               instBuyPrice={parseFloat(nftObjectDetail?.nft?.instBuyPrice)}
@@ -183,7 +198,6 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
               ownsProduct={isOwnsProduct()}
               nftDetails={nftObjectDetail}
             />
-            <Divider />
         
            <TradingHistory historyEvents={nftObjectDetail?.historyEvents} />
 
