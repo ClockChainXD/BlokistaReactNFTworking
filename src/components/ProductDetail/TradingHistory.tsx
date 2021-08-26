@@ -120,7 +120,6 @@ const TradingHistory = ({ historyEvents  }) => {
     else if(eventType===9) {
 
       /* 
-      
          await NFTObjectModel.findOneAndUpdate({ tokenID: nftID }, {
                         updatedAt: timestamp,
                         listed: true,

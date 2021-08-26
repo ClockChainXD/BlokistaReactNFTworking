@@ -22,6 +22,7 @@ import Auction from '../../components/ProductDetail/Auction';
 import AuctionTime from '../../components/ProductDetail/AuctionTime';
 import { pricesSlice } from '../../store/prices';
 import TradingHistory from '../../components/ProductDetail/TradingHistory';
+import BidInfo from '../../components/ProductDetail/BidInfo';
 
 const ProductDetail = () => {
   const classes = useStyles();
@@ -200,7 +201,7 @@ const contractOfNFT=getContractInfo('BlokistaVault',97);
             />
         
            <TradingHistory historyEvents={nftObjectDetail?.historyEvents} />
-
+           <BidInfo bids={nftObjectDetail?.bids} nftType={nftObjectDetail?.nft?.nftType} ownsProduct={isOwnsProduct()} sellNFTToUser={sellNFTToUser} />
           </Grid>
         </Grid>
       </Container>
@@ -252,7 +253,7 @@ export default ProductDetail;
 {/* BIDS */}
 {/*
 <Grid item md={6} sm={6} xs={12}>
-  <BidInfo bids={nftObjectDetail?.bids} nftType={nftObjectDetail?.nft?.nftType} ownsProduct={isOwnsProduct()} sellNFTToUser={sellNFTToUser} />
+  
 </Grid>
 */}
 
