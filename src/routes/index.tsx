@@ -39,11 +39,11 @@ const Routes = () => (
         layout={Layout}
       />
 
-      <PrivateRoute
+      {/* <PrivateRoute
         path="/stats" // Artist Header Page
         component={Stats}
         layout={Layout}
-      />
+      /> */}
 
       <PrivateRoute
         path="/product/:baseId" // NFT detail

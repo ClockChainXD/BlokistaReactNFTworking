@@ -80,16 +80,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress, customUrl, onLogOut }) => {
+const UserDropDown = ({ avatarUrl, displayName, balance, walletAddress, customUrl }) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const theme = storageService.getItem(config.themeKey);
   const [themeState, setThemeState] = useState(theme === 'dark');
-function handleLogOut(){
+// function handleLogOut(){
 
-  onLogOut()
-}
+//   onLogOut()
+// }
   useEffect(() => {
     if (themeState) dispatch(changeThemeAction('dark'));
     else dispatch(changeThemeAction('light'));
@@ -139,12 +139,7 @@ function handleLogOut(){
             />
           </div>
 
-         {
-         <div className={classes.menuItem} onClick={ () => {handleLogOut();} }>
-            <ExitToAppIcon />
-            <TinyBold className={classes.label}>LogOut</TinyBold>
-          </div>
-          } 
+        
         </div>
       </div>
     </PopoverMenu>

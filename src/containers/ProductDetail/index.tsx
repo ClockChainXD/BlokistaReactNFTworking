@@ -26,7 +26,7 @@ import BidInfo from '../../components/ProductDetail/BidInfo';
 
 const ProductDetail = () => {
   const classes = useStyles();
-const contractOfNFT=getContractInfo('BlokistaVault',97);
+const contractOfNFT=getContractInfo('BlokistaVault',56);
   const refreshClickHandler = () => {
     console.log('refreshClickHandler clicked ! ');
   };

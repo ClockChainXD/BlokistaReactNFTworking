@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     dispatch(loadThemeAction());
   }, [dispatch]);
-
+  useEagerConnect();
   useFetchProfileList();
   useFetchProfile();
 

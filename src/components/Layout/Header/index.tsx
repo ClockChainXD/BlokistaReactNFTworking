@@ -104,12 +104,7 @@ const Header = () => {
  setLoginStatus(true);
 
   }
-  const logOut = async () => {
-    logout();
-    setLoginStatus(false);
-    
-    
-  };
+  
   let displayName = '';
   let userAvatar = '/assets/images/users/default-profile.png';
   let customUrl='';
@@ -132,7 +127,7 @@ const Header = () => {
           </div>
           <NavigationList />
           {loginStatus && profile ? (
-            <UserDropDown avatarUrl={userAvatar} displayName={displayName} balance={etherBalance} walletAddress={account} customUrl={customUrl} onLogOut={logOut}  />
+            <UserDropDown avatarUrl={userAvatar} displayName={displayName} balance={etherBalance} walletAddress={account} customUrl={customUrl}  />
           ) : (
             <Button
               className={classes.connectBtn}
